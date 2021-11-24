@@ -15,26 +15,11 @@ def print_hi(name):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-    s = "holascomosestasbeb"
-    example = CripPermutacion(s, 5)
+    efd = ['C', 'S', 'M', 'F', 'H', 'G', 'O', 'U', 'V', 'K', 'D', 'T', 'X', 'J', 'B', 'Q', 'W', 'N', 'Z', 'L', 'R', 'E', 'P', 'I', 'A', 'Y']
+    s = "algorithmsarequitegeneraldefinitionsofarithmeticprocesses"
+    s2 = "UBTCZMBXBZHZLCZSHS"
+    example = CripSustitucion(s, efd)
+    example2 = CripSustitucion(s2, efd)
     print(example.encriptar())
-    print(example.desencriptar())
-    ex= CripDesplazamiento(s,5)
-    print(ex.encriptar())
-    ex2=CripDesplazamiento(ex.encriptar(), 5)
-    print(ex2.desencriptar())
-    print(ex2.criptanalisis())
-    ex3=CripVigenere(s, 'cipher')
-    print(ex3.encriptar())
-    ex4=CripVigenere(ex3.encriptar(),'cipher')
-    print(ex4.desencriptar())
-    stri = 'CHREEVOAHMAERATBIAXXWTNXBEEOPHBSBQMQEQERBWRVXUOAKXAOSXXWEAHBWGJMMQMNKGRFVGXWTRZXWIAKLXFPSKAUTEMNDCMGTSXMXBTUIADNGMGPSRELXNJELXVRVPRTULHDNQWTWDTYGBPHXTFALJHASVBFXNGLLCHRZBWELEKMSJIKNBHWRJGNMGJSGLXFEYPHAGNRBIEQJTAMRVLCRREMNDGLXRRIMGNSNRWCHRQHAEYEVTAQEBBIPEEWEVKAKOEWADREMXMTBHHCHRTKDNVRZCHRCLQOHPWQAIIWXNRMGWOIIFKEE'
-    crypta = CripVigenere(stri, '')
-    print(crypta.criptanalisis())
-    print(crypta.criptanalisis_key(crypta.criptanalisis()[0]))
-    print(crypta.desencriptar())
+    print(example2.desencriptar())
 
-
-
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/

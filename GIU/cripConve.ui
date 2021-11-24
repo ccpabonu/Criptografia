@@ -40,7 +40,7 @@
      <pixmap>Imag1.jpg</pixmap>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="bDesplazamiento">
     <property name="geometry">
      <rect>
       <x>70</x>
@@ -51,14 +51,14 @@
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(21, 99, 165);
-font: 75 italic 12pt &quot;Comic Sans MS&quot;;
-</string>
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string/>
+     <string>DESPLAZAMIENTO</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="bVigenere">
     <property name="geometry">
      <rect>
       <x>670</x>
@@ -69,14 +69,14 @@ font: 75 italic 12pt &quot;Comic Sans MS&quot;;
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(21, 99, 165);
-font: 75 italic 12pt &quot;Comic Sans MS&quot;;
-</string>
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string/>
+     <string>VIGENÈRE</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="bSustitucion">
     <property name="geometry">
      <rect>
       <x>70</x>
@@ -87,14 +87,14 @@ font: 75 italic 12pt &quot;Comic Sans MS&quot;;
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(21, 99, 165);
-font: 75 italic 12pt &quot;Comic Sans MS&quot;;
-</string>
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string/>
+     <string>SUSTITUCIÓN</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="bHill">
     <property name="geometry">
      <rect>
       <x>670</x>
@@ -105,14 +105,14 @@ font: 75 italic 12pt &quot;Comic Sans MS&quot;;
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(21, 99, 165);
-font: 75 italic 12pt &quot;Comic Sans MS&quot;;
-</string>
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string/>
+     <string>HILL</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="bAfin">
     <property name="geometry">
      <rect>
       <x>70</x>
@@ -123,14 +123,14 @@ font: 75 italic 12pt &quot;Comic Sans MS&quot;;
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(21, 99, 165);
-font: 75 italic 12pt &quot;Comic Sans MS&quot;;
-</string>
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string/>
+     <string>AFÍN</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="bPermutacion">
     <property name="geometry">
      <rect>
       <x>670</x>
@@ -141,113 +141,11 @@ font: 75 italic 12pt &quot;Comic Sans MS&quot;;
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(21, 99, 165);
-font: 75 italic 12pt &quot;Comic Sans MS&quot;;
-</string>
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>110</y>
-      <width>241</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(21, 99, 165);
-font: 8pt &quot;Comic Sans MS&quot;;</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#2dc5c8;&quot;&gt;DESPLAZAMIENTO&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>790</x>
-      <y>110</y>
-      <width>41</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(21, 99, 165);
-font: 8pt &quot;Comic Sans MS&quot;;</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; color:#2dc5c8;&quot;&gt;AFÍN&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>300</y>
-      <width>241</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(21, 99, 165);
-font: 8pt &quot;Comic Sans MS&quot;;</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#2dc5c8;&quot;&gt;VIGENER&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>300</y>
-      <width>241</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(21, 99, 165);
-font: 8pt &quot;Comic Sans MS&quot;;</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#2dc5c8;&quot;&gt;SUSTITUCIÓN&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>490</y>
-      <width>241</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(21, 99, 165);
-font: 8pt &quot;Comic Sans MS&quot;;</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#2dc5c8;&quot;&gt;HILL&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>490</y>
-      <width>241</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(21, 99, 165);
-font: 8pt &quot;Comic Sans MS&quot;;</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; color:#2dc5c8;&quot;&gt;PERMUTACIÓN&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>PERMUTACIÓN</string>
     </property>
    </widget>
   </widget>

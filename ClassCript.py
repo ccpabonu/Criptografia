@@ -3,48 +3,50 @@ import numpy as np
 from collections import Counter
 
 
-class CripSustitucion():
+class CripSustitucion:
 
-    def __init__(self, data):
+    def __init__(self, data, k):
         self.data = data
         self.abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
                     'u', 'v', 'w', 'x', 'y', 'z']
-        self.flush = []
+        self.flush = k
 
     def encriptar(self):
-        flush = sample(self.abc, len(self.abc))
-        self.flush = flush
-        print(flush)
+        flush = self.flush
         dataencrip = ""
         for i in self.data:
-            j = self.search(i)
+            j = self.search(i, self.abc)
             dataencrip += flush[j].upper()
         return dataencrip
 
     def desencriptar(self):
-        return self.data
+        dataDesencrip = ""
+        for i in self.data:
+            j = self.search(i, self.flush)
+            dataDesencrip += self.abc[j]
+        return dataDesencrip
 
-    def search(self, a):
+    def search(self, a, t):
+        ghi = t
         for i in range(25):
-            if a == self.abc[i]:
+            if a == ghi[i]:
                 return i
                 break
+
+    def analisisCrip(self):
+
 
 
 class CripPermutacion():
 
-    def __init__(self, data, m):
+    def __init__(self, data, m, k):
         self.data = data
         self.dataEncri = []
         self.m = m
-        self.list = []
         self.listData = []
-        self.listFlush = []
-        for i in range(m):
-            self.list.append(i)
+        self.listFlush = k
 
     def encriptar(self):
-        self.listFlush = sample(self.list, self.m)
         print(self.listFlush)
         if len(self.data) % self.m == 0:
             self.listData = self.separar(self.data)
@@ -66,7 +68,6 @@ class CripPermutacion():
         for i in self.dataEncri:
             listDes.append(self.desencrParticion(i))
         return listDes
-
 
     def encrParticion(self, list1):
         listFinal = []

@@ -26,78 +26,42 @@ class Ui_cripConve(object):
         self.fondo.setText("")
         self.fondo.setPixmap(QtGui.QPixmap("Imag1.jpg"))
         self.fondo.setObjectName("fondo")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(70, 90, 271, 61))
-        self.pushButton.setStyleSheet("background-color: rgb(21, 99, 165);\n"
-"font: 75 italic 12pt \"Comic Sans MS\";\n"
-"")
-        self.pushButton.setText("")
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(670, 90, 271, 61))
-        self.pushButton_2.setStyleSheet("background-color: rgb(21, 99, 165);\n"
-"font: 75 italic 12pt \"Comic Sans MS\";\n"
-"")
-        self.pushButton_2.setText("")
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(70, 280, 271, 61))
-        self.pushButton_3.setStyleSheet("background-color: rgb(21, 99, 165);\n"
-"font: 75 italic 12pt \"Comic Sans MS\";\n"
-"")
-        self.pushButton_3.setText("")
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(670, 280, 271, 61))
-        self.pushButton_4.setStyleSheet("background-color: rgb(21, 99, 165);\n"
-"font: 75 italic 12pt \"Comic Sans MS\";\n"
-"")
-        self.pushButton_4.setText("")
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_5.setGeometry(QtCore.QRect(70, 470, 271, 61))
-        self.pushButton_5.setStyleSheet("background-color: rgb(21, 99, 165);\n"
-"font: 75 italic 12pt \"Comic Sans MS\";\n"
-"")
-        self.pushButton_5.setText("")
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_6.setGeometry(QtCore.QRect(670, 470, 271, 61))
-        self.pushButton_6.setStyleSheet("background-color: rgb(21, 99, 165);\n"
-"font: 75 italic 12pt \"Comic Sans MS\";\n"
-"")
-        self.pushButton_6.setText("")
-        self.pushButton_6.setObjectName("pushButton_6")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(80, 110, 241, 21))
-        self.label.setStyleSheet("background-color: rgb(21, 99, 165);\n"
-"font: 8pt \"Comic Sans MS\";")
-        self.label.setObjectName("label")
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(790, 110, 41, 21))
-        self.label_2.setStyleSheet("background-color: rgb(21, 99, 165);\n"
-"font: 8pt \"Comic Sans MS\";")
-        self.label_2.setObjectName("label_2")
-        self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(80, 300, 241, 21))
-        self.label_3.setStyleSheet("background-color: rgb(21, 99, 165);\n"
-"font: 8pt \"Comic Sans MS\";")
-        self.label_3.setObjectName("label_3")
-        self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(690, 300, 241, 21))
-        self.label_4.setStyleSheet("background-color: rgb(21, 99, 165);\n"
-"font: 8pt \"Comic Sans MS\";")
-        self.label_4.setObjectName("label_4")
-        self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(80, 490, 241, 21))
-        self.label_5.setStyleSheet("background-color: rgb(21, 99, 165);\n"
-"font: 8pt \"Comic Sans MS\";")
-        self.label_5.setObjectName("label_5")
-        self.label_6 = QtWidgets.QLabel(self.centralwidget)
-        self.label_6.setGeometry(QtCore.QRect(690, 490, 241, 31))
-        self.label_6.setStyleSheet("background-color: rgb(21, 99, 165);\n"
-"font: 8pt \"Comic Sans MS\";")
-        self.label_6.setObjectName("label_6")
+        self.bDesplazamiento = QtWidgets.QPushButton(self.centralwidget)
+        self.bDesplazamiento.setGeometry(QtCore.QRect(70, 90, 271, 61))
+        self.bDesplazamiento.setStyleSheet("background-color: rgb(21, 99, 165);\n"
+"color: #00ffff;\n"
+"font: 14pt \"Berlin Sans FB\";")
+        self.bDesplazamiento.setObjectName("bDesplazamiento")
+        self.bVigenere = QtWidgets.QPushButton(self.centralwidget)
+        self.bVigenere.setGeometry(QtCore.QRect(670, 90, 271, 61))
+        self.bVigenere.setStyleSheet("background-color: rgb(21, 99, 165);\n"
+"color: #00ffff;\n"
+"font: 14pt \"Berlin Sans FB\";")
+        self.bVigenere.setObjectName("bVigenere")
+        self.bSustitucion = QtWidgets.QPushButton(self.centralwidget)
+        self.bSustitucion.setGeometry(QtCore.QRect(70, 280, 271, 61))
+        self.bSustitucion.setStyleSheet("background-color: rgb(21, 99, 165);\n"
+"color: #00ffff;\n"
+"font: 14pt \"Berlin Sans FB\";")
+        self.bSustitucion.setObjectName("bSustitucion")
+        self.bHill = QtWidgets.QPushButton(self.centralwidget)
+        self.bHill.setGeometry(QtCore.QRect(670, 280, 271, 61))
+        self.bHill.setStyleSheet("background-color: rgb(21, 99, 165);\n"
+"color: #00ffff;\n"
+"font: 14pt \"Berlin Sans FB\";")
+        self.bHill.setObjectName("bHill")
+        self.bAfin = QtWidgets.QPushButton(self.centralwidget)
+        self.bAfin.setGeometry(QtCore.QRect(70, 470, 271, 61))
+        self.bAfin.setStyleSheet("background-color: rgb(21, 99, 165);\n"
+"color: #00ffff;\n"
+"font: 14pt \"Berlin Sans FB\";")
+        self.bAfin.setObjectName("bAfin")
+        self.bPermutacion = QtWidgets.QPushButton(self.centralwidget)
+        self.bPermutacion.setGeometry(QtCore.QRect(670, 470, 271, 61))
+        self.bPermutacion.setStyleSheet("background-color: rgb(21, 99, 165);\n"
+"color: #00ffff;\n"
+"font: 14pt \"Berlin Sans FB\";")
+        self.bPermutacion.setObjectName("bPermutacion")
         cripConve.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(cripConve)
@@ -106,12 +70,12 @@ class Ui_cripConve(object):
     def retranslateUi(self, cripConve):
         _translate = QtCore.QCoreApplication.translate
         cripConve.setWindowTitle(_translate("cripConve", "Criptografia Convencional"))
-        self.label.setText(_translate("cripConve", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; color:#2dc5c8;\">DESPLAZAMIENTO</span></p><p align=\"center\"><br/></p></body></html>"))
-        self.label_2.setText(_translate("cripConve", "<html><head/><body><p><span style=\" font-size:11pt; color:#2dc5c8;\">AFÍN</span></p><p><br/></p></body></html>"))
-        self.label_3.setText(_translate("cripConve", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; color:#2dc5c8;\">VIGENER</span></p><p align=\"center\"><br/></p><p align=\"center\"><br/></p></body></html>"))
-        self.label_4.setText(_translate("cripConve", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; color:#2dc5c8;\">SUSTITUCIÓN</span></p><p align=\"center\"><br/></p></body></html>"))
-        self.label_5.setText(_translate("cripConve", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; color:#2dc5c8;\">HILL</span></p><p align=\"center\"><br/></p></body></html>"))
-        self.label_6.setText(_translate("cripConve", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; color:#2dc5c8;\">PERMUTACIÓN</span></p><p align=\"center\"><br/></p><p align=\"center\"><br/></p></body></html>"))
+        self.bDesplazamiento.setText(_translate("cripConve", "DESPLAZAMIENTO"))
+        self.bVigenere.setText(_translate("cripConve", "VIGENÈRE"))
+        self.bSustitucion.setText(_translate("cripConve", "SUSTITUCIÓN"))
+        self.bHill.setText(_translate("cripConve", "HILL"))
+        self.bAfin.setText(_translate("cripConve", "AFÍN"))
+        self.bPermutacion.setText(_translate("cripConve", "PERMUTACIÓN"))
 
 
 if __name__ == "__main__":

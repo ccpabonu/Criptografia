@@ -33,12 +33,6 @@ class CripSustitucion:
                 return i
                 break
 
-    def analisisCrip(self):
-
-        return 0
-
-
-
 class CripPermutacion():
 
     def __init__(self, data, m, k):
@@ -48,8 +42,6 @@ class CripPermutacion():
         self.listData = []
         self.listFlush = k
 
-    def encriptar(self):
-        print(self.listFlush)
         if len(self.data) % self.m == 0:
             self.listData = self.separar(self.data)
         else:
@@ -59,8 +51,10 @@ class CripPermutacion():
                 saveData += 'x'
                 t += 1
             self.listData = self.separar(saveData)
-        listFinal = []
 
+    def encriptar(self):
+        #print(self.listFlush)
+        listFinal = []
         for i in self.listData:
             a = "".join(self.encrParticion(i)).upper()
             listFinal.append(a)
@@ -108,6 +102,15 @@ class CripPermutacion():
             listfinal.append(list1)
         return listfinal
 
+    def cripAnalisis(self):
+        divisores = []
+        for i in range(2, len(self.data)//2+1) :
+            if(len(self.data)/2)%i == 0 :
+                divisores.append(i)
+
+
+
+        return divisores
 
 class CripDesplazamiento():
 

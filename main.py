@@ -26,4 +26,4 @@ if __name__ == '__main__':
     #print(example.encriptar())
     #print(example2.desencriptar())
     print(example3.encriptar())
-    print(example4.desencriptar())
+    print(example4.cripAnalisis())

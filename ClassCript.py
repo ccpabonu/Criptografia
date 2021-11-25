@@ -1,3 +1,4 @@
+import itertools
 from random import sample
 import numpy as np
 from collections import Counter
@@ -43,27 +44,27 @@ class CripPermutacion():
         self.listFlush = k
 
         if len(self.data) % self.m == 0:
-            self.listData = self.separar(self.data)
+            self.listData = self.separar(self.data, self.m)
         else:
             t = len(self.data)
             saveData = self.data
             while t % self.m != 0:
                 saveData += 'x'
                 t += 1
-            self.listData = self.separar(saveData)
+            self.listData = self.separar(saveData, self.m)
 
     def encriptar(self):
         #print(self.listFlush)
         listFinal = []
         for i in self.listData:
-            a = "".join(self.encrParticion(i)).upper()
+            a = "".join(self.encrParticion(i, self.listFlush)).upper()
             listFinal.append(a)
         self.dataEncri = listFinal
         return "".join(listFinal)
 
     def desencriptar (self):
         listDes =[]
-        listsep= self.separar(self.data)
+        listsep= self.separar(self.data, self.m)
         d = ""
         for i in listsep:
             c = "".join(self.desencrParticion(i)).lower()
@@ -71,9 +72,9 @@ class CripPermutacion():
             listDes
         return d.join(listDes)
 
-    def encrParticion(self, list1):
+    def encrParticion(self, list1, listFlush):
         listFinal = []
-        for i in self.listFlush:
+        for i in listFlush:
             listFinal.append(list1[i])
         return listFinal
 
@@ -93,24 +94,43 @@ class CripPermutacion():
                     listFin[j] = b
         return listFin
 
-    def separar(self, dat):
+    def separar(self, dat, t):
         listfinal = []
-        j = len(dat) / self.m
+        j = len(dat) / t
         j = int(j)
         for i in range(j):
-            list1 = list(dat[i * self.m:(i + 1) * self.m])
+            list1 = list(dat[i * t:(i + 1) * t])
             listfinal.append(list1)
         return listfinal
 
     def cripAnalisis(self):
+        final = []
+        sep = []
         divisores = []
         for i in range(2, len(self.data)//2+1) :
-            if(len(self.data)/2)%i == 0 :
+            if(len(self.data)/2)%i == 0 and i <=6 :
                 divisores.append(i)
+        print(divisores)
+        for j in divisores:
+            list1=self.crearListPosiciones(j)
+            sep = self.separar(self.data, j)
+            permutations = list(itertools.permutations(list1))
+            permutations.pop(0)
+            #print(sep)
+            for k in permutations :
+                ayuda =""
+                a =[]
+                for l in sep :
+                    a = self.encrParticion(l,k)
+                    ayuda += "".join(a)+" "
+                final.append(ayuda)
+        return final
 
-
-
-        return divisores
+    def crearListPosiciones (self, i):
+        list1 = []
+        for j in range(i):
+            list1.append(j)
+        return list1
 
 class CripDesplazamiento():
 
@@ -139,7 +159,6 @@ class CripDesplazamiento():
             self.m = i
             possible_words.append(self.desencriptar())
         return possible_words
-
 
 class CripVigenere():
 

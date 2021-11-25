@@ -34,7 +34,7 @@ class CripSustitucion:
                 return i
                 break
 
-class CripPermutacion():
+class CripPermutacion:
 
     def __init__(self, data, m, k):
         self.data = data
@@ -132,7 +132,7 @@ class CripPermutacion():
             list1.append(j)
         return list1
 
-class CripDesplazamiento():
+class CripDesplazamiento:
 
     def __init__(self, data, m):
         self.data = data
@@ -160,7 +160,7 @@ class CripDesplazamiento():
             possible_words.append(self.desencriptar())
         return possible_words
 
-class CripVigenere():
+class CripVigenere:
 
     def __init__(self, data,key):
         self.data = data.replace(" ", "")

@@ -15,7 +15,17 @@ class main_Windows(QMainWindow):
         self.ui=Ui_cripConve()
         self.ui.setupUi(self.ventana)
         self.ventana.show()
+        self.ventana.bDesplazamiento.clicked.connect(self.ventana.abrir_desp())
         self.close()
+
+
+ #   def abrirDesp(self):
+ #       self.ventana_d = QtWidgets.QMainWindow()
+ #       self.ui=Ui_desp()
+ #       self.ui.setupUi(self.ventana_d)
+ #       self.ventana_d.show()
+ #       self.close()
+
 
 
 if __name__ == '__main__':

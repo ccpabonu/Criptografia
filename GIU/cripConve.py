@@ -22,7 +22,7 @@ class Ui_cripConve(object):
         self.centralwidget = QtWidgets.QWidget(cripConve)
         self.centralwidget.setObjectName("centralwidget")
         self.fondo = QtWidgets.QLabel(self.centralwidget)
-        self.fondo.setGeometry(QtCore.QRect(0, 0, 1001, 611))
+        self.fondo.setGeometry(QtCore.QRect(0, 0, 1000, 615))
         self.fondo.setText("")
         self.fondo.setPixmap(QtGui.QPixmap("Imag1.jpg"))
         self.fondo.setObjectName("fondo")
@@ -66,6 +66,13 @@ class Ui_cripConve(object):
 
         self.retranslateUi(cripConve)
         QtCore.QMetaObject.connectSlotsByName(cripConve)
+
+    def abrir_desp(self):
+        self.ventana_d = QtWidgets.QMainWindow()
+        self.ui = Ui_desp()
+        self.ui.setupUi(self.ventana_d)
+        self.ventana_d.show()
+        self.close()
 
     def retranslateUi(self, cripConve):
         _translate = QtCore.QCoreApplication.translate

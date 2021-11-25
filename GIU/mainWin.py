@@ -126,11 +126,4 @@ class Ui_MainWindow(object):
         self.boton3.setText(_translate("MainWindow", "PARTE 2"))
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+

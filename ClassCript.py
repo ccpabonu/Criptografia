@@ -35,6 +35,8 @@ class CripSustitucion:
 
     def analisisCrip(self):
 
+        return 0
+
 
 
 class CripPermutacion():
@@ -58,16 +60,22 @@ class CripPermutacion():
                 t += 1
             self.listData = self.separar(saveData)
         listFinal = []
+
         for i in self.listData:
-            listFinal.append(self.encrParticion(i))
+            a = "".join(self.encrParticion(i)).upper()
+            listFinal.append(a)
         self.dataEncri = listFinal
-        return listFinal
+        return "".join(listFinal)
 
     def desencriptar (self):
         listDes =[]
-        for i in self.dataEncri:
-            listDes.append(self.desencrParticion(i))
-        return listDes
+        listsep= self.separar(self.data)
+        d = ""
+        for i in listsep:
+            c = "".join(self.desencrParticion(i)).lower()
+            listDes.append(c)
+            listDes
+        return d.join(listDes)
 
     def encrParticion(self, list1):
         listFinal = []
@@ -77,7 +85,8 @@ class CripPermutacion():
 
     def desencrParticion(self, list1):
         saveList=self.listFlush.copy()
-        print(saveList)
+        #print("f")
+        #print(saveList)
         listFin=list1
         for i in range(self.m):
             for j in range(i,self.m):
@@ -88,7 +97,6 @@ class CripPermutacion():
                     b = listFin[i]
                     listFin[i]=listFin[j]
                     listFin[j] = b
-
         return listFin
 
     def separar(self, dat):

@@ -77,12 +77,3 @@ class Ui_cripConve(object):
         self.bAfin.setText(_translate("cripConve", "AFÍN"))
         self.bPermutacion.setText(_translate("cripConve", "PERMUTACIÓN"))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    cripConve = QtWidgets.QMainWindow()
-    ui = Ui_cripConve()
-    ui.setupUi(cripConve)
-    cripConve.show()
-    sys.exit(app.exec_())

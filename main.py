@@ -18,8 +18,12 @@ if __name__ == '__main__':
     efd = ['C', 'S', 'M', 'F', 'H', 'G', 'O', 'U', 'V', 'K', 'D', 'T', 'X', 'J', 'B', 'Q', 'W', 'N', 'Z', 'L', 'R', 'E', 'P', 'I', 'A', 'Y']
     s = "algorithmsarequitegeneraldefinitionsofarithmeticprocesses"
     s2 = "UBTCZMBXBZHZLCZSHS"
+    s3 = "ROGLASMHTIUQERAEGETILARENNIFEDNOITIRAFOSEMHTIRPCITSSECOXXXSE"
     example = CripSustitucion(s, efd)
     example2 = CripSustitucion(s2, efd)
-    print(example.encriptar())
-    print(example2.desencriptar())
-
+    example3 = CripPermutacion(s, 5 ,[4, 3, 2, 1, 0])
+    example4 = CripPermutacion(s3, 5, [4, 3, 2, 1, 0])
+    #print(example.encriptar())
+    #print(example2.desencriptar())
+    print(example3.encriptar())
+    print(example4.desencriptar())

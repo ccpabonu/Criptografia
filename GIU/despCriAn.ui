@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>cripConve</class>
- <widget class="QMainWindow" name="cripConve">
+ <class>cripDespC</class>
+ <widget class="QMainWindow" name="cripDespC">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -27,6 +27,14 @@
    <widget class="QLabel" name="fondo">
     <property name="enabled">
      <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1000</width>
+      <height>615</height>
+     </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: #ff0000;</string>

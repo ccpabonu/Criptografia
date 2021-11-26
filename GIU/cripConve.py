@@ -67,12 +67,6 @@ class Ui_cripConve(object):
         self.retranslateUi(cripConve)
         QtCore.QMetaObject.connectSlotsByName(cripConve)
 
-    def abrir_desp(self):
-        self.ventana_d = QtWidgets.QMainWindow()
-        self.ui = Ui_desp()
-        self.ui.setupUi(self.ventana_d)
-        self.ventana_d.show()
-        self.close()
 
     def retranslateUi(self, cripConve):
         _translate = QtCore.QCoreApplication.translate

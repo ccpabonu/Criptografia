@@ -1,6 +1,8 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication
+
+from ClassCript import CripDesplazamiento
 from cripConve import *
 from GIU.desp import *
 from GIU.despCriAn import *
@@ -13,26 +15,11 @@ class main_Windows(QMainWindow):
         self.bCripClasica.clicked.connect(self.abrir)
 
     def abrir(self):
+        cripC = main_cripConve()
+        widget.addWidget(cripC)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        cripDesp = main_cripDesp()
-        widget.addWidget(cripDesp)
-
-#
-#    def abrir (self):
-#        self.ventana = QtWidgets.QMainWindow()
-#        self.ui=Ui_cripConve()
-#        self.ui.setupUi(self.ventana)
-#        self.ventana.show()
-#        self.ventana.bDesplazamiento.clicked.connect(self.abrirDesp)
-#        self.close()
 
 
-#    def abrirDesp(self):
-#        self.ventana_d = QtWidgets.QMainWindow()
-#        self.ui2=Ui_cripDesp()
-#        self.ui2.setupUi(self.ventana_d)
-#        self.ventana_d.show()
-#        self.ventana.close()
 class main_cripConve(QMainWindow):
 
     def __init__(self):
@@ -42,9 +29,9 @@ class main_cripConve(QMainWindow):
 
 
     def abrirDesp(self):
+        cripDesp = main_cripDesp()
+        widget.addWidget(cripDesp)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        cripDespC = main_cripDespC()
-        widget.addWidget(cripDespC)
 
 
 class main_cripDesp(QMainWindow):
@@ -52,12 +39,26 @@ class main_cripDesp(QMainWindow):
     def __init__(self):
         super(main_cripDesp, self).__init__()
         uic.loadUi("desp.ui", self)
+        self.cript = CripDesplazamiento('', 0)
+        self.decript = CripDesplazamiento('', 0)
         self.cripAn.clicked.connect(self.abrirDespC)
+        self.encr.clicked.connect(self.encriptar)
+        self.decr.clicked.connect(self.desencriptar)
 
     def abrirDespC(self):
+        cripDespC = main_cripDespC()
+        widget.addWidget(cripDespC)
         widget.setCurrentIndex(widget.currentIndex() + 1)
-        #cripDespC = main_cripDespC()
-        #widget.addWidget(cripDespC)
+
+    def encriptar(self):
+        self.cript.data = self.encrIn.toPlainText()
+        self.cript.m = self.encrSpin.value()
+        self.encrOut.setText(self.cript.encriptar())
+
+    def desencriptar(self):
+        self.decript.data = self.decrIn.toPlainText()
+        self.decript.m = self.decrSpin.value()
+        self.decrOut.setText(self.decript.desencriptar())
 
 
 class main_cripDespC(QMainWindow):
@@ -65,14 +66,30 @@ class main_cripDespC(QMainWindow):
     def __init__(self):
         super(main_cripDespC, self).__init__()
         uic.loadUi("despCriAn.ui", self)
+        self.cript = CripDesplazamiento('', 0)
+        self.ciDes.clicked.connect(self.abrirDesp)
+        self.criAn.clicked.connect(self.criptanalisis)
+
+    def abrirDesp(self):
+        cripDesp = main_cripDesp()
+        widget.addWidget(cripDesp)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def criptanalisis(self):
+        self.cript.data = self.caIn.toPlainText()
+        words = ''
+        for i in range(25):
+            self.cript.m = i
+            words += self.cript.desencriptar()+'\n '
+        self.cript.m = 25
+        words += self.cript.desencriptar()
+        self.caOut.setText(words)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     widget = QtWidgets.QStackedWidget()
     mainW = main_Windows()
-    cripC = main_cripConve()
     widget.addWidget(mainW)
-    widget.addWidget(cripC)
     widget.setFixedHeight(613)
     widget.setFixedWidth(1000)
     widget.show()

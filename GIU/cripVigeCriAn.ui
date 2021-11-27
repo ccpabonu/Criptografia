@@ -76,6 +76,9 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
       <height>101</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">padding: 5px 5px 5px 5px;</string>
+    </property>
    </widget>
    <widget class="QLabel" name="caOut">
     <property name="geometry">
@@ -88,10 +91,23 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color:rgba(0,0,0,50%);
-color:'white';</string>
+color:'white';
+padding: 5px 15px 5px 15px;</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhMultiLine</set>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
     </property>
    </widget>
    <widget class="QPushButton" name="ciDes">
@@ -127,6 +143,12 @@ color:'white';</string>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
     </property>
    </widget>
    <widget class="QToolButton" name="decr">
@@ -182,6 +204,34 @@ color:'white';</string>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="amount">
+    <property name="geometry">
+     <rect>
+      <x>491</x>
+      <y>140</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>1000</number>
+    </property>
+    <property name="value">
+     <number>20</number>
     </property>
    </widget>
   </widget>

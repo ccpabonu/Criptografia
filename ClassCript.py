@@ -165,6 +165,7 @@ class CripVigenere:
     def __init__(self, data, key):
         self.data = data.replace(" ", "")
         self.key = key
+        self.max = 20
 
     def encriptar(self):
         if not self.data.isalpha():
@@ -187,6 +188,9 @@ class CripVigenere:
                 pos += len(self.key)
         encryption = [chr(c) for c in word_ascii]
         return ''.join(encryption)
+
+    def changeMax(self, m):
+        self.max = m
 
     def ic(self, x):
         if len(x) == 1 or len(x) == 0:
@@ -224,7 +228,7 @@ class CripVigenere:
 
     def criptanalisis(self):
         average = []
-        for i in range(20):
+        for i in range(self.max):
             average.append((i + 1, abs(0.0667 - self.ic_average(self.data, i + 1))))
         possibles_ordered = sorted(average, key=lambda x: x[1])
         return [i[0] for i in possibles_ordered]

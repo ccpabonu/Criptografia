@@ -73,6 +73,16 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
       <height>151</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">padding: 5px 5px 5px 5px;</string>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
    </widget>
    <widget class="QLabel" name="encrOut">
     <property name="geometry">
@@ -85,10 +95,26 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color:rgba(0,0,0,50%);
-color:'white';</string>
+color:'white';
+padding: 5px 15px 5px 15px;</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhMultiLine</set>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
     </property>
    </widget>
    <widget class="QPushButton" name="decr">
@@ -118,6 +144,9 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
       <height>151</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">padding: 5px 5px 5px 5px;</string>
+    </property>
    </widget>
    <widget class="QLabel" name="decrOut">
     <property name="geometry">
@@ -130,10 +159,23 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color:rgba(0,0,0,50%);
-color:'white';</string>
+color:'white';
+padding: 5px 15px 5px 15px;</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhMultiLine</set>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
     </property>
    </widget>
    <widget class="QPushButton" name="cripAn">
@@ -163,6 +205,12 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
       <height>41</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QSpinBox" name="decrSpin">
     <property name="geometry">
@@ -172,6 +220,9 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
       <width>61</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

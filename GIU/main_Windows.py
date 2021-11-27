@@ -194,12 +194,12 @@ class main_cripVige(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def encriptar(self):
-        self.cript.data = self.encrIn.toPlainText()
+        self.cript.data = self.encrIn.toPlainText().replace(" ", "").lower()
         self.cript.key = self.encrPwd.toPlainText()
         self.encrOut.setText(self.cript.encriptar())
 
     def desencriptar(self):
-        self.decript.data = self.decrIn.toPlainText()
+        self.decript.data = self.decrIn.toPlainText().replace(" ", "").lower()
         self.decript.key = self.decrPwd.toPlainText()
         self.decrOut.setText(self.decript.desencriptar())
 
@@ -223,7 +223,9 @@ class main_cripVigeC(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def criptanalisis(self):
-        self.cript.data = self.caIn.toPlainText()
+        self.cript.data = self.caIn.toPlainText().replace(" ", "").lower()
+        self.cript.changeMax(self.amount.value())
+        self.indexer = 0
         self.keys = self.cript.criptanalisis()
         self.poss_key_l.setText(str(self.keys[0]))
         self.poss_key.setText(self.cript.criptanalisis_key(self.keys[0]))
@@ -236,10 +238,10 @@ class main_cripVigeC(QMainWindow):
 
 
     def desencriptar(self):
-        self.cript.data = self.caIn.toPlainText()
+        self.cript.data = self.caIn.toPlainText().replace(" ", "").lower()
         temp = QtGui.QTextDocument()
         temp.setHtml(self.poss_key.text())
-        self.cript.key = temp.toPlainText()
+        self.cript.key = temp.toPlainText().replace(" ", "").lower()
         self.caOut.setText(self.cript.desencriptar())
 
 

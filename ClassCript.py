@@ -135,14 +135,14 @@ class CripPermutacion:
 class CripDesplazamiento:
 
     def __init__(self, data, m):
-        self.data = data
+        self.data = data.replace(" ", "")
         self.m = m
         self.flush = []
 
     def encriptar(self):
         if not self.data.isalpha():
             return "Unacceptable input"
-        word_ascii = np.array([ord(c) for c in self.data.replace(" ", "").lower()])
+        word_ascii = np.array([ord(c) for c in self.data.lower()])
         word_encryption = (((word_ascii - 97) + self.m) % 26) + 97
         encryption = [chr(c) for c in word_encryption]
         return ''.join(encryption).upper()
@@ -162,7 +162,7 @@ class CripDesplazamiento:
 
 class CripVigenere:
 
-    def __init__(self, data,key):
+    def __init__(self, data, key):
         self.data = data.replace(" ", "")
         self.key = key
 

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>cripConve</class>
- <widget class="QMainWindow" name="cripConve">
+ <class>cripConveSust</class>
+ <widget class="QMainWindow" name="cripConveSust">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>600</height>
+    <height>607</height>
    </rect>
   </property>
   <property name="maximumSize">
    <size>
     <width>1000</width>
-    <height>600</height>
+    <height>613</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -170,6 +170,58 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
      <string>ATRAS</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>240</y>
+      <width>211</width>
+      <height>341</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;Berlin Sans FB&quot;;
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <column>
+     <property name="text">
+      <string>LETRAS</string>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>CANTIDAD</string>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+    </column>
+   </widget>
+   <widget class="QPushButton" name="bEncriptar_2">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>360</y>
+      <width>191</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>CRIPTOANALISIS</string>
     </property>
    </widget>
   </widget>

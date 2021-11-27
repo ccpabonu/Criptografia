@@ -1,11 +1,13 @@
 import sys
 from random import sample
 
-
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
 
-from ClassCript import *
+from ClassCript import CripDesplazamiento, CripSustitucion
+#from cripConve import *
+from GIU.desp import *
+from GIU.despCriAn import *
 
 
 class main_Windows(QMainWindow):
@@ -13,50 +15,42 @@ class main_Windows(QMainWindow):
     def __init__(self):
         super(main_Windows, self).__init__()
         uic.loadUi("mainWin.ui", self)
-        self.bCripClasica.clicked.connect(self.abrirCripClasica)
+        self.bCripClasica.clicked.connect(self.abrir)
+
+    def abrir(self):
+        cripC = main_cripConve()
+        widget.addWidget(cripC)
+        widget.setCurrentIndex(widget.currentIndex()+1)
 
 
-    def abrirCripClasica (self):
-        self.hide()
-        vent2 = cripConV(self)
-        vent2.show()
+class main_cripConve(QMainWindow):
 
-
-
-class cripConV(QMainWindow):
-
-    def __init__(self, parent = None):
-        super(cripConV, self).__init__(parent)
+    def __init__(self):
+        super(main_cripConve, self).__init__()
         uic.loadUi("cripConve.ui", self)
-        self.bDesplazamiento.clicked.connect(self.abrirCripDesp)
+        self.bDesplazamiento.clicked.connect(self.abrirDesp)
         self.bSustitucion.clicked.connect(self.abrirCripSust)
 
-    def abrirCripDesp(self):
-        self.hide()
-        vent2 = cripDespV(self)
-        vent2.show()
+
+    def abrirDesp(self):
+        cripDesp = main_cripDesp()
+        widget.addWidget(cripDesp)
+        widget.setCurrentIndex(widget.currentIndex()+1)
 
     def abrirCripSust(self):
-        self.hide()
-        vent2 = cripConveSustV(self)
-        vent2.show()
+        cripSus = main_cripConveSustV()
+        widget.addWidget(cripSus)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
-
-class cripDespV(QMainWindow):
-
-    def __init__(self, parent = None):
-        super(cripDespV, self).__init__(parent)
-        uic.loadUi("desp.ui", self)
-
-class cripConveSustV(QMainWindow):
+class main_cripConveSustV(QMainWindow):
 
     def __init__(self, parent = None):
         self.flush = []
-        super(cripConveSustV, self).__init__(parent)
+        super(main_cripConveSustV, self).__init__()
         uic.loadUi("cripConveSust.ui", self)
         self.bGenerar.clicked.connect(self.generarV)
         self.bEncriptar.clicked.connect(self.encriptarV)
-        #self.bDesencriptar.clicked.connect(self.desEncriptarV)
+        self.bDesencriptar.clicked.connect(self.desEncriptarV)
         self.bAtras.clicked.connect(self.salirV)
 
 
@@ -80,15 +74,15 @@ class cripConveSustV(QMainWindow):
             dataEncrip = crip1.encriptar()
             self.textEdit_2.setPlainText(dataEncrip)
         else :
-            vent2 = errorDialogV(self)
+            vent2 = main_errorDialogV(self)
             vent2.tipoError("No hay texto que cifrar")
             vent2.show()
 
-    def desEncriptaV(self):
+    def desEncriptarV(self):
         self.lineEdit.setDisabled(False)
         data = self.textEdit_2.toPlainText().upper()
         data = data.replace('\n', "")
-        self.textEdit.setPlainText(data)
+        self.textEdit_2.setPlainText(data)
 
         if len(data)!=0 :
             flush = self.lineEdit.text()
@@ -99,7 +93,7 @@ class cripConveSustV(QMainWindow):
             self.textEdit.setPlainText(dataEncrip)
 
         else :
-            vent2 = errorDialogV(self)
+            vent2 = main_errorDialogV(self)
             vent2.tipoError("No hay texto que cifrar")
             vent2.show()
 
@@ -107,13 +101,13 @@ class cripConveSustV(QMainWindow):
 
 
     def salirV(self):
-        vent2 = cripConV(self)
+        vent2 = main_cripConve(self)
         vent2.show()
         self.hide()
 
-class errorDialogV(QDialog):
-    def __init__(self, parent = None):
-        super(errorDialogV, self).__init__(parent)
+class main_errorDialogV(QDialog):
+    def __init__(self):
+        super(main_errorDialogV, self).__init__()
         uic.loadUi("errorDialog.ui", self)
         self.bOk.clicked.connect(self.close)
 
@@ -126,13 +120,64 @@ class errorDialogV(QDialog):
         self.label.setText(error)
 
 
+class main_cripDesp(QMainWindow):
+
+    def __init__(self):
+        super(main_cripDesp, self).__init__()
+        uic.loadUi("desp.ui", self)
+        self.cript = CripDesplazamiento('', 0)
+        self.decript = CripDesplazamiento('', 0)
+        self.cripAn.clicked.connect(self.abrirDespC)
+        self.encr.clicked.connect(self.encriptar)
+        self.decr.clicked.connect(self.desencriptar)
+
+    def abrirDespC(self):
+        cripDespC = main_cripDespC()
+        widget.addWidget(cripDespC)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def encriptar(self):
+        self.cript.data = self.encrIn.toPlainText()
+        self.cript.m = self.encrSpin.value()
+        self.encrOut.setText(self.cript.encriptar())
+
+    def desencriptar(self):
+        self.decript.data = self.decrIn.toPlainText()
+        self.decript.m = self.decrSpin.value()
+        self.decrOut.setText(self.decript.desencriptar())
 
 
+class main_cripDespC(QMainWindow):
 
+    def __init__(self):
+        super(main_cripDespC, self).__init__()
+        uic.loadUi("despCriAn.ui", self)
+        self.cript = CripDesplazamiento('', 0)
+        self.ciDes.clicked.connect(self.abrirDesp)
+        self.criAn.clicked.connect(self.criptanalisis)
+
+    def abrirDesp(self):
+        cripDesp = main_cripDesp()
+        widget.addWidget(cripDesp)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def criptanalisis(self):
+        self.cript.data = self.caIn.toPlainText()
+        words = ''
+        for i in range(25):
+            self.cript.m = i
+            words += self.cript.desencriptar()+'\n '
+        self.cript.m = 25
+        words += self.cript.desencriptar()
+        self.caOut.setText(words)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    GUI = main_Windows()
-    GUI.show()
+    widget = QtWidgets.QStackedWidget()
+    mainW = main_Windows()
+    widget.addWidget(mainW)
+    widget.setFixedHeight(613)
+    widget.setFixedWidth(1000)
+    widget.show()
     sys.exit(app.exec())

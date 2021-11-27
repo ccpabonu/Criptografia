@@ -189,6 +189,8 @@ class CripVigenere:
         return ''.join(encryption)
 
     def ic(self, x):
+        if len(x) == 1 or len(x) == 0:
+            return 0
         freq = Counter(x)
         sum = 0
         for i in freq:

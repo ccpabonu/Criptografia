@@ -135,10 +135,16 @@ class main_cripDesp(QMainWindow):
         self.cripAn.clicked.connect(self.abrirDespC)
         self.encr.clicked.connect(self.encriptar)
         self.decr.clicked.connect(self.desencriptar)
+        self.back.clicked.connect(self.backMenu)
 
     def abrirDespC(self):
         cripDespC = main_cripDespC()
         widget.addWidget(cripDespC)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def backMenu(self):
+        cripConve = main_cripConve()
+        widget.addWidget(cripConve)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def encriptar(self):
@@ -160,11 +166,17 @@ class main_cripDespC(QMainWindow):
         self.cript = CripDesplazamiento('', 0)
         self.ciDes.clicked.connect(self.abrirDesp)
         self.criAn.clicked.connect(self.criptanalisis)
+        self.back.clicked.connect(self.backMenu)
 
     def abrirDesp(self):
         cripDesp = main_cripDesp()
         widget.addWidget(cripDesp)
         widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def backMenu(self):
+        cripConve = main_cripConve()
+        widget.addWidget(cripConve)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def criptanalisis(self):
         self.cript.data = self.caIn.toPlainText()
@@ -187,10 +199,16 @@ class main_cripVige(QMainWindow):
         self.cripAn.clicked.connect(self.abrirVigeC)
         self.encr.clicked.connect(self.encriptar)
         self.decr.clicked.connect(self.desencriptar)
+        self.back.clicked.connect(self.backMenu)
 
     def abrirVigeC(self):
         cripVigeC = main_cripVigeC()
         widget.addWidget(cripVigeC)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def backMenu(self):
+        cripConve = main_cripConve()
+        widget.addWidget(cripConve)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def encriptar(self):
@@ -216,11 +234,17 @@ class main_cripVigeC(QMainWindow):
         self.get_keys.clicked.connect(self.criptanalisis)
         self.decr.clicked.connect(self.desencriptar)
         self.next_key.clicked.connect(self.siguiente)
+        self.back.clicked.connect(self.backMenu)
 
     def abrirVige(self):
         cripVige = main_cripVige()
         widget.addWidget(cripVige)
         widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def backMenu(self):
+        cripConve = main_cripConve()
+        widget.addWidget(cripConve)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def criptanalisis(self):
         self.cript.data = self.caIn.toPlainText().replace(" ", "").lower()

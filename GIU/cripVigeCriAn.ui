@@ -76,6 +76,11 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
       <height>101</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">padding: 5px 5px 5px 5px;</string>
     </property>
@@ -88,6 +93,13 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
       <width>551</width>
       <height>291</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color:rgba(0,0,0,50%);
@@ -136,6 +148,14 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
       <width>41</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color:rgba(0,0,0,50%);
@@ -198,6 +218,13 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
       <height>41</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color:rgba(0,0,0,50%);
 color:'white';</string>
@@ -221,6 +248,11 @@ color:'white';</string>
       <height>22</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
@@ -232,6 +264,24 @@ color:'white';</string>
     </property>
     <property name="value">
      <number>20</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="back">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>530</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>ATRÁS</string>
     </property>
    </widget>
   </widget>

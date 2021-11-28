@@ -76,6 +76,14 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
       <height>101</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">padding: 5px 5px 5px 5px;</string>
+    </property>
    </widget>
    <widget class="QLabel" name="caOut">
     <property name="geometry">
@@ -86,12 +94,29 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
       <height>421</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color:rgba(0,0,0,50%);
-color:'white';</string>
+color:'white';
+padding: 15px 15px 15px 15px;</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhMultiLine</set>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
     </property>
    </widget>
    <widget class="QPushButton" name="ciDes">
@@ -110,6 +135,24 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
      <string>CIFRADO/DESCIFRADO</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="back">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>530</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>ATRÁS</string>
     </property>
    </widget>
   </widget>

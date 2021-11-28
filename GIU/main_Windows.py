@@ -291,12 +291,12 @@ class main_cripVige(QMainWindow):
 
     def encriptar(self):
         self.cript.data = self.encrIn.toPlainText().replace(" ", "").lower()
-        self.cript.key = self.encrPwd.toPlainText().lower()
+        self.cript.key = self.encrPwd.text().replace(" ", "").lower()
         self.encrOut.setText(self.cript.encriptar())
 
     def desencriptar(self):
         self.decript.data = self.decrIn.toPlainText().replace(" ", "").lower()
-        self.decript.key = self.decrPwd.toPlainText().lower()
+        self.decript.key = self.decrPwd.text().replace(" ", "").lower()
         self.decrOut.setText(self.decript.desencriptar())
 
 class main_cripVigeC(QMainWindow):
@@ -324,12 +324,13 @@ class main_cripVigeC(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def criptanalisis(self):
-        self.cript.data = self.caIn.toPlainText().replace(" ", "").lower()
-        self.cript.changeMax(self.amount.value())
-        self.indexer = 0
-        self.keys = self.cript.criptanalisis()
-        self.poss_key_l.setText(str(self.keys[0]))
-        self.poss_key.setText(self.cript.criptanalisis_key(self.keys[0]))
+        if len(self.caIn.toPlainText().replace(" ", "").lower())>0:
+            self.cript.data = self.caIn.toPlainText().replace(" ", "").lower()
+            self.cript.changeMax(self.amount.value())
+            self.indexer = 0
+            self.keys = self.cript.criptanalisis()
+            self.poss_key_l.setText(str(self.keys[0]))
+            self.poss_key.setText(self.cript.criptanalisis_key(self.keys[0]))
 
     def siguiente(self):
         if self.indexer < len(self.keys)-1:

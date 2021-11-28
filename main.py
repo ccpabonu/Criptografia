@@ -24,7 +24,8 @@ if __name__ == '__main__':
     example3 = CripPermutacion(s, 5 ,[4, 3, 2, 1, 0])
     example4 = CripPermutacion(s3, 5, [4, 3, 2, 1, 0])
     #print(example.encriptar())
-    print("".join(efd))
+    #print(example2.cripAnalisis())
     #print(example2.desencriptar())
     #print(example3.encriptar())
     #print(example4.cripAnalisis())
+    

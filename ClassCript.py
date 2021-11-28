@@ -34,6 +34,40 @@ class CripSustitucion:
                 return i
                 break
 
+    def cripAnalisis(self):
+        data = self.data
+        diccionario1 = {s: sum([1 for letter in data if letter == s]) for s in data}
+
+        list =[]
+        for i in range(len(data)-1):
+            list.append(data[i]+data[i+1])
+        diccionario2 = {m:0 for m in list}
+        for letra in list:
+            if diccionario2.fromkeys(letra):
+                diccionario2[letra] = diccionario2[letra] + 1
+            else:
+                diccionario2[letra] = 1
+
+        #return diccionario2
+
+        list3 = []
+        for i in range(len(data) - 2):
+            list3.append(data[i] + data[i + 1] + data[i + 2])
+        diccionario3 = {m: 0 for m in list3}
+
+        for letra in list3:
+            if diccionario3.fromkeys(letra):
+                diccionario3[letra] = diccionario3[letra] + 1
+            else:
+                diccionario3[letra] = 1
+        diccionario1.update(diccionario2)
+        diccionario1.update(diccionario3)
+        return diccionario1
+
+
+        #print(count)
+
+
 class CripPermutacion:
 
     def __init__(self, data, m, k):

@@ -1,12 +1,13 @@
 import sys
 from random import sample
 
-from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
-from pyqt5_plugins.examplebutton import QtWidgets
-from pyqt5_plugins.examplebuttonplugin import QtGui
+from PyQt5 import uic, QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QTableWidgetItem
 
-from ClassCript import CripDesplazamiento, CripSustitucion, CripVigenere
+from ClassCript import CripDesplazamiento, CripSustitucion
+#from cripConve import *
+#from GIU.desp import *
+#from GIU.despCriAn import *
 
 
 class main_Windows(QMainWindow):
@@ -28,18 +29,12 @@ class main_cripConve(QMainWindow):
         super(main_cripConve, self).__init__()
         uic.loadUi("cripConve.ui", self)
         self.bDesplazamiento.clicked.connect(self.abrirDesp)
-        self.bVigenere.clicked.connect(self.abrirCripVige)
         self.bSustitucion.clicked.connect(self.abrirCripSust)
 
 
     def abrirDesp(self):
         cripDesp = main_cripDesp()
         widget.addWidget(cripDesp)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-
-    def abrirCripVige(self):
-        cripVige = main_cripVige()
-        widget.addWidget(cripVige)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def abrirCripSust(self):
@@ -57,6 +52,7 @@ class main_cripConveSustV(QMainWindow):
         self.bEncriptar.clicked.connect(self.encriptarV)
         self.bDesencriptar.clicked.connect(self.desEncriptarV)
         self.bAtras.clicked.connect(self.salirV)
+        self.bCriptoanalisis.clicked.connect(self.cripAnalisisV)
 
 
     def generarV(self):
@@ -69,6 +65,7 @@ class main_cripConveSustV(QMainWindow):
     def encriptarV(self):
         data = self.textEdit.toPlainText().lower()
         data = data.replace('\n',"")
+        data = data.replace(' ', "")
         self.textEdit.setPlainText(data)
 
         if len(data)!=0 :
@@ -87,6 +84,7 @@ class main_cripConveSustV(QMainWindow):
         self.lineEdit.setDisabled(False)
         data = self.textEdit_2.toPlainText().upper()
         data = data.replace('\n', "")
+        data = data.replace(' ', "")
         self.textEdit_2.setPlainText(data)
 
         if len(data)!=0 :
@@ -102,13 +100,33 @@ class main_cripConveSustV(QMainWindow):
             vent2.tipoError("No hay texto que cifrar")
             vent2.show()
 
-
-
-
     def salirV(self):
-        vent2 = main_cripConve(self)
-        vent2.show()
-        self.hide()
+        ventana2 = main_cripConve()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def cripAnalisisV(self):
+        data = self.textEdit_2.toPlainText().upper()
+        data = data.replace('\n', "")
+        data = data.replace(' ', "")
+        flush = self.lineEdit.text()
+        b = list(flush)
+        crip1 = CripSustitucion(data,b)
+        m= crip1.cripAnalisis()
+        listCrip=list(m.items())
+        fila = 0
+        for i in listCrip:
+            columna = 0
+            self.tableWidget.insertRow(fila)
+            for j in i:
+                celda = QTableWidgetItem(str(j))
+                self.tableWidget.setItem(fila,columna,celda)
+                columna += 1
+            fila +=1
+
+
+
+
 
 class main_errorDialogV(QDialog):
     def __init__(self):
@@ -135,16 +153,10 @@ class main_cripDesp(QMainWindow):
         self.cripAn.clicked.connect(self.abrirDespC)
         self.encr.clicked.connect(self.encriptar)
         self.decr.clicked.connect(self.desencriptar)
-        self.back.clicked.connect(self.backMenu)
 
     def abrirDespC(self):
         cripDespC = main_cripDespC()
         widget.addWidget(cripDespC)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
-
-    def backMenu(self):
-        cripConve = main_cripConve()
-        widget.addWidget(cripConve)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def encriptar(self):
@@ -166,17 +178,11 @@ class main_cripDespC(QMainWindow):
         self.cript = CripDesplazamiento('', 0)
         self.ciDes.clicked.connect(self.abrirDesp)
         self.criAn.clicked.connect(self.criptanalisis)
-        self.back.clicked.connect(self.backMenu)
 
     def abrirDesp(self):
         cripDesp = main_cripDesp()
         widget.addWidget(cripDesp)
         widget.setCurrentIndex(widget.currentIndex()+1)
-
-    def backMenu(self):
-        cripConve = main_cripConve()
-        widget.addWidget(cripConve)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def criptanalisis(self):
         self.cript.data = self.caIn.toPlainText()
@@ -187,86 +193,6 @@ class main_cripDespC(QMainWindow):
         self.cript.m = 25
         words += self.cript.desencriptar()
         self.caOut.setText(words)
-
-
-class main_cripVige(QMainWindow):
-
-    def __init__(self):
-        super(main_cripVige, self).__init__()
-        uic.loadUi("cripVige.ui", self)
-        self.cript = CripVigenere('', 'Password')
-        self.decript = CripVigenere('', 'Password')
-        self.cripAn.clicked.connect(self.abrirVigeC)
-        self.encr.clicked.connect(self.encriptar)
-        self.decr.clicked.connect(self.desencriptar)
-        self.back.clicked.connect(self.backMenu)
-
-    def abrirVigeC(self):
-        cripVigeC = main_cripVigeC()
-        widget.addWidget(cripVigeC)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
-
-    def backMenu(self):
-        cripConve = main_cripConve()
-        widget.addWidget(cripConve)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
-
-    def encriptar(self):
-        self.cript.data = self.encrIn.toPlainText().replace(" ", "").lower()
-        self.cript.key = self.encrPwd.toPlainText()
-        self.encrOut.setText(self.cript.encriptar())
-
-    def desencriptar(self):
-        self.decript.data = self.decrIn.toPlainText().replace(" ", "").lower()
-        self.decript.key = self.decrPwd.toPlainText()
-        self.decrOut.setText(self.decript.desencriptar())
-
-
-class main_cripVigeC(QMainWindow):
-
-    def __init__(self):
-        super(main_cripVigeC, self).__init__()
-        uic.loadUi("cripVigeCriAn.ui", self)
-        self.keys = []
-        self.indexer = 0
-        self.cript = CripVigenere('', 'pass')
-        self.ciDes.clicked.connect(self.abrirVige)
-        self.get_keys.clicked.connect(self.criptanalisis)
-        self.decr.clicked.connect(self.desencriptar)
-        self.next_key.clicked.connect(self.siguiente)
-        self.back.clicked.connect(self.backMenu)
-
-    def abrirVige(self):
-        cripVige = main_cripVige()
-        widget.addWidget(cripVige)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-
-    def backMenu(self):
-        cripConve = main_cripConve()
-        widget.addWidget(cripConve)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
-
-    def criptanalisis(self):
-        self.cript.data = self.caIn.toPlainText().replace(" ", "").lower()
-        self.cript.changeMax(self.amount.value())
-        self.indexer = 0
-        self.keys = self.cript.criptanalisis()
-        self.poss_key_l.setText(str(self.keys[0]))
-        self.poss_key.setText(self.cript.criptanalisis_key(self.keys[0]))
-
-    def siguiente(self):
-        if self.indexer < len(self.keys)-1:
-            self.indexer += 1
-            self.poss_key_l.setText(str(self.keys[self.indexer]))
-            self.poss_key.setText(self.cript.criptanalisis_key(self.keys[self.indexer]))
-
-
-    def desencriptar(self):
-        self.cript.data = self.caIn.toPlainText().replace(" ", "").lower()
-        temp = QtGui.QTextDocument()
-        temp.setHtml(self.poss_key.text())
-        self.cript.key = temp.toPlainText().replace(" ", "").lower()
-        self.caOut.setText(self.cript.desencriptar())
 
 
 if __name__ == '__main__':

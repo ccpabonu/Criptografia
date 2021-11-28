@@ -1,12 +1,11 @@
 import sys
 from random import sample
 
-from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
-from pyqt5_plugins.examplebutton import QtWidgets
-from pyqt5_plugins.examplebuttonplugin import QtGui
+from PyQt5 import uic, QtWidgets, QtGui
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QTableWidgetItem
 
-from ClassCript import CripDesplazamiento, CripSustitucion, CripVigenere
+
+from ClassCript import *
 
 
 class main_Windows(QMainWindow):
@@ -21,7 +20,6 @@ class main_Windows(QMainWindow):
         widget.addWidget(cripC)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
-
 class main_cripConve(QMainWindow):
 
     def __init__(self):
@@ -30,7 +28,7 @@ class main_cripConve(QMainWindow):
         self.bDesplazamiento.clicked.connect(self.abrirDesp)
         self.bVigenere.clicked.connect(self.abrirCripVige)
         self.bSustitucion.clicked.connect(self.abrirCripSust)
-
+        self.bPermutacion.clicked.connect(self.abrirCripPerm)
 
     def abrirDesp(self):
         cripDesp = main_cripDesp()
@@ -47,6 +45,11 @@ class main_cripConve(QMainWindow):
         widget.addWidget(cripSus)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
+    def abrirCripPerm(self):
+        ventana2 = main_cripConvePerm()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
 class main_cripConveSustV(QMainWindow):
 
     def __init__(self, parent = None):
@@ -57,7 +60,7 @@ class main_cripConveSustV(QMainWindow):
         self.bEncriptar.clicked.connect(self.encriptarV)
         self.bDesencriptar.clicked.connect(self.desEncriptarV)
         self.bAtras.clicked.connect(self.salirV)
-
+        self.bCriptoanalisis.clicked.connect(self.cripAnalisisV)
 
     def generarV(self):
         data = self.lineEdit.text()
@@ -68,7 +71,8 @@ class main_cripConveSustV(QMainWindow):
 
     def encriptarV(self):
         data = self.textEdit.toPlainText().lower()
-        data = data.replace('\n',"")
+        data = data.replace('\n', "")
+        data = data.replace(' ', "")
         self.textEdit.setPlainText(data)
 
         if len(data)!=0 :
@@ -87,6 +91,7 @@ class main_cripConveSustV(QMainWindow):
         self.lineEdit.setDisabled(False)
         data = self.textEdit_2.toPlainText().upper()
         data = data.replace('\n', "")
+        data = data.replace(' ', "")
         self.textEdit_2.setPlainText(data)
 
         if len(data)!=0 :
@@ -102,27 +107,102 @@ class main_cripConveSustV(QMainWindow):
             vent2.tipoError("No hay texto que cifrar")
             vent2.show()
 
+    def salirV(self):
+        ventana2 = main_cripConve()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
+    def cripAnalisisV(self):
+        data = self.textEdit_2.toPlainText().upper()
+        data = data.replace('\n', "")
+        data = data.replace(' ', "")
+        flush = self.lineEdit.text()
+        b = list(flush)
+        crip1 = CripSustitucion(data, b)
+        m = crip1.cripAnalisis()
+        listCrip = list(m.items())
+        fila = 0
+        for i in listCrip:
+            columna = 0
+            self.tableWidget.insertRow(fila)
+            for j in i:
+                celda = QTableWidgetItem(str(j))
+                self.tableWidget.setItem(fila, columna, celda)
+                columna += 1
+            fila += 1
+
+class main_cripConvePerm(QMainWindow):
+    def __init__(self):
+        super(main_cripConvePerm, self).__init__()
+        uic.loadUi("cripConvePerm.ui", self)
+        self.bGenerar.clicked.connect(self.generarV)
+        self.bEncriptar.clicked.connect(self.encriptarV)
+        self.bDesencriptar.clicked.connect(self.desEncriptarV)
+        self.bAtras.clicked.connect(self.salirV)
+        self.bCriptoanalisis.clicked.connect(self.cripAnalisisV)
+
+
+    def generarV(self):
+        self.z=int(self.encrSpin.value())
+        self.arr =[]
+        for i in range(self.z):
+            self.arr.append(int(i))
+        self.arr = sample(self.arr,self.z)
+        self.lineEdit.setText("-".join([str(_) for _ in self.arr]))
+
+    def encriptarV(self):
+        data = self.textEdit.toPlainText().lower()
+        data = data.replace('\n', "")
+        data = data.replace(' ', "")
+        self.textEdit.setPlainText(data)
+        self.z=int(self.encrSpin.value())
+        d= self.lineEdit.text()
+        d = d.replace('-',"")
+        arg = list(d)
+        arg = [int(x) for x in arg]
+        cripPerm= CripPermutacion(data,self.z,arg)
+        dataEncrip = cripPerm.encriptar()
+        self.textEdit_2.setPlainText(dataEncrip)
+
+    def desEncriptarV(self):
+
+        data = self.textEdit_2.toPlainText().upper()
+        data = data.replace('\n', "")
+        data = data.replace(' ', "")
+        self.textEdit_2.setPlainText(data)
+        self.z = int(self.encrSpin.value())
+        d = self.lineEdit.text()
+        d = d.replace('-', "")
+        arg = list(d)
+        arg = [int(x) for x in arg]
+        cripPerm = CripPermutacion(data, self.z,arg)
+        dataDes= cripPerm.desencriptar()
+        self.textEdit.setPlainText(dataDes)
+
+
+    def cripAnalisisV(self):
+        self.listWidget.clear()
+        data = self.textEdit_2.toPlainText().upper()
+        data = data.replace('\n', "")
+        data = data.replace(' ', "")
+        self.textEdit_2.setPlainText(data)
+        self.z = int(self.encrSpin.value())
+        d = self.lineEdit.text()
+        d = d.replace('-', "")
+        arg = list(d)
+        arg = [int(x) for x in arg]
+        crip1 = CripPermutacion(data,self.z,arg)
+        liste = crip1.cripAnalisis()
+        j=1
+        for i in liste:
+            self.listWidget.addItem(str(j)+"- "+i)
+            j += 1
 
 
     def salirV(self):
-        vent2 = main_cripConve(self)
-        vent2.show()
-        self.hide()
-
-class main_errorDialogV(QDialog):
-    def __init__(self):
-        super(main_errorDialogV, self).__init__()
-        uic.loadUi("errorDialog.ui", self)
-        self.bOk.clicked.connect(self.close)
-
-        #forma de llamar este dialogo de error en sus ventanas
-        '''vent2 = errorDialogV(self)
-        vent2.tipoError("505")
-        vent2.show()'''
-
-    def tipoError(self, error):
-        self.label.setText(error)
+        ventana2 = main_cripConve()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
 
 class main_cripDesp(QMainWindow):
@@ -157,7 +237,6 @@ class main_cripDesp(QMainWindow):
         self.decript.m = self.decrSpin.value()
         self.decrOut.setText(self.decript.desencriptar())
 
-
 class main_cripDespC(QMainWindow):
 
     def __init__(self):
@@ -187,7 +266,6 @@ class main_cripDespC(QMainWindow):
         self.cript.m = 25
         words += self.cript.desencriptar()
         self.caOut.setText(words)
-
 
 class main_cripVige(QMainWindow):
 
@@ -220,7 +298,6 @@ class main_cripVige(QMainWindow):
         self.decript.data = self.decrIn.toPlainText().replace(" ", "").lower()
         self.decript.key = self.decrPwd.toPlainText().lower()
         self.decrOut.setText(self.decript.desencriptar())
-
 
 class main_cripVigeC(QMainWindow):
 
@@ -268,6 +345,19 @@ class main_cripVigeC(QMainWindow):
         self.cript.key = temp.toPlainText().replace(" ", "").lower()
         self.caOut.setText(self.cript.desencriptar())
 
+class main_errorDialogV(QDialog):
+    def __init__(self):
+        super(main_errorDialogV, self).__init__()
+        uic.loadUi("errorDialog.ui", self)
+        self.bOk.clicked.connect(self.close)
+
+        #forma de llamar este dialogo de error en sus ventanas
+        '''vent2 = errorDialogV(self)
+        vent2.tipoError("505")
+        vent2.show()'''
+
+    def tipoError(self, error):
+        self.label.setText(error)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

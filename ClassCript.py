@@ -141,8 +141,8 @@ class CripPermutacion:
         final = []
         sep = []
         divisores = []
-        for i in range(2, len(self.data)//2+1) :
-            if(len(self.data)/2)%i == 0 and i <=6 :
+        for i in range(1, (len(self.data)//2)+1) :
+            if(len(self.data))%i == 0 and i <=6 :
                 divisores.append(i)
         print(divisores)
         for j in divisores:

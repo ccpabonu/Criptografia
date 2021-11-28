@@ -22,10 +22,10 @@ if __name__ == '__main__':
     example = CripSustitucion(s, efd)
     example2 = CripSustitucion(s2, efd)
     example3 = CripPermutacion(s, 5 ,[4, 3, 2, 1, 0])
-    example4 = CripPermutacion(s3, 5, [4, 3, 2, 1, 0])
+    example4 = CripPermutacion(s3, 3, [4, 3, 2, 1, 0])
     #print(example.encriptar())
     #print(example2.cripAnalisis())
     #print(example2.desencriptar())
     #print(example3.encriptar())
-    #print(example4.cripAnalisis())
+    print(example4.cripAnalisis())
     

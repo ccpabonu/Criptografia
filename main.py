@@ -32,5 +32,9 @@ if __name__ == '__main__':
     print(ex.encriptar())
     exx = CripHill('', '')
 
+    ex1 = CripAfin('hot',7,3)
+    ex2 = CripAfin('axg', 7, 3)
+    print(ex2.desencriptar())
+
 
     

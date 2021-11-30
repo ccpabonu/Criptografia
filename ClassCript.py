@@ -379,3 +379,30 @@ class CripHill:
 
     def criptanalisis(self):
         return ''
+
+
+class CripAfin:
+
+    def __init__(self, data, a, b):
+        self.data = data.replace(" ", "")
+        self.a = a
+        self.b = b
+
+    def encriptar(self):
+        modword = self.data.replace(" ", "")
+        if not modword.isalpha(): return "Unacceptable input"
+        wordascii = np.array([ord(c)-97 for c in modword.lower()])
+        wordencryption = (((wordascii * self.a) + self.b) % 26) +97
+        encryption = [chr(c) for c in wordencryption]
+        return ''.join(encryption)
+
+    def desencriptar(self):
+        modword = self.data.replace(" ", "")
+        if not modword.isalpha(): return "Unacceptable input"
+        wordascii = np.array([ord(c) - 97 for c in modword.lower()])
+        wordencryption = (((wordascii - self.b)*pow(self.a, -1, 26)) % 26) + 97
+        encryption = [chr(c) for c in wordencryption]
+        return ''.join(encryption)
+
+    def criptanalisis(self):
+        return ''

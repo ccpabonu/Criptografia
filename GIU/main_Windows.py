@@ -30,6 +30,7 @@ class main_cripConve(QMainWindow):
         self.bSustitucion.clicked.connect(self.abrirCripSust)
         self.bPermutacion.clicked.connect(self.abrirCripPerm)
         self.bHill.clicked.connect(self.abrirHill)
+        self.bAfin.clicked.connect(self.abrirAfin)
 
     def abrirDesp(self):
         cripDesp = main_cripDesp()
@@ -39,6 +40,11 @@ class main_cripConve(QMainWindow):
     def abrirHill(self):
         cripHill = main_encrHill()
         widget.addWidget(cripHill)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def abrirAfin(self):
+        cripAfin = main_encrAfin()
+        widget.addWidget(cripAfin)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def abrirCripVige(self):
@@ -380,6 +386,35 @@ class main_encrHill(QMainWindow):
 
     def desencriptar(self):
         pass
+
+
+class main_encrAfin(QMainWindow):
+
+    def __init__(self):
+        super(main_encrAfin, self).__init__()
+        uic.loadUi("sAfinWindow.ui", self)
+        self.cript = CripAfin('', 0, 0)
+        self.decript = CripAfin('', 0, 0)
+        self.Encriptar.clicked.connect(self.encriptar)
+        self.Desencriptar.clicked.connect(self.desencriptar)
+        self.back.clicked.connect(self.backMenu)
+
+    def backMenu(self):
+        cripConve = main_cripConve()
+        widget.addWidget(cripConve)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def encriptar(self):
+        self.cript.a = self.eSpinA.value()
+        self.cript.b = self.eSpinB.value()
+        self.cript.data = self.eIn.toPlainText()
+        self.eOut.setText(self.cript.encriptar())
+
+    def desencriptar(self):
+        self.decript.a = self.dSpinA.value()
+        self.decript.b = self.dSpinB.value()
+        self.decript.data = self.dIn.toPlainText()
+        self.dOut.setText(self.decript.desencriptar())
 
 
 class main_errorDialogV(QDialog):

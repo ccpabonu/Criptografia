@@ -28,4 +28,9 @@ if __name__ == '__main__':
     #print(example2.desencriptar())
     #print(example3.encriptar())
     print(example4.cripAnalisis())
+    ex = CripHill('esteeseltextodeprueba', 'roxanne')
+    print(ex.encriptar())
+    exx = CripHill('', '')
+
+
     

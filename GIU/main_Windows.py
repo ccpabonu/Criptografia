@@ -29,10 +29,16 @@ class main_cripConve(QMainWindow):
         self.bVigenere.clicked.connect(self.abrirCripVige)
         self.bSustitucion.clicked.connect(self.abrirCripSust)
         self.bPermutacion.clicked.connect(self.abrirCripPerm)
+        self.bHill.clicked.connect(self.abrirHill)
 
     def abrirDesp(self):
         cripDesp = main_cripDesp()
         widget.addWidget(cripDesp)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def abrirHill(self):
+        cripHill = main_encrHill()
+        widget.addWidget(cripHill)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def abrirCripVige(self):
@@ -345,6 +351,36 @@ class main_cripVigeC(QMainWindow):
         temp.setHtml(self.poss_key.text())
         self.cript.key = temp.toPlainText().replace(" ", "").lower()
         self.caOut.setText(self.cript.desencriptar())
+
+
+class main_encrHill(QMainWindow):
+
+    def __init__(self):
+        super(main_encrHill, self).__init__()
+        uic.loadUi("encrHillWindow.ui", self)
+        self.cript = CripHill('', '')
+        self.keyBotton.clicked.connect(self.keys)
+        self.encriptar1.clicked.connect(self.encriptar)
+        self.back.clicked.connect(self.backMenu)
+
+    def keys(self):
+        self.cript.key = self.keyInput.text()
+        if len(self.cript.key) > 1:
+            self.cript.setObject()
+
+    def backMenu(self):
+        cripConve = main_cripConve()
+        widget.addWidget(cripConve)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def encriptar(self):
+        if len(self.plainText.toPlainText())>0:
+            self.cript.data = self.plainText.toPlainText()
+            self.encrOut.setText(self.cript.encriptar())
+
+    def desencriptar(self):
+        pass
+
 
 class main_errorDialogV(QDialog):
     def __init__(self):

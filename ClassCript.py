@@ -274,3 +274,108 @@ class CripVigenere:
             possible_key += self.mg(y, len(self.data) / m)
         self.key = possible_key
         return possible_key
+
+
+class CripAfin:
+
+    def __init__(self, data, m):
+        self.data = data.replace(" ", "")
+        self.m = m
+        self.flush = []
+
+    def encriptar(self):
+        if not self.data.isalpha():
+            return "Unacceptable input"
+        word_ascii = np.array([ord(c) for c in self.data.lower()])
+        word_encryption = (((word_ascii - 97) + self.m) % 26) + 97
+        encryption = [chr(c) for c in word_encryption]
+        return ''.join(encryption).upper()
+
+    def desencriptar(self):
+        word_ascii = np.array([ord(c) for c in self.data.lower()])
+        word_decryption = (((word_ascii - 97) - self.m) % 26) + 97
+        decryption = [chr(c) for c in word_decryption]
+        return ''.join(decryption)
+
+    def criptanalisis(self):
+        possible_words = []
+        for i in range(26):
+            self.m = i
+            possible_words.append(self.desencriptar())
+        return possible_words
+
+
+class CripHill:
+
+    def __init__(self, data, key):
+        self.data = data.replace(" ", "")
+        self.key = key
+        self.M = np.asmatrix([])
+        self.n = 0
+        if len(self.key) > 1:
+            self.setObject()
+
+    def setObject(self):
+        word_ascii = self.textToAscii()
+        self.n = self.checkingTheSize()
+        self.makingTheKeyMatrix(word_ascii, self.n)
+
+    def encriptar(self):
+        encryption = np.matmul(self.makingTheMatrix(self.data, self.n), self.M)
+        encryption = np.remainder(encryption, 26)
+        message = encryption.flatten().tolist()
+        #print(len(message[0]), type(message[0]), message[0])
+        # l = "".join(map(chr(message + 96)))
+        secret = ""
+        for i in range(len(message[0])):
+            secret = secret + secret.join(chr(message[0][i] + 97))
+        # print(l)
+        return secret
+
+    def textToAscii(self):
+        text = self.key.replace(" ", "")
+        wordascii = np.array([ord(c) for c in text.lower()])- 97
+        if len(self.key) == 0:
+            raise Exception("La clave debe tener minimo dos caracteres")
+        elif len(self.key) == 1:
+            raise Exception("La clave debe tener minimo dos caracteres")
+        #print(wordascii)
+        return wordascii
+
+    def makingTheMatrix(self, arr, n):
+        i = 0
+        while (len(arr) % n != 0):
+            arr = np.append(arr, i)
+            i += 1
+        coc = int(len(arr) / n)
+        arr = np.array([ord(c) for c in arr.lower()])- 97
+        arr = np.asmatrix(np.split(arr, coc))
+        return arr
+
+    def makingTheKeyMatrix(self, key, n):
+        i = 0
+        while(len(key) < n**2):
+            key = np.append(key, i)
+            i += 1
+        M = np.asmatrix(np.split(key, n))
+        if np.linalg.det(M) == 0:
+            raise Exception("Clave invalida. Por favor digite una nueva.")
+        mAsList = M.flatten().tolist()
+        mAsString = ""
+        for i in range(len(mAsList[0])):
+            mAsString = mAsString + mAsString.join(str(mAsList[0][i]))
+        #print(M)
+        #QtWidgets.QMessageBox.about(self, "Esta es la matriz clave", mAsString)     #Printing the keyMatrix
+        self.M = M
+
+    def checkingTheSize(self):
+        n = 2
+        while (n*n < len(self.key)):
+            n += 1
+        return n
+
+    def desencriptar(self):
+        return ''
+
+    def criptanalisis(self):
+        return ''

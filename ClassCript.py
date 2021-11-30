@@ -276,35 +276,6 @@ class CripVigenere:
         return possible_key
 
 
-class CripAfin:
-
-    def __init__(self, data, m):
-        self.data = data.replace(" ", "")
-        self.m = m
-        self.flush = []
-
-    def encriptar(self):
-        if not self.data.isalpha():
-            return "Unacceptable input"
-        word_ascii = np.array([ord(c) for c in self.data.lower()])
-        word_encryption = (((word_ascii - 97) + self.m) % 26) + 97
-        encryption = [chr(c) for c in word_encryption]
-        return ''.join(encryption).upper()
-
-    def desencriptar(self):
-        word_ascii = np.array([ord(c) for c in self.data.lower()])
-        word_decryption = (((word_ascii - 97) - self.m) % 26) + 97
-        decryption = [chr(c) for c in word_decryption]
-        return ''.join(decryption)
-
-    def criptanalisis(self):
-        possible_words = []
-        for i in range(26):
-            self.m = i
-            possible_words.append(self.desencriptar())
-        return possible_words
-
-
 class CripHill:
 
     def __init__(self, data, key):

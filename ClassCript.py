@@ -1,5 +1,7 @@
 import itertools
+import math
 from random import sample
+from sympy import Matrix
 import numpy as np
 from collections import Counter
 
@@ -289,7 +291,8 @@ class CripHill:
     def setObject(self):
         word_ascii = self.textToAscii()
         self.n = self.checkingTheSize()
-        self.makingTheKeyMatrix(word_ascii, self.n)
+        self.boo = self.makingTheKeyMatrix(word_ascii, self.n)
+
 
     def encriptar(self):
         encryption = np.matmul(self.makingTheMatrix(self.data, self.n), self.M)
@@ -315,11 +318,11 @@ class CripHill:
 
     def makingTheMatrix(self, arr, n):
         i = 0
+        coc = int(len(arr) / n)
+        arr = np.array([ord(c) for c in arr.lower()])-97
         while (len(arr) % n != 0):
             arr = np.append(arr, i)
             i += 1
-        coc = int(len(arr) / n)
-        arr = np.array([ord(c) for c in arr.lower()])- 97
         arr = np.asmatrix(np.split(arr, coc))
         return arr
 
@@ -329,8 +332,8 @@ class CripHill:
             key = np.append(key, i)
             i += 1
         M = np.asmatrix(np.split(key, n))
-        if np.linalg.det(M) == 0:
-            raise Exception("Clave invalida. Por favor digite una nueva.")
+        if math.gcd(int(np.linalg.det(M)),26)!=1:
+            return 1
         mAsList = M.flatten().tolist()
         mAsString = ""
         for i in range(len(mAsList[0])):
@@ -338,6 +341,7 @@ class CripHill:
         #print(M)
         #QtWidgets.QMessageBox.about(self, "Esta es la matriz clave", mAsString)     #Printing the keyMatrix
         self.M = M
+        return 0
 
     def checkingTheSize(self):
         n = 2
@@ -346,7 +350,17 @@ class CripHill:
         return n
 
     def desencriptar(self):
-        return ''
+        temp= Matrix(self.M)
+        decryption = np.matmul(self.makingTheMatrix(self.data, self.n), temp.inv_mod(26))
+        decryption = np.remainder(decryption, 26)
+        message = decryption.flatten().tolist()
+        # print(len(message[0]), type(message[0]), message[0])
+        # l = "".join(map(chr(message + 96)))
+        secret = ""
+        for i in range(len(message[0])):
+            secret = secret + secret.join(chr(message[0][i] + 97))
+        # print(l)
+        return secret
 
     def criptanalisis(self):
         return ''

@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>150</y>
+      <y>80</y>
       <width>511</width>
       <height>36</height>
      </rect>
@@ -74,8 +74,8 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>190</y>
-      <width>901</width>
+      <y>120</y>
+      <width>711</width>
       <height>51</height>
      </rect>
     </property>
@@ -84,7 +84,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>80</y>
+      <y>30</y>
       <width>191</width>
       <height>36</height>
      </rect>
@@ -140,7 +140,7 @@
     <property name="geometry">
      <rect>
       <x>210</x>
-      <y>80</y>
+      <y>30</y>
       <width>321</width>
       <height>41</height>
      </rect>
@@ -149,8 +149,8 @@
    <widget class="QPushButton" name="keyBotton">
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>80</y>
+      <x>550</x>
+      <y>20</y>
       <width>211</width>
       <height>51</height>
      </rect>
@@ -168,7 +168,7 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
     <property name="geometry">
      <rect>
       <x>740</x>
-      <y>280</y>
+      <y>120</y>
       <width>181</width>
       <height>51</height>
      </rect>
@@ -208,9 +208,9 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>370</y>
-      <width>891</width>
-      <height>151</height>
+      <y>180</y>
+      <width>901</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="font">
@@ -262,6 +262,214 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
      <string>ATRÁS</string>
     </property>
    </widget>
+   <widget class="QLabel" name="userTextLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>330</y>
+      <width>511</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="palette">
+     <palette>
+      <active>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>120</red>
+          <green>120</green>
+          <blue>120</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
+    <property name="font">
+     <font>
+      <family>Berlin Sans FB</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Texto Claro</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="keyLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>280</y>
+      <width>191</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="palette">
+     <palette>
+      <active>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>120</red>
+          <green>120</green>
+          <blue>120</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
+    <property name="font">
+     <font>
+      <family>Berlin Sans FB</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Digite su clave</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="decrOut">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>430</y>
+      <width>901</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(0,0,0,50%);
+color:'white';
+padding: 5px 15px 5px 15px;</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhMultiLine</set>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextD">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>370</y>
+      <width>711</width>
+      <height>51</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="desencriptar1">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>370</y>
+      <width>181</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Desencriptar</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="keyInputD">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>280</y>
+      <width>321</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="keyBottonD">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>270</y>
+      <width>211</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Generar Clave</string>
+    </property>
+   </widget>
    <zorder>fondo</zorder>
    <zorder>userTextLabel</zorder>
    <zorder>plainText</zorder>
@@ -271,6 +479,13 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
    <zorder>encriptar1</zorder>
    <zorder>encrOut</zorder>
    <zorder>back</zorder>
+   <zorder>userTextLabel_2</zorder>
+   <zorder>keyLabel_2</zorder>
+   <zorder>decrOut</zorder>
+   <zorder>plainTextD</zorder>
+   <zorder>desencriptar1</zorder>
+   <zorder>keyInputD</zorder>
+   <zorder>keyBottonD</zorder>
   </widget>
  </widget>
  <resources/>

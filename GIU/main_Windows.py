@@ -365,14 +365,30 @@ class main_encrHill(QMainWindow):
         super(main_encrHill, self).__init__()
         uic.loadUi("encrHillWindow.ui", self)
         self.cript = CripHill('', '')
-        self.keyBotton.clicked.connect(self.keys)
+        self.decript = CripHill('', '')
+        self.keyBotton.clicked.connect(self.keysE)
+        self.keyBottonD.clicked.connect(self.keysD)
         self.encriptar1.clicked.connect(self.encriptar)
+        self.desencriptar1.clicked.connect(self.desencriptar)
         self.back.clicked.connect(self.backMenu)
 
-    def keys(self):
+    def keysE(self):
         self.cript.key = self.keyInput.text()
         if len(self.cript.key) > 1:
             self.cript.setObject()
+            if self.cript.boo == 1:
+                self.encrOut.setText('Clave invalida, su matriz no es coprima con 26')
+            else:
+                self.encrOut.setText('')
+
+    def keysD(self):
+        self.decript.key = self.keyInputD.text()
+        if len(self.decript.key) > 1:
+            self.decript.setObject()
+            if self.decript.boo == 1:
+                self.decrOut.setText('Clave invalida, su matriz no es coprima con 26')
+            else:
+                self.decrOut.setText('')
 
     def backMenu(self):
         cripConve = main_cripConve()
@@ -380,12 +396,18 @@ class main_encrHill(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def encriptar(self):
-        if len(self.plainText.toPlainText())>0:
-            self.cript.data = self.plainText.toPlainText()
-            self.encrOut.setText(self.cript.encriptar())
+        if len(self.plainText.toPlainText())>0 and self.cript.n>0:
+            if self.cript.boo==0:
+                self.cript.data = self.plainText.toPlainText()
+                self.encrOut.setText(self.cript.encriptar())
+
 
     def desencriptar(self):
-        pass
+        if len(self.plainTextD.toPlainText()) > 0 and self.decript.n>0:
+            if self.decript.boo == 0:
+                self.decript.data = self.plainTextD.toPlainText()
+                self.decrOut.setText(self.decript.desencriptar())
+
 
 
 class main_encrAfin(QMainWindow):

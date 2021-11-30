@@ -28,13 +28,16 @@ if __name__ == '__main__':
     #print(example2.desencriptar())
     #print(example3.encriptar())
     print(example4.cripAnalisis())
-    ex = CripHill('esteeseltextodeprueba', 'roxanne')
-    print(ex.encriptar())
+    ex = CripHill('july', 'roxanne')
+    print(ex.boo)
+    ex.setObject()
     exx = CripHill('', '')
 
     ex1 = CripAfin('hot',7,3)
     ex2 = CripAfin('axg', 7, 3)
     print(ex2.desencriptar())
 
+    ex3 = CripHill('delw','lidh')
+    print(ex3.desencriptar())
 
     

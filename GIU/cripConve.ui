@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>600</height>
+    <height>607</height>
    </rect>
   </property>
   <property name="maximumSize">
    <size>
     <width>1000</width>
-    <height>600</height>
+    <height>613</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -24,22 +24,6 @@
     <normaloff>icono.png</normaloff>icono.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="fondo">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>1000</width>
-      <height>615</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>Imag1.jpg</pixmap>
-    </property>
-   </widget>
    <widget class="QPushButton" name="bDesplazamiento">
     <property name="geometry">
      <rect>
@@ -148,6 +132,38 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
      <string>PERMUTACIÓN</string>
     </property>
    </widget>
+   <widget class="QLabel" name="fondo">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1000</width>
+      <height>615</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #ff0000;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>Imag1.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <zorder>fondo</zorder>
+   <zorder>bDesplazamiento</zorder>
+   <zorder>bVigenere</zorder>
+   <zorder>bSustitucion</zorder>
+   <zorder>bHill</zorder>
+   <zorder>bAfin</zorder>
+   <zorder>bPermutacion</zorder>
   </widget>
  </widget>
  <resources/>

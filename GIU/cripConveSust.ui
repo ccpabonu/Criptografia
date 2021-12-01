@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>600</height>
+    <height>607</height>
    </rect>
   </property>
   <property name="maximumSize">
    <size>
     <width>1000</width>
-    <height>600</height>
+    <height>613</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -171,7 +171,7 @@ color: #00ffff;
 font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string>ATRAS</string>
+     <string>ATRÁS</string>
     </property>
    </widget>
    <widget class="QPushButton" name="bCriptoanalisis">
@@ -189,7 +189,7 @@ color: #00ffff;
 font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string>CRIPTOANALISIS</string>
+     <string>CRIPTOANÁLISIS</string>
     </property>
    </widget>
    <widget class="QTableWidget" name="tableWidget">

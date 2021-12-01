@@ -29,10 +29,22 @@ class main_cripConve(QMainWindow):
         self.bVigenere.clicked.connect(self.abrirCripVige)
         self.bSustitucion.clicked.connect(self.abrirCripSust)
         self.bPermutacion.clicked.connect(self.abrirCripPerm)
+        self.bHill.clicked.connect(self.abrirHill)
+        self.bAfin.clicked.connect(self.abrirAfin)
 
     def abrirDesp(self):
         cripDesp = main_cripDesp()
         widget.addWidget(cripDesp)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def abrirHill(self):
+        cripHill = main_encrHill()
+        widget.addWidget(cripHill)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def abrirAfin(self):
+        cripAfin = main_encrAfin()
+        widget.addWidget(cripAfin)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def abrirCripVige(self):
@@ -296,12 +308,12 @@ class main_cripVige(QMainWindow):
 
     def encriptar(self):
         self.cript.data = self.encrIn.toPlainText().replace(" ", "").lower()
-        self.cript.key = self.encrPwd.toPlainText().lower()
+        self.cript.key = self.encrPwd.text().replace(" ", "").lower()
         self.encrOut.setText(self.cript.encriptar())
 
     def desencriptar(self):
         self.decript.data = self.decrIn.toPlainText().replace(" ", "").lower()
-        self.decript.key = self.decrPwd.toPlainText().lower()
+        self.decript.key = self.decrPwd.text().replace(" ", "").lower()
         self.decrOut.setText(self.decript.desencriptar())
 
 class main_cripVigeC(QMainWindow):
@@ -329,12 +341,13 @@ class main_cripVigeC(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def criptanalisis(self):
-        self.cript.data = self.caIn.toPlainText().replace(" ", "").lower()
-        self.cript.changeMax(self.amount.value())
-        self.indexer = 0
-        self.keys = self.cript.criptanalisis()
-        self.poss_key_l.setText(str(self.keys[0]))
-        self.poss_key.setText(self.cript.criptanalisis_key(self.keys[0]))
+        if len(self.caIn.toPlainText().replace(" ", "").lower())>0:
+            self.cript.data = self.caIn.toPlainText().replace(" ", "").lower()
+            self.cript.changeMax(self.amount.value())
+            self.indexer = 0
+            self.keys = self.cript.criptanalisis()
+            self.poss_key_l.setText(str(self.keys[0]))
+            self.poss_key.setText(self.cript.criptanalisis_key(self.keys[0]))
 
     def siguiente(self):
         if self.indexer < len(self.keys)-1:
@@ -349,6 +362,162 @@ class main_cripVigeC(QMainWindow):
         temp.setHtml(self.poss_key.text())
         self.cript.key = temp.toPlainText().replace(" ", "").lower()
         self.caOut.setText(self.cript.desencriptar())
+
+
+class main_encrHill(QMainWindow):
+
+    def __init__(self):
+        super(main_encrHill, self).__init__()
+        uic.loadUi("encrHillWindow.ui", self)
+        self.cript = CripHill('', '')
+        self.decript = CripHill('', '')
+        self.keyBotton.clicked.connect(self.keysE)
+        self.keyBottonD.clicked.connect(self.keysD)
+        self.encriptar1.clicked.connect(self.encriptar)
+        self.desencriptar1.clicked.connect(self.desencriptar)
+        self.cripAn.clicked.connect(self.abrirHillC)
+        self.back.clicked.connect(self.backMenu)
+
+    def keysE(self):
+        self.cript.key = self.keyInput.text()
+        if len(self.cript.key) > 1:
+            self.cript.setObject()
+            if self.cript.boo == 1:
+                self.encrOut.setText('Clave invalida, su matriz no es coprima con 26')
+            else:
+                self.encrOut.setText('')
+
+    def keysD(self):
+        self.decript.key = self.keyInputD.text()
+        if len(self.decript.key) > 1:
+            self.decript.setObject()
+            if self.decript.boo == 1:
+                self.decrOut.setText('Clave invalida, su matriz no es coprima con 26')
+            else:
+                self.decrOut.setText('')
+
+    def backMenu(self):
+        cripConve = main_cripConve()
+        widget.addWidget(cripConve)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def abrirHillC(self):
+        cripHillC = main_encrHillC()
+        widget.addWidget(cripHillC)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def encriptar(self):
+        if len(self.plainText.toPlainText())>0 and self.cript.n>0:
+            if self.cript.boo==0:
+                self.cript.data = self.plainText.toPlainText()
+                self.encrOut.setText(self.cript.encriptar())
+
+
+    def desencriptar(self):
+        if len(self.plainTextD.toPlainText()) > 0 and self.decript.n>0:
+            if self.decript.boo == 0:
+                self.decript.data = self.plainTextD.toPlainText()
+                self.decrOut.setText(self.decript.desencriptar())
+
+
+class main_encrHillC(QMainWindow):
+
+    def __init__(self):
+        super(main_encrHillC, self).__init__()
+        uic.loadUi("analisCriptHill.ui", self)
+        self.decript = CripHill('', 'aa')
+        self.cA.clicked.connect(self.criptoanalisis)
+        self.ciDes.clicked.connect(self.abrirHill)
+        self.back.clicked.connect(self.backMenu)
+
+    def backMenu(self):
+        cripConve = main_cripConve()
+        widget.addWidget(cripConve)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def abrirHill(self):
+        cripHill = main_encrHill()
+        widget.addWidget(cripHill)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def criptoanalisis(self):
+        if self.cIn.toPlainText().isalpha() and self.mValue.text().isnumeric() and self.cipher.toPlainText().isalpha():
+            self.decript.data = self.cIn.toPlainText().lower()
+            self.decript.setObject()
+            self.cOut.setText(str(self.decript.criptanalisis(self.cipher.toPlainText(), int(self.mValue.text()))))
+        else:
+            self.cOut.setText('Incorrect input')
+
+
+
+class main_encrAfin(QMainWindow):
+
+    def __init__(self):
+        super(main_encrAfin, self).__init__()
+        uic.loadUi("sAfinWindow.ui", self)
+        self.cript = CripAfin('', 0, 0)
+        self.decript = CripAfin('', 0, 0)
+        self.Encriptar.clicked.connect(self.encriptar)
+        self.Desencriptar.clicked.connect(self.desencriptar)
+        self.cripAn.clicked.connect(self.abrirAfinC)
+        self.back.clicked.connect(self.backMenu)
+
+    def backMenu(self):
+        cripConve = main_cripConve()
+        widget.addWidget(cripConve)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def encriptar(self):
+        self.cript.a = self.eSpinA.value()
+        self.cript.b = self.eSpinB.value()
+        self.cript.data = self.eIn.toPlainText()
+        self.eOut.setText(self.cript.encriptar())
+
+    def abrirAfinC(self):
+        cripAfinC = main_encrAfinC()
+        widget.addWidget(cripAfinC)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def desencriptar(self):
+        self.decript.a = self.dSpinA.value()
+        self.decript.b = self.dSpinB.value()
+        self.decript.data = self.dIn.toPlainText()
+        self.dOut.setText(self.decript.desencriptar())
+
+
+class main_encrAfinC(QMainWindow):
+
+    def __init__(self):
+        super(main_encrAfinC, self).__init__()
+        uic.loadUi("sAfinCriptoAnalisis.ui", self)
+        self.decript = CripAfin('', 1, 0)
+        self.cA.clicked.connect(self.criptoanalisis)
+        self.ciDes.clicked.connect(self.abrirAfin)
+        self.back.clicked.connect(self.backMenu)
+
+    def backMenu(self):
+        cripConve = main_cripConve()
+        widget.addWidget(cripConve)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def abrirAfin(self):
+        cripAfin = main_encrAfin()
+        widget.addWidget(cripAfin)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def criptoanalisis(self):
+        self.decript.data = self.eIn.toPlainText()
+        words = ''
+        listW = self.decript.criptanalisis()
+        print(listW)
+        for i in listW:
+            words += i + '\n '
+        print(words)
+        self.eOut.setText(words)
+        pass
+
+
+
 
 class main_errorDialogV(QDialog):
     def __init__(self):

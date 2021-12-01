@@ -12,7 +12,7 @@ class main_Windows(QMainWindow):
 
     def __init__(self):
         super(main_Windows, self).__init__()
-        uic.loadUi("mainWin.ui", self)
+        uic.loadUi(r"C:\Users\Christian Pabon\PycharmProjects\Criptografia\GIU\mainWin.ui", self)
         self.bCripClasica.clicked.connect(self.abrir)
 
     def abrir(self):
@@ -24,7 +24,7 @@ class main_cripConve(QMainWindow):
 
     def __init__(self):
         super(main_cripConve, self).__init__()
-        uic.loadUi("cripConve.ui", self)
+        uic.loadUi(r"C:\Users\Christian Pabon\PycharmProjects\Criptografia\GIU\cripConve.ui", self)
         self.bDesplazamiento.clicked.connect(self.abrirDesp)
         self.bVigenere.clicked.connect(self.abrirCripVige)
         self.bSustitucion.clicked.connect(self.abrirCripSust)
@@ -55,12 +55,13 @@ class main_cripConveSustV(QMainWindow):
     def __init__(self, parent = None):
         self.flush = []
         super(main_cripConveSustV, self).__init__()
-        uic.loadUi("cripConveSust.ui", self)
+        uic.loadUi(r"C:\Users\Christian Pabon\PycharmProjects\Criptografia\GIU\cripConveSust.ui", self)
         self.bGenerar.clicked.connect(self.generarV)
         self.bEncriptar.clicked.connect(self.encriptarV)
         self.bDesencriptar.clicked.connect(self.desEncriptarV)
         self.bAtras.clicked.connect(self.salirV)
         self.bCriptoanalisis.clicked.connect(self.cripAnalisisV)
+
 
     def generarV(self):
         data = self.lineEdit.text()
@@ -113,6 +114,7 @@ class main_cripConveSustV(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def cripAnalisisV(self):
+        self.tableWidget.clear()
         data = self.textEdit_2.toPlainText().upper()
         data = data.replace('\n', "")
         data = data.replace(' ', "")
@@ -134,11 +136,12 @@ class main_cripConveSustV(QMainWindow):
 class main_cripConvePerm(QMainWindow):
     def __init__(self):
         super(main_cripConvePerm, self).__init__()
-        uic.loadUi("cripConvePerm.ui", self)
+        uic.loadUi(r"C:\Users\Christian Pabon\PycharmProjects\Criptografia\GIU\cripConvePerm.ui", self)
         self.bGenerar.clicked.connect(self.generarV)
         self.bEncriptar.clicked.connect(self.encriptarV)
         self.bDesencriptar.clicked.connect(self.desEncriptarV)
         self.bAtras.clicked.connect(self.salirV)
+        self.bCriptoanalisis.clicked.connect(self.listWidget.clear)
         self.bCriptoanalisis.clicked.connect(self.cripAnalisisV)
 
 
@@ -180,8 +183,10 @@ class main_cripConvePerm(QMainWindow):
         self.textEdit.setPlainText(dataDes)
 
 
+
     def cripAnalisisV(self):
-        self.listWidget.clear()
+        self.listWidget.clearContents()
+        self.listWidget.setRowCount(0)
         data = self.textEdit_2.toPlainText().upper()
         data = data.replace('\n', "")
         data = data.replace(' ', "")
@@ -209,7 +214,7 @@ class main_cripDesp(QMainWindow):
 
     def __init__(self):
         super(main_cripDesp, self).__init__()
-        uic.loadUi("desp.ui", self)
+        uic.loadUi(r"C:\Users\Christian Pabon\PycharmProjects\Criptografia\GIU\desp.ui", self)
         self.cript = CripDesplazamiento('', 0)
         self.decript = CripDesplazamiento('', 0)
         self.cripAn.clicked.connect(self.abrirDespC)
@@ -241,7 +246,7 @@ class main_cripDespC(QMainWindow):
 
     def __init__(self):
         super(main_cripDespC, self).__init__()
-        uic.loadUi("despCriAn.ui", self)
+        uic.loadUi(r"C:\Users\Christian Pabon\PycharmProjects\Criptografia\GIU\despCriAn.ui", self)
         self.cript = CripDesplazamiento('', 0)
         self.ciDes.clicked.connect(self.abrirDesp)
         self.criAn.clicked.connect(self.criptanalisis)
@@ -271,7 +276,7 @@ class main_cripVige(QMainWindow):
 
     def __init__(self):
         super(main_cripVige, self).__init__()
-        uic.loadUi("cripVige.ui", self)
+        uic.loadUi(r"C:\Users\Christian Pabon\PycharmProjects\Criptografia\GIU\cripVige.ui", self)
         self.cript = CripVigenere('', 'Password')
         self.decript = CripVigenere('', 'Password')
         self.cripAn.clicked.connect(self.abrirVigeC)
@@ -303,7 +308,7 @@ class main_cripVigeC(QMainWindow):
 
     def __init__(self):
         super(main_cripVigeC, self).__init__()
-        uic.loadUi("cripVigeCriAn.ui", self)
+        uic.loadUi(r"C:\Users\Christian Pabon\PycharmProjects\Criptografia\GIU\cripVigeCriAn.ui", self)
         self.keys = []
         self.indexer = 0
         self.cript = CripVigenere('', 'pass')

@@ -64,7 +64,7 @@ color: #00ffff;
 font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string>CRIPTANALIZAR</string>
+     <string>CRIPTOANALIZAR</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="caIn">

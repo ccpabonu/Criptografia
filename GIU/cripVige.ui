@@ -207,7 +207,7 @@ color: #00ffff;
 font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string>CRIPTANÁLISIS</string>
+     <string>CRIPTOANÁLISIS</string>
     </property>
    </widget>
    <widget class="QPushButton" name="back">

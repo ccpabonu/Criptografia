@@ -125,6 +125,7 @@ class main_cripConveSustV(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def cripAnalisisV(self):
+        self.tableWidget.clear()
         data = self.textEdit_2.toPlainText().upper()
         data = data.replace('\n', "")
         data = data.replace(' ', "")

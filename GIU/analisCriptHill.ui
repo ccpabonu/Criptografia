@@ -14,28 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="fondo">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>1000</width>
-      <height>601</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: #ff0000;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>Criptografia-main/GIU/Imag1.jpg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="back">
     <property name="geometry">
      <rect>
@@ -110,7 +88,7 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
      <string>Texto Plano</string>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="plainText">
+   <widget class="QPlainTextEdit" name="cIn">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -119,14 +97,17 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
       <height>71</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">padding: 5px 5px 5px 5px;</string>
+    </property>
    </widget>
-   <widget class="QLabel" name="encrOut">
+   <widget class="QLabel" name="cOut">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>230</y>
-      <width>481</width>
-      <height>81</height>
+      <x>30</x>
+      <y>380</y>
+      <width>461</width>
+      <height>181</height>
      </rect>
     </property>
     <property name="font">
@@ -151,7 +132,7 @@ padding: 5px 15px 5px 15px;</string>
      <bool>false</bool>
     </property>
     <property name="alignment">
-     <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+     <set>Qt::AlignCenter</set>
     </property>
     <property name="wordWrap">
      <bool>true</bool>
@@ -160,12 +141,12 @@ padding: 5px 15px 5px 15px;</string>
      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="encriptar1">
+   <widget class="QPushButton" name="cA">
     <property name="geometry">
      <rect>
-      <x>580</x>
-      <y>100</y>
-      <width>181</width>
+      <x>600</x>
+      <y>200</y>
+      <width>231</width>
       <height>51</height>
      </rect>
     </property>
@@ -175,7 +156,7 @@ color: #00ffff;
 font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string>Encriptar</string>
+     <string>GENERAR CLAVE</string>
     </property>
    </widget>
    <widget class="QLabel" name="userTextLabel2">
@@ -234,13 +215,42 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
      <string>Texto Cifrado</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QPlainTextEdit" name="cipher">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>330</y>
-      <width>631</width>
-      <height>21</height>
+      <y>240</y>
+      <width>481</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">padding: 5px 5px 5px 5px;</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="mValue">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>90</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">padding: 5px 5px 5px 5px;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="userTextLabel2_2">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>100</y>
+      <width>141</width>
+      <height>36</height>
      </rect>
     </property>
     <property name="palette">
@@ -283,23 +293,64 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
     <property name="font">
      <font>
       <family>Berlin Sans FB</family>
-      <pointsize>12</pointsize>
+      <pointsize>18</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>Su objetivo es determinar la clave a partir del texto plano dado y el cifrado</string>
+     <string>Valor de m</string>
     </property>
    </widget>
-   <widget class="QTableWidget" name="tableWidget">
+   <widget class="QLabel" name="fondo">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>380</y>
-      <width>256</width>
-      <height>192</height>
+      <x>0</x>
+      <y>0</y>
+      <width>1000</width>
+      <height>615</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #ff0000;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>Imag1.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
    </widget>
+   <widget class="QPushButton" name="ciDes">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>201</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>CIFRADO/DESCIFRADO</string>
+    </property>
+   </widget>
+   <zorder>fondo</zorder>
+   <zorder>back</zorder>
+   <zorder>userTextLabel</zorder>
+   <zorder>cIn</zorder>
+   <zorder>cOut</zorder>
+   <zorder>cA</zorder>
+   <zorder>userTextLabel2</zorder>
+   <zorder>cipher</zorder>
+   <zorder>mValue</zorder>
+   <zorder>userTextLabel2_2</zorder>
+   <zorder>ciDes</zorder>
   </widget>
  </widget>
  <resources/>

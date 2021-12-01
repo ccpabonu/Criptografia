@@ -79,6 +79,9 @@
       <height>51</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">padding: 5px 5px 5px 5px;</string>
+    </property>
    </widget>
    <widget class="QLabel" name="keyLabel">
     <property name="geometry">
@@ -145,6 +148,9 @@
       <height>41</height>
      </rect>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QPushButton" name="keyBotton">
     <property name="geometry">
@@ -161,7 +167,7 @@ color: #00ffff;
 font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string>Generar Clave</string>
+     <string>GENERAR CLAVE</string>
     </property>
    </widget>
    <widget class="QPushButton" name="encriptar1">
@@ -179,7 +185,7 @@ color: #00ffff;
 font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string>Encriptar</string>
+     <string>ENCRIPTAR</string>
     </property>
    </widget>
    <widget class="QLabel" name="fondo">
@@ -423,6 +429,9 @@ padding: 5px 15px 5px 15px;</string>
       <height>51</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">padding: 5px 5px 5px 5px;</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="desencriptar1">
     <property name="geometry">
@@ -439,7 +448,7 @@ color: #00ffff;
 font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string>Desencriptar</string>
+     <string>DESENCRIPTAR</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="keyInputD">
@@ -450,6 +459,9 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
       <width>321</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QPushButton" name="keyBottonD">
@@ -467,7 +479,25 @@ color: #00ffff;
 font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string>Generar Clave</string>
+     <string>GENERAR CLAVE</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cripAn">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>540</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>CRIPTOANÁLISIS</string>
     </property>
    </widget>
    <zorder>fondo</zorder>
@@ -486,6 +516,7 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
    <zorder>desencriptar1</zorder>
    <zorder>keyInputD</zorder>
    <zorder>keyBottonD</zorder>
+   <zorder>cripAn</zorder>
   </widget>
  </widget>
  <resources/>

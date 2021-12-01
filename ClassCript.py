@@ -362,8 +362,15 @@ class CripHill:
         # print(l)
         return secret
 
-    def criptanalisis(self):
-        return ''
+    def criptanalisis(self, ciphered,m):
+        #matrPlain = np.array([ord(c) for c in self.data.lower()]) - 97
+        #matrCipher = np.array([ord(c) for c in ciphered.lower()]) - 97
+        X = self.makingTheMatrix(self.data, m)[np.ix_([0,1],[0,1])]
+        invX = Matrix(X).inv_mod(26)
+        print(invX)
+        Y = self.makingTheMatrix(ciphered, m)[np.ix_([0,1],[0,1])]
+        possibleKey = np.matmul(invX, Y)
+        return np.mod(possibleKey,26)
 
 
 class CripAfin:
@@ -390,4 +397,12 @@ class CripAfin:
         return ''.join(encryption)
 
     def criptanalisis(self):
-        return ''
+        inverses = [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25]
+        possible_words = []
+        for i in range(26):
+            for j in inverses:
+                self.a = j
+                self.b = i
+                temp = self.desencriptar()
+                possible_words.append(temp)
+        return possible_words

@@ -58,7 +58,8 @@
     <property name="styleSheet">
      <string notr="true">font: 14pt &quot;Berlin Sans FB&quot;;
 background-color: rgb(255, 255, 255);
-align=&quot;center&quot;;</string>
+align=&quot;center&quot;;
+padding: 5px 5px 5px 5px;</string>
     </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -80,7 +81,8 @@ p, li { white-space: pre-wrap; }
     <property name="styleSheet">
      <string notr="true">font: 14pt &quot;Berlin Sans FB&quot;;
 background-color: rgb(255, 255, 255);
-align=&quot;center&quot;;</string>
+align=&quot;center&quot;;
+padding: 5px 5px 5px 5px;</string>
     </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;

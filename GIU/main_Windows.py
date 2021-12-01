@@ -371,6 +371,7 @@ class main_encrHill(QMainWindow):
         self.keyBottonD.clicked.connect(self.keysD)
         self.encriptar1.clicked.connect(self.encriptar)
         self.desencriptar1.clicked.connect(self.desencriptar)
+        self.cripAn.clicked.connect(self.abrirHillC)
         self.back.clicked.connect(self.backMenu)
 
     def keysE(self):
@@ -396,6 +397,11 @@ class main_encrHill(QMainWindow):
         widget.addWidget(cripConve)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
+    def abrirHillC(self):
+        cripHillC = main_encrHillC()
+        widget.addWidget(cripHillC)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
     def encriptar(self):
         if len(self.plainText.toPlainText())>0 and self.cript.n>0:
             if self.cript.boo==0:
@@ -410,6 +416,35 @@ class main_encrHill(QMainWindow):
                 self.decrOut.setText(self.decript.desencriptar())
 
 
+class main_encrHillC(QMainWindow):
+
+    def __init__(self):
+        super(main_encrHillC, self).__init__()
+        uic.loadUi("analisCriptHill.ui", self)
+        self.decript = CripHill('', 'aa')
+        self.cA.clicked.connect(self.criptoanalisis)
+        self.ciDes.clicked.connect(self.abrirHill)
+        self.back.clicked.connect(self.backMenu)
+
+    def backMenu(self):
+        cripConve = main_cripConve()
+        widget.addWidget(cripConve)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def abrirHill(self):
+        cripHill = main_encrHill()
+        widget.addWidget(cripHill)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def criptoanalisis(self):
+        if self.cIn.toPlainText().isalpha() and self.mValue.text().isnumeric() and self.cipher.toPlainText().isalpha():
+            self.decript.data = self.cIn.toPlainText().lower()
+            self.decript.setObject()
+            self.cOut.setText(str(self.decript.criptanalisis(self.cipher.toPlainText(), int(self.mValue.text()))))
+        else:
+            self.cOut.setText('Incorrect input')
+
+
 
 class main_encrAfin(QMainWindow):
 
@@ -420,6 +455,7 @@ class main_encrAfin(QMainWindow):
         self.decript = CripAfin('', 0, 0)
         self.Encriptar.clicked.connect(self.encriptar)
         self.Desencriptar.clicked.connect(self.desencriptar)
+        self.cripAn.clicked.connect(self.abrirAfinC)
         self.back.clicked.connect(self.backMenu)
 
     def backMenu(self):
@@ -433,11 +469,50 @@ class main_encrAfin(QMainWindow):
         self.cript.data = self.eIn.toPlainText()
         self.eOut.setText(self.cript.encriptar())
 
+    def abrirAfinC(self):
+        cripAfinC = main_encrAfinC()
+        widget.addWidget(cripAfinC)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
     def desencriptar(self):
         self.decript.a = self.dSpinA.value()
         self.decript.b = self.dSpinB.value()
         self.decript.data = self.dIn.toPlainText()
         self.dOut.setText(self.decript.desencriptar())
+
+
+class main_encrAfinC(QMainWindow):
+
+    def __init__(self):
+        super(main_encrAfinC, self).__init__()
+        uic.loadUi("sAfinCriptoAnalisis.ui", self)
+        self.decript = CripAfin('', 1, 0)
+        self.cA.clicked.connect(self.criptoanalisis)
+        self.ciDes.clicked.connect(self.abrirAfin)
+        self.back.clicked.connect(self.backMenu)
+
+    def backMenu(self):
+        cripConve = main_cripConve()
+        widget.addWidget(cripConve)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def abrirAfin(self):
+        cripAfin = main_encrAfin()
+        widget.addWidget(cripAfin)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def criptoanalisis(self):
+        self.decript.data = self.eIn.toPlainText()
+        words = ''
+        listW = self.decript.criptanalisis()
+        print(listW)
+        for i in listW:
+            words += i + '\n '
+        print(words)
+        self.eOut.setText(words)
+        pass
+
+
 
 
 class main_errorDialogV(QDialog):

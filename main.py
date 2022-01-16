@@ -1,3 +1,4 @@
+from ClassAES import ClassAES
 from ClassDes64 import *
 import imageio as iio
 import imageio as iio2
@@ -12,18 +13,24 @@ if __name__ == '__main__':
     #p=[[[0,255,0],[255,0,255],[230,1,2],[0, 255, 0]],
     #  [[0,255,0],[255,0,255],[1,1,1],[0, 255, 0]]]
     #m,n=4,2
-    p = iio.imread('test3.png')
+    #p = iio.imread('test3.png')
     #q = iio.imread('result1.png')
     #iio.imsave('result2.jpg',img_as_ubyte(p))
-    n, m, b = p.shape
-    p=list(p)
-    crip = ProcIMG(p,m,n)
-    crip.codificarDes64()
-    q= crip.darResultado()
+    #n, m, b = p.shape
+    #p=list(p)
+    #crip = ProcIMG(p,m,n)
+    #crip.codificarDes64()
+    #q= crip.darResultado()
     #print(q)
-    iio.imsave('result3.png',q)
-    print("a decodificar")
-    crip.decodificarDes64()
-    r= crip.darResultado()
+    #iio.imsave('result3.png',q)
+    #print("a decodificar")
+    #crip.decodificarDes64()
+    #r= crip.darResultado()
     #print(r==p)
-    iio2.imsave('test3-1.png',r)
+    #iio2.imsave('test3-1.png',r)
+
+    new = ClassAES([0x54, 0x77, 0x6f, 0x20, 0x4f, 0x6e, 0x65, 0x20, 0x4e, 0x69, 0x6e, 0x65, 0x20, 0x54,
+                    0x77, 0x6f], 'Thats my Kung Fu')
+    print(new.encriptar())
+    new2 = ClassAES(new.encriptar(), 'Thats my Kung Fu')
+    print(new2.desencriptar())

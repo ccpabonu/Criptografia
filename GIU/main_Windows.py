@@ -2,8 +2,7 @@ import sys
 from random import sample
 
 from PyQt5 import uic, QtWidgets, QtGui
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QTableWidgetItem
-
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QTableWidgetItem, QFileDialog
 
 from ClassCript import *
 
@@ -81,11 +80,23 @@ class main_encrAES(QMainWindow):
         super(main_encrAES, self).__init__()
         uic.loadUi("cripAES.ui", self)
         self.encr.clicked.connect(self.encriptar)
+        self.imEn.clicked.connect(self.selectEn)
+        self.imDe.clicked.connect(self.selectDe)
         self.decr.clicked.connect(self.desencriptar)
         self.back.clicked.connect(self.salir)
 
     def encriptar(self):
         pass
+
+    def selectEn(self):
+        filename = QFileDialog.getOpenFileName()
+        path = filename[0]
+        print(path)
+
+    def selectDe(self):
+        filename = QFileDialog.getOpenFileName()
+        path = filename[0]
+        print(path)
 
     def desencriptar(self):
         pass

@@ -19,6 +19,10 @@ class ProcIMG:
         self.key = self.c.generarKey()
         self.key3des = self.c3.generarKey()
         self.saveCBC = ""
+        self.saveCBF = ""
+        self.saveOFB = ""
+        self.bit=0
+        '{:064b}'.format(1)
 
     def crearPixels(self, r):
         save = []
@@ -234,10 +238,11 @@ class ProcIMG:
                 if len(text192) == 192:
                     for i in range(3):
                         if self.saveCBC == "":
-                            h8 = text192[i*64:(i+1)*64]
+                            h8 = text192[:64]
                             self.c.textBin = h8
                             self.saveCBC = self.c.encriptar()
                             result = result + self.saveCBC
+                            text192 = text192[64:]
                         else :
                             h8 = text192[:64]
                             xor = str(bin(int(h8, 2) ^ int(self.saveCBC, 2)))
@@ -248,16 +253,11 @@ class ProcIMG:
                             self.c.textBin = xor
                             self.saveCBC = self.c.encriptar()
                             result = result + self.saveCBC
-
-                    h8 = text192[64:128]
-                    self.c.textBin = h8
-                    result = result + self.c.encriptar()
-                    h8 = text192[128:]
-                    self.c.textBin = h8
-                    result = result + self.c.encriptar()
+                            text192 = text192[64:]
                     text192 = ""
                     self.crearPixels(result)
                     result = ""
+        self.saveCBC=""
 
     def decodificarDes64CBC(self):
         self.c.keys.reverse()
@@ -284,18 +284,745 @@ class ProcIMG:
                     self.textplano = self.textplano + s
                     savepixel.append(s)
                     text192 = text192 + s
-                if (len(text192) == 192):
-                    h8 = text192[:64]
-                    self.c.textCod = h8
-                    result = result + self.c.desencriptar()
-                    h8 = text192[64:128]
-                    self.c.textCod = h8
-                    result = result + self.c.desencriptar()
-                    h8 = text192[128:]
-                    self.c.textCod = h8
-                    result = result + self.c.desencriptar()
+                if len(text192) == 192 :
+                    for i in range(3):
+                        if self.saveCBC == "":
+                            h8 = text192[:64]
+                            self.c.textCod = h8
+                            self.saveCBC = h8
+                            result = result + self.c.desencriptar()
+                            text192 = text192[64:]
+                        else :
+                            h8 = text192[:64]
+                            self.c.textCod = h8
+                            h9 = self.c.desencriptar()
+                            xor = str(bin(int(h9, 2) ^ int(self.saveCBC, 2)))
+                            xor = xor[2:]
+                            for k in range(64 - len(xor)):
+                                var = '0' + xor
+                                xor = var
+                            self.saveCBC = h8
+                            result = result + xor
+                            text192 = text192[64:]
                     text192 = ""
                     self.crearPixels(result)
                     result = ""
+
+    def codificar3Des64CBC(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                if len(text192) == 192:
+                    for i in range(3):
+                        if self.saveCBC == "":
+                            h8 = text192[:64]
+                            self.c3.textBin = h8
+                            self.saveCBC = self.c3.tripleDes()
+                            result = result + self.saveCBC
+                            text192 = text192[64:]
+                        else :
+                            h8 = text192[:64]
+                            xor = str(bin(int(h8, 2) ^ int(self.saveCBC, 2)))
+                            xor = xor[2:]
+                            for k in range(64 - len(xor)):
+                                var = '0' + xor
+                                xor = var
+                            self.c3.textBin = xor
+                            self.saveCBC = self.c3.tripleDes()
+                            result = result + self.saveCBC
+                            text192 = text192[64:]
+                    text192 = ""
+                    self.crearPixels(result)
+                    result = ""
+        self.saveCBC=""
+
+    def decodificar3Des64CBC(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                if len(text192) == 192 :
+                    for i in range(3):
+                        if self.saveCBC == "":
+                            h8 = text192[:64]
+                            self.c3.textBin = h8
+                            self.saveCBC = h8
+                            result = result + self.c3.desTripleDes()
+                            text192 = text192[64:]
+                        else :
+                            h8 = text192[:64]
+                            self.c3.textBin = h8
+                            h9 = self.c3.desTripleDes()
+                            xor = str(bin(int(h9, 2) ^ int(self.saveCBC, 2)))
+                            xor = xor[2:]
+                            for k in range(64 - len(xor)):
+                                var = '0' + xor
+                                xor = var
+                            self.saveCBC = h8
+                            result = result + xor
+                            text192 = text192[64:]
+                    text192 = ""
+                    self.crearPixels(result)
+                    result = ""
+    # </editor-fold>
+
+    # <editor-fold desc="CBF">
+    def codificarDes64CBF(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                if len(text192) == 192:
+                    for i in range(3):
+                        if self.saveCBF == "":
+                            self.c.textBin = "1111111111111111111111111111111111111111111111111111111100000000"
+                            saveiv = self.c.encriptar()
+                            h8 = text192[:64]
+                            xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                            xor = xor[2:]
+                            for k in range(64 - len(xor)):
+                                var = '0' + xor
+                                xor = var
+                            self.saveCBF = xor
+                            result = result + xor
+                            text192 = text192[64:]
+                        else :
+                            h8 = text192[:64]
+                            self.c.textBin = self.saveCBF
+                            saveiv= self.c.encriptar()
+                            xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                            xor = xor[2:]
+                            for k in range(64 - len(xor)):
+                                var = '0' + xor
+                                xor = var
+                            self.saveCBF = xor
+                            result = result + xor
+                            text192 = text192[64:]
+                    text192 = ""
+                    self.crearPixels(result)
+                    result = ""
+        self.saveCBF = ""
+
+    def decodificarDes64CBF(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                    if len(text192) == 192:
+                        for i in range(3):
+                            if self.saveCBF == "":
+                                self.c.textBin = "1111111111111111111111111111111111111111111111111111111100000000"
+                                saveiv = self.c.encriptar()
+                                h8 = text192[:64]
+                                xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                                xor = xor[2:]
+                                for k in range(64 - len(xor)):
+                                    var = '0' + xor
+                                    xor = var
+                                self.saveCBF = h8
+                                result = result + xor
+                                text192 = text192[64:]
+                            else:
+                                h8 = text192[:64]
+                                self.c.textBin = self.saveCBF
+                                saveiv = self.c.encriptar()
+                                xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                                xor = xor[2:]
+                                for k in range(64 - len(xor)):
+                                    var = '0' + xor
+                                    xor = var
+                                self.saveCBF = h8
+                                result = result + xor
+                                text192 = text192[64:]
+                        text192 = ""
+                        self.crearPixels(result)
+                        result = ""
+        self.saveCBF = ""
+
+    def codificar3Des64CBF(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                    if len(text192) == 192:
+                        for i in range(3):
+                            if self.saveCBF == "":
+                                self.c3.textBin = "1111111111111111111111111111111111111111111111111111111100000000"
+                                saveiv = self.c3.tripleDes()
+                                h8 = text192[:64]
+                                xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                                xor = xor[2:]
+                                for k in range(64 - len(xor)):
+                                    var = '0' + xor
+                                    xor = var
+                                self.saveCBF = xor
+                                result = result + xor
+                                text192 = text192[64:]
+                            else:
+                                h8 = text192[:64]
+                                self.c3.textBin = self.saveCBF
+                                saveiv = self.c3.tripleDes()
+                                xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                                xor = xor[2:]
+                                for k in range(64 - len(xor)):
+                                    var = '0' + xor
+                                    xor = var
+                                self.saveCBF = xor
+                                result = result + xor
+                                text192 = text192[64:]
+                        text192 = ""
+                        self.crearPixels(result)
+                        result = ""
+        self.saveCBF = ""
+
+    def decodificar3Des64CBF(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                    if len(text192) == 192:
+                        for i in range(3):
+                            if self.saveCBF == "":
+                                self.c3.textBin = "1111111111111111111111111111111111111111111111111111111100000000"
+                                saveiv = self.c3.tripleDes()
+                                h8 = text192[:64]
+                                xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                                xor = xor[2:]
+                                for k in range(64 - len(xor)):
+                                    var = '0' + xor
+                                    xor = var
+                                self.saveCBF = h8
+                                result = result + xor
+                                text192 = text192[64:]
+                            else:
+                                h8 = text192[:64]
+                                self.c3.textBin = self.saveCBF
+                                saveiv = self.c3.tripleDes()
+                                xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                                xor = xor[2:]
+                                for k in range(64 - len(xor)):
+                                    var = '0' + xor
+                                    xor = var
+                                self.saveCBF = h8
+                                result = result + xor
+                                text192 = text192[64:]
+                        text192 = ""
+                        self.crearPixels(result)
+                        result = ""
+        self.saveCBF = ""
+    #</editor-fold>
+
+    # <editor-fold desc="OFB">
+    def codificarDes64OFB(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                if len(text192) == 192:
+                    for i in range(3):
+                        if self.saveOFB == "":
+                            self.c.textBin = "1111111111111111111111111111111111111111111111111111111100000000"
+                            saveiv = self.c.encriptar()
+                            h8 = text192[:64]
+                            xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                            xor = xor[2:]
+                            for k in range(64 - len(xor)):
+                                var = '0' + xor
+                                xor = var
+                            self.saveOFB = saveiv
+                            result = result + xor
+                            text192 = text192[64:]
+                        else :
+                            h8 = text192[:64]
+                            self.c.textBin = self.saveOFB
+                            saveiv= self.c.encriptar()
+                            xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                            xor = xor[2:]
+                            for k in range(64 - len(xor)):
+                                var = '0' + xor
+                                xor = var
+                            self.saveOFB = saveiv
+                            result = result + xor
+                            text192 = text192[64:]
+                    text192 = ""
+                    self.crearPixels(result)
+                    result = ""
+        self.saveOFB = ""
+
+    def decodificarDes64OFB(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                    if len(text192) == 192:
+                        for i in range(3):
+                            if self.saveOFB == "":
+                                self.c.textBin = "1111111111111111111111111111111111111111111111111111111100000000"
+                                saveiv = self.c.encriptar()
+                                h8 = text192[:64]
+                                xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                                xor = xor[2:]
+                                for k in range(64 - len(xor)):
+                                    var = '0' + xor
+                                    xor = var
+                                self.saveOFB = saveiv
+                                result = result + xor
+                                text192 = text192[64:]
+                            else:
+                                h8 = text192[:64]
+                                self.c.textBin = self.saveOFB
+                                saveiv = self.c.encriptar()
+                                xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                                xor = xor[2:]
+                                for k in range(64 - len(xor)):
+                                    var = '0' + xor
+                                    xor = var
+                                self.saveOFB = saveiv
+                                result = result + xor
+                                text192 = text192[64:]
+                        text192 = ""
+                        self.crearPixels(result)
+                        result = ""
+        self.saveOFB = ""
+
+    def codificar3Des64OFB(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                    if len(text192) == 192:
+                        for i in range(3):
+                            if self.saveOFB == "":
+                                self.c3.textBin = "1111111111111111111111111111111111111111111111111111111100000000"
+                                saveiv = self.c3.tripleDes()
+                                h8 = text192[:64]
+                                xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                                xor = xor[2:]
+                                for k in range(64 - len(xor)):
+                                    var = '0' + xor
+                                    xor = var
+                                self.saveOFB = saveiv
+                                result = result + xor
+                                text192 = text192[64:]
+                            else:
+                                h8 = text192[:64]
+                                self.c3.textBin = self.saveOFB
+                                saveiv = self.c3.tripleDes()
+                                xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                                xor = xor[2:]
+                                for k in range(64 - len(xor)):
+                                    var = '0' + xor
+                                    xor = var
+                                self.saveOFB = saveiv
+                                result = result + xor
+                                text192 = text192[64:]
+                        text192 = ""
+                        self.crearPixels(result)
+                        result = ""
+        self.saveOFB = ""
+
+    def decodificar3Des64OFB(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                    if len(text192) == 192:
+                        for i in range(3):
+                            if self.saveOFB == "":
+                                self.c3.textBin = "1111111111111111111111111111111111111111111111111111111100000000"
+                                saveiv = self.c3.tripleDes()
+                                h8 = text192[:64]
+                                xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                                xor = xor[2:]
+                                for k in range(64 - len(xor)):
+                                    var = '0' + xor
+                                    xor = var
+                                self.saveOFB = saveiv
+                                result = result + xor
+                                text192 = text192[64:]
+                            else:
+                                h8 = text192[:64]
+                                self.c3.textBin = self.saveOFB
+                                saveiv = self.c3.tripleDes()
+                                xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                                xor = xor[2:]
+                                for k in range(64 - len(xor)):
+                                    var = '0' + xor
+                                    xor = var
+                                self.saveOFB = saveiv
+                                result = result + xor
+                                text192 = text192[64:]
+                        text192 = ""
+                        self.crearPixels(result)
+                        result = ""
+        self.saveOFB = ""
+    # </editor-fold>
+
+    # <editor-fold desc="CTR">
+    def codificarDes64CTR(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                if len(text192) == 192:
+                    for i in range(3):
+                        self.c.textBin = '{:064b}'.format(self.bit)
+                        saveiv = self.c.encriptar()
+                        h8 = text192[:64]
+                        xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                        xor = xor[2:]
+                        for k in range(64 - len(xor)):
+                            var = '0' + xor
+                            xor = var
+                        result = result + xor
+                        text192 = text192[64:]
+                        self.bit=self.bit+1
+                    text192 = ""
+                    self.crearPixels(result)
+                    result = ""
+        self.bit=0
+
+    def decodificarDes64CTR(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                    if len(text192) == 192:
+                        for i in range(3):
+                            self.c.textBin = '{:064b}'.format(self.bit)
+                            saveiv = self.c.encriptar()
+                            h8 = text192[:64]
+                            xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                            xor = xor[2:]
+                            for k in range(64 - len(xor)):
+                                var = '0' + xor
+                                xor = var
+                            result = result + xor
+                            text192 = text192[64:]
+                            self.bit = self.bit + 1
+                        text192 = ""
+                        self.crearPixels(result)
+                        result = ""
+        self.bit = 0
+
+    def codificar3Des64CTR(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                if len(text192) == 192:
+                    for i in range(3):
+                        self.c3.textBin = '{:064b}'.format(self.bit)
+                        saveiv = self.c3.tripleDes()
+                        h8 = text192[:64]
+                        xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                        xor = xor[2:]
+                        for k in range(64 - len(xor)):
+                            var = '0' + xor
+                            xor = var
+                        result = result + xor
+                        text192 = text192[64:]
+                        self.bit = self.bit + 1
+                    text192 = ""
+                    self.crearPixels(result)
+                    result = ""
+        self.bit = 0
+
+    def decodificar3Des64CTR(self):
+        text192 = ""
+        result = ""
+        num = ((self.col * self.row * 24) % 192) // 24
+        while (num != 0):
+            if (num >= self.col):
+                self.matrizsobr = self.matrizsobr + np.delete(self.matriz, -1).tolist()
+                num = num - self.col
+            else:
+                for i in range(num):
+                    self.matrizsobr = self.matrizsobr + np.delete(self.matriz[-1], -1).tolist()
+                    num = num - 1
+        savepixel = []
+        for row in self.matriz:
+            for pixel in row:
+                for component in pixel:
+                    s = bin(component)
+                    s = s[2:]
+                    for k in range(8 - len(s)):
+                        var = '0' + s
+                        s = var
+                    self.textplano = self.textplano + s
+                    savepixel.append(s)
+                    text192 = text192 + s
+                    if len(text192) == 192:
+                        for i in range(3):
+                            self.c3.textBin = '{:064b}'.format(self.bit)
+                            saveiv = self.c3.tripleDes()
+                            h8 = text192[:64]
+                            xor = str(bin(int(h8, 2) ^ int(saveiv, 2)))
+                            xor = xor[2:]
+                            for k in range(64 - len(xor)):
+                                var = '0' + xor
+                                xor = var
+                            result = result + xor
+                            text192 = text192[64:]
+                            self.bit = self.bit + 1
+                        text192 = ""
+                        self.crearPixels(result)
+                        result = ""
+        self.bit = 0
 
     # </editor-fold>

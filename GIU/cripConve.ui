@@ -157,6 +157,24 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="back">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>530</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>ATRÁS</string>
+    </property>
+   </widget>
    <zorder>fondo</zorder>
    <zorder>bDesplazamiento</zorder>
    <zorder>bVigenere</zorder>
@@ -164,6 +182,7 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
    <zorder>bHill</zorder>
    <zorder>bAfin</zorder>
    <zorder>bPermutacion</zorder>
+   <zorder>back</zorder>
   </widget>
  </widget>
  <resources/>

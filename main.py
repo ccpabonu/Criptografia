@@ -35,7 +35,7 @@ if __name__ == '__main__':
     # new2 = ClassAES(new.encriptar(), 'Thats my Kung Fu')
     # print(new2.desencriptar())
     #p = iio.imread('test3.png')
-    q = iio.imread('resultctr3.png')
-    crip = ProcIMG(q, 'Thats my Kung Fu')
-    iio.imsave('resultctrd3.png', crip.e_ctrAES([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]))
-
+    #q = iio.imread('resultctr3.png')
+    #crip = ProcIMG(q, 'Thats my Kung Fu')
+    #iio.imsave('resultctrd3.png', crip.e_ctrAES([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]))
+    pass

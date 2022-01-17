@@ -13,11 +13,17 @@ class main_Windows(QMainWindow):
     def __init__(self):
         super(main_Windows, self).__init__()
         uic.loadUi("mainWin.ui", self)
-        self.bCripClasica.clicked.connect(self.abrir)
+        self.bCripClasica.clicked.connect(self.abrirConv)
+        self.bCripBloque.clicked.connect(self.abrirBloq)
 
-    def abrir(self):
+    def abrirConv(self):
         cripC = main_cripConve()
         widget.addWidget(cripC)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def abrirBloq(self):
+        cripB = main_cripBloq()
+        widget.addWidget(cripB)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
 class main_cripConve(QMainWindow):
@@ -31,6 +37,7 @@ class main_cripConve(QMainWindow):
         self.bPermutacion.clicked.connect(self.abrirCripPerm)
         self.bHill.clicked.connect(self.abrirHill)
         self.bAfin.clicked.connect(self.abrirAfin)
+        self.back.clicked.connect(self.salir)
 
     def abrirDesp(self):
         cripDesp = main_cripDesp()
@@ -61,6 +68,64 @@ class main_cripConve(QMainWindow):
         ventana2 = main_cripConvePerm()
         widget.addWidget(ventana2)
         widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def salir(self):
+        ventana2 = main_Windows()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+
+class main_encrAES(QMainWindow):
+
+    def __init__(self):
+        super(main_encrAES, self).__init__()
+        uic.loadUi("cripAES.ui", self)
+        self.encr.clicked.connect(self.encriptar)
+        self.decr.clicked.connect(self.desencriptar)
+        self.back.clicked.connect(self.salir)
+
+    def encriptar(self):
+        pass
+
+    def desencriptar(self):
+        pass
+
+    def salir(self):
+        ventana2 = main_cripBloq()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+
+class main_cripBloq(QMainWindow):
+
+    def __init__(self):
+        super(main_cripBloq, self).__init__()
+        uic.loadUi("cripBloque.ui", self)
+        #self.bDES.clicked.connect(self.abrirDES)
+        #self.bGamma.clicked.connect(self.abrirGamma)
+        self.bAES.clicked.connect(self.abrirAES)
+        self.back.clicked.connect(self.salir)
+
+    # def abrirDES(self):
+    #     cripDES = main_encrDES()
+    #     widget.addWidget(cripDES)
+    #     widget.setCurrentIndex(widget.currentIndex()+1)
+
+    # def abrirGamma(self):
+    #     cripGamma = main_encrGamma()
+    #     widget.addWidget(cripGamma)
+    #     widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def abrirAES(self):
+        cripAES = main_encrAES()
+        widget.addWidget(cripAES)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def salir(self):
+        ventana2 = main_Windows()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
 
 class main_cripConveSustV(QMainWindow):
 

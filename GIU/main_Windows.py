@@ -11,13 +11,36 @@ from PyQt5.QtGui import QImage
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QTableWidgetItem, QFileDialog
 
 from PyQt5.QtCore import QThread
+
+from Class3Des64 import Class3Des64
 from ClassCript import *
 from ClassDes64 import ClassDes64
 from ProcIMG import ProcIMG
 from loadDialog import loadDialog
 
 
-class Encriptador(QThread):
+class main_Windows(QMainWindow):
+
+    def __init__(self):
+        super(main_Windows, self).__init__()
+        uic.loadUi("mainWin.ui", self)
+        self.bCripClasica.clicked.connect(self.abrirConv)
+        self.bCripBloque.clicked.connect(self.abrirBloq)
+
+    def abrirConv(self):
+        cripC = main_cripConve()
+        widget.addWidget(cripC)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def abrirBloq(self):
+        cripB = main_cripBloq()
+        widget.addWidget(cripB)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+
+# <editor-fold desc="Encriptadores">
+
+class EncriptadorDES(QThread):
     def __init__(self, cImg, dialog, cBox):
         super().__init__()
         self.cImg = cImg
@@ -46,7 +69,7 @@ class Encriptador(QThread):
         self.dialog.hide()
 
 
-class Desencriptador(QThread):
+class DesencriptadorDES(QThread):
 
     def __init__(self, cImg, dialog, cBox):
         super().__init__()
@@ -76,24 +99,64 @@ class Desencriptador(QThread):
         self.dialog.hide()
 
 
-class main_Windows(QMainWindow):
+class Encriptador3DES(QThread):
+    def __init__(self, cImg, dialog, cBox):
+        super().__init__()
+        self.cImg = cImg
+        self.dialog = dialog
+        self.cBox = cBox
 
-    def __init__(self):
-        super(main_Windows, self).__init__()
-        uic.loadUi("mainWin.ui", self)
-        self.bCripClasica.clicked.connect(self.abrirConv)
-        self.bCripBloque.clicked.connect(self.abrirBloq)
+    def run(self):
+        save = str(self.cBox.currentText())
+        print(save)
+        if save == 'ECB':
+            self.cImg.codificar3Des64()
+            q = self.cImg.darResultado()
+        if save == 'CBC':
+            self.cImg.codificar3Des64CBC()
+            q = self.cImg.darResultado()
+        if save == 'CBF':
+            self.cImg.codificar3Des64CBF()
+            q = self.cImg.darResultado()
+        if save == 'OFB':
+            self.cImg.codificar3Des64OFB()
+            q = self.cImg.darResultado()
+        if save == 'CTR':
+            self.cImg.codificar3Des64CTR()
+            q = self.cImg.darResultado()
+        iio.imsave('result3.png', q)
+        self.dialog.hide()
 
-    def abrirConv(self):
-        cripC = main_cripConve()
-        widget.addWidget(cripC)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
 
-    def abrirBloq(self):
-        cripB = main_cripBloq()
-        widget.addWidget(cripB)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
+class Desencriptador3DES(QThread):
 
+    def __init__(self, cImg, dialog, cBox):
+        super().__init__()
+        self.cImg = cImg
+        self.dialog = dialog
+        self.cBox = cBox
+
+    def run(self):
+        save = str(self.cBox.currentText())
+        print(save)
+        if save == 'ECB':
+            self.cImg.decodificar3Des64()
+            q = self.cImg.darResultado()
+        if save == 'CBC':
+            self.cImg.decodificar3Des64CBC()
+            q = self.cImg.darResultado()
+        if save == 'CBF':
+            self.cImg.decodificar3Des64CBF()
+            q = self.cImg.darResultado()
+        if save == 'OFB':
+            self.cImg.decodificar3Des64OFB()
+            q = self.cImg.darResultado()
+        if save == 'CTR':
+            self.cImg.decodificar3Des64CTR()
+            q = self.cImg.darResultado()
+        iio.imsave('result3-1.png', q)
+        self.dialog.hide()
+# </editor-fold>
 
 # <editor-fold desc="CriptBloques">
 
@@ -102,7 +165,9 @@ class main_cripBloq(QMainWindow):
     def __init__(self):
         super(main_cripBloq, self).__init__()
         uic.loadUi("cripBloque.ui", self)
+        #self.bSDES.clicked.connect(self.abrirDES)
         self.bDES.clicked.connect(self.abrirDES)
+        self.b3DES.clicked.connect(self.abrir3DES)
         # self.bGamma.clicked.connect(self.abrirGamma)
         self.bAES.clicked.connect(self.abrirAES)
         self.back.clicked.connect(self.salir)
@@ -112,6 +177,10 @@ class main_cripBloq(QMainWindow):
         widget.addWidget(cripDES)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
+    def abrir3DES(self):
+        crip3DES = main_encr3DES()
+        widget.addWidget(crip3DES)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
     # def abrirGamma(self):
     #     cripGamma = main_encrGamma()
     #     widget.addWidget(cripGamma)
@@ -143,8 +212,8 @@ class main_encrDES(QMainWindow):
         self.cImg = None
         self.c = ClassDes64()
         self.encr.clicked.connect(self.encriptar)
-        self.imEn.clicked.connect(self.cargarImagen)
-        self.imDe.clicked.connect(self.selectDe)
+        self.imEn.clicked.connect(self.cargarImagen1)
+        self.imDe.clicked.connect(self.cargarImagen2)
         self.decr.clicked.connect(self.desencriptar)
         self.back.clicked.connect(self.salir)
         self.bGenerarKey.clicked.connect(self.generarKey)
@@ -166,7 +235,7 @@ class main_encrDES(QMainWindow):
         self.cImg = ProcIMG(p, m, n)
         self.cImg.c.keyBin = self.keyBin
         self.cImg.c.IPKey()
-        self.encriptador = Encriptador(self.cImg, self.dialog, self.cBoxModo)
+        self.encriptador = EncriptadorDES(self.cImg, self.dialog, self.cBoxModo)
         self.encriptador.finished.connect(self.termino)
         self.encriptador.start()
 
@@ -178,22 +247,25 @@ class main_encrDES(QMainWindow):
         self.img2.setPixmap(QtGui.QPixmap.fromImage(image))
         self.filename = 'result3.png'
 
-    def cargarImagen(self):
+    def cargarImagen1(self):
         self.filename = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
         self.image = cv2.imread(self.filename)
-        self.setPhoto(self.image)
+        self.setPhoto(self.image,1)
 
-    def setPhoto(self, image):
+    def cargarImagen2(self):
+        self.filename = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
+        self.image = cv2.imread(self.filename)
+        self.setPhoto(self.image, 2)
+
+    def setPhoto(self, image, n):
         self.tmp = image
         image = imutils.resize(image, width=640)
         frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
-        self.img1.setPixmap(QtGui.QPixmap.fromImage(image))
-
-    def selectDe(self):
-        filename = QFileDialog.getOpenFileName()
-        path = filename[0]
-        print(path)
+        if n == 1 :
+            self.img1.setPixmap(QtGui.QPixmap.fromImage(image))
+        if n == 2 :
+            self.img2.setPixmap(QtGui.QPixmap.fromImage(image))
 
     def desencriptar(self):
         self.dialog.show()
@@ -203,7 +275,104 @@ class main_encrDES(QMainWindow):
         self.cImg = ProcIMG(p, m, n)
         self.cImg.c.keyBin = self.keyBin
         self.cImg.c.IPKey()
-        self.desencriptador = Desencriptador(self.cImg, self.dialog, self.cBoxModo)
+        self.desencriptador = DesencriptadorDES(self.cImg, self.dialog, self.cBoxModo)
+        self.desencriptador.finished.connect(self.termino2)
+        self.desencriptador.start()
+
+    def termino2(self):
+        image = cv2.imread('result3-1.png')
+        image = imutils.resize(image, width=640)
+        frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+        self.img1.setPixmap(QtGui.QPixmap.fromImage(image))
+        self.filename = 'result3-1.png'
+
+    def salir(self):
+        ventana2 = main_cripBloq()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+
+class main_encr3DES(QMainWindow):
+
+    def __init__(self):
+        super(main_encr3DES, self).__init__()
+        self.desencriptador = None
+        self.dialog = loadDialog(self)
+        self.encriptador = None
+        self.keyBin = []
+        self.tmp = None
+        self.image = None
+        self.filename = None
+        uic.loadUi("crip3DES.ui", self)
+        self.cImg = None
+        self.c3 = Class3Des64()
+        self.encr.clicked.connect(self.encriptar)
+        self.imEn.clicked.connect(self.cargarImagen1)
+        self.imDe.clicked.connect(self.cargarImagen2)
+        self.decr.clicked.connect(self.desencriptar)
+        self.back.clicked.connect(self.salir)
+        self.bGenerarKey.clicked.connect(self.generarKey)
+
+    def generarKey(self):
+        self.encrPwd.clear()
+        self.decrPwd.clear()
+        h = self.c3.generarKey()
+        self.keyBin = self.c3.keysBin
+        h = h.upper()
+        h = h[2:]
+        self.encrPwd.insertPlainText(h)
+        self.decrPwd.insertPlainText(h)
+        self.encrPwd.setDisabled(True)
+        self.decrPwd.setDisabled(True)
+
+    def encriptar(self):
+        self.dialog.show()
+        p = iio.imread(self.filename)
+        n, m, b = p.shape
+        p = list(p)
+        self.cImg = ProcIMG(p, m, n)
+        self.cImg.c3.keysBin = self.keyBin
+        self.encriptador = Encriptador3DES(self.cImg, self.dialog, self.cBoxModo)
+        self.encriptador.finished.connect(self.termino)
+        self.encriptador.start()
+
+    def termino(self):
+        image = cv2.imread('result3.png')
+        image = imutils.resize(image, width=640)
+        frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+        self.img2.setPixmap(QtGui.QPixmap.fromImage(image))
+        self.filename = 'result3.png'
+
+    def cargarImagen1(self):
+        self.filename = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
+        self.image = cv2.imread(self.filename)
+        self.setPhoto(self.image,1)
+
+    def cargarImagen2(self):
+        self.filename = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
+        self.image = cv2.imread(self.filename)
+        self.setPhoto(self.image, 2)
+
+    def setPhoto(self, image, n):
+        self.tmp = image
+        image = imutils.resize(image, width=640)
+        frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+        if n == 1 :
+            self.img1.setPixmap(QtGui.QPixmap.fromImage(image))
+        if n == 2 :
+            self.img2.setPixmap(QtGui.QPixmap.fromImage(image))
+
+    def desencriptar(self):
+        self.dialog.show()
+        p = iio.imread(self.filename)
+        n, m, b = p.shape
+        p = list(p)
+        self.cImg = ProcIMG(p, m, n)
+        self.cImg.c3.keysBin = self.keyBin
+        self.desencriptador = Desencriptador3DES(self.cImg, self.dialog, self.cBoxModo)
         self.desencriptador.finished.connect(self.termino2)
         self.desencriptador.start()
 

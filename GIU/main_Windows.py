@@ -1,10 +1,79 @@
 import sys
 from random import sample
+import imageio as iio
+import imageio as iio2
+import cv2
+import imutils
+import time
 
 from PyQt5 import uic, QtWidgets, QtGui
+from PyQt5.QtGui import QImage
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QTableWidgetItem, QFileDialog
 
+from PyQt5.QtCore import QThread
 from ClassCript import *
+from ClassDes64 import ClassDes64
+from ProcIMG import ProcIMG
+from loadDialog import loadDialog
+
+
+class Encriptador(QThread):
+    def __init__(self, cImg, dialog, cBox):
+        super().__init__()
+        self.cImg = cImg
+        self.dialog = dialog
+        self.cBox = cBox
+
+    def run(self):
+        save = str(self.cBox.currentText())
+        print(save)
+        if save == 'ECB':
+            self.cImg.codificarDes64()
+            q = self.cImg.darResultado()
+        if save == 'CBC':
+            self.cImg.codificarDes64CBC()
+            q = self.cImg.darResultado()
+        if save == 'CBF':
+            self.cImg.codificarDes64CBF()
+            q = self.cImg.darResultado()
+        if save == 'OFB':
+            self.cImg.codificarDes64OFB()
+            q = self.cImg.darResultado()
+        if save == 'CTR':
+            self.cImg.codificarDes64CTR()
+            q = self.cImg.darResultado()
+        iio.imsave('result3.png', q)
+        self.dialog.hide()
+
+
+class Desencriptador(QThread):
+
+    def __init__(self, cImg, dialog, cBox):
+        super().__init__()
+        self.cImg = cImg
+        self.dialog = dialog
+        self.cBox = cBox
+
+    def run(self):
+        save = str(self.cBox.currentText())
+        print(save)
+        if save == 'ECB':
+            self.cImg.decodificarDes64()
+            q = self.cImg.darResultado()
+        if save == 'CBC':
+            self.cImg.decodificarDes64CBC()
+            q = self.cImg.darResultado()
+        if save == 'CBF':
+            self.cImg.decodificarDes64CBF()
+            q = self.cImg.darResultado()
+        if save == 'OFB':
+            self.cImg.decodificarDes64OFB()
+            q = self.cImg.darResultado()
+        if save == 'CTR':
+            self.cImg.decodificarDes64CTR()
+            q = self.cImg.darResultado()
+        iio.imsave('result3-1.png', q)
+        self.dialog.hide()
 
 
 class main_Windows(QMainWindow):
@@ -18,58 +87,136 @@ class main_Windows(QMainWindow):
     def abrirConv(self):
         cripC = main_cripConve()
         widget.addWidget(cripC)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def abrirBloq(self):
         cripB = main_cripBloq()
         widget.addWidget(cripB)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-
-class main_cripConve(QMainWindow):
-
-    def __init__(self):
-        super(main_cripConve, self).__init__()
-        uic.loadUi("cripConve.ui", self)
-        self.bDesplazamiento.clicked.connect(self.abrirDesp)
-        self.bVigenere.clicked.connect(self.abrirCripVige)
-        self.bSustitucion.clicked.connect(self.abrirCripSust)
-        self.bPermutacion.clicked.connect(self.abrirCripPerm)
-        self.bHill.clicked.connect(self.abrirHill)
-        self.bAfin.clicked.connect(self.abrirAfin)
-        self.back.clicked.connect(self.salir)
-
-    def abrirDesp(self):
-        cripDesp = main_cripDesp()
-        widget.addWidget(cripDesp)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-
-    def abrirHill(self):
-        cripHill = main_encrHill()
-        widget.addWidget(cripHill)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-
-    def abrirAfin(self):
-        cripAfin = main_encrAfin()
-        widget.addWidget(cripAfin)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-
-    def abrirCripVige(self):
-        cripVige = main_cripVige()
-        widget.addWidget(cripVige)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-
-    def abrirCripSust(self):
-        cripSus = main_cripConveSustV()
-        widget.addWidget(cripSus)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
-    def abrirCripPerm(self):
-        ventana2 = main_cripConvePerm()
-        widget.addWidget(ventana2)
+
+# <editor-fold desc="CriptBloques">
+
+class main_cripBloq(QMainWindow):
+
+    def __init__(self):
+        super(main_cripBloq, self).__init__()
+        uic.loadUi("cripBloque.ui", self)
+        self.bDES.clicked.connect(self.abrirDES)
+        # self.bGamma.clicked.connect(self.abrirGamma)
+        self.bAES.clicked.connect(self.abrirAES)
+        self.back.clicked.connect(self.salir)
+
+    def abrirDES(self):
+        cripDES = main_encrDES()
+        widget.addWidget(cripDES)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    # def abrirGamma(self):
+    #     cripGamma = main_encrGamma()
+    #     widget.addWidget(cripGamma)
+    #     widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def abrirAES(self):
+        cripAES = main_encrAES()
+        widget.addWidget(cripAES)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def salir(self):
         ventana2 = main_Windows()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+
+class main_encrDES(QMainWindow):
+
+    def __init__(self):
+        super(main_encrDES, self).__init__()
+        self.desencriptador = None
+        self.dialog = loadDialog(self)
+        self.encriptador = None
+        self.keyBin = []
+        self.tmp = None
+        self.image = None
+        self.filename = None
+        uic.loadUi("cripDES.ui", self)
+        self.cImg = None
+        self.c = ClassDes64()
+        self.encr.clicked.connect(self.encriptar)
+        self.imEn.clicked.connect(self.cargarImagen)
+        self.imDe.clicked.connect(self.selectDe)
+        self.decr.clicked.connect(self.desencriptar)
+        self.back.clicked.connect(self.salir)
+        self.bGenerarKey.clicked.connect(self.generarKey)
+
+    def generarKey(self):
+        h = self.c.generarKey()
+        self.keyBin = self.c.keyBin
+        h = h.upper()
+        self.encrPwd.setText(h)
+        self.decrPwd.setText(h)
+        self.encrPwd.setDisabled(True)
+        self.decrPwd.setDisabled(True)
+
+    def encriptar(self):
+        self.dialog.show()
+        p = iio.imread(self.filename)
+        n, m, b = p.shape
+        p = list(p)
+        self.cImg = ProcIMG(p, m, n)
+        self.cImg.c.keyBin = self.keyBin
+        self.cImg.c.IPKey()
+        self.encriptador = Encriptador(self.cImg, self.dialog, self.cBoxModo)
+        self.encriptador.finished.connect(self.termino)
+        self.encriptador.start()
+
+    def termino(self):
+        image = cv2.imread('result3.png')
+        image = imutils.resize(image, width=640)
+        frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+        self.img2.setPixmap(QtGui.QPixmap.fromImage(image))
+        self.filename = 'result3.png'
+
+    def cargarImagen(self):
+        self.filename = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
+        self.image = cv2.imread(self.filename)
+        self.setPhoto(self.image)
+
+    def setPhoto(self, image):
+        self.tmp = image
+        image = imutils.resize(image, width=640)
+        frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+        self.img1.setPixmap(QtGui.QPixmap.fromImage(image))
+
+    def selectDe(self):
+        filename = QFileDialog.getOpenFileName()
+        path = filename[0]
+        print(path)
+
+    def desencriptar(self):
+        self.dialog.show()
+        p = iio.imread(self.filename)
+        n, m, b = p.shape
+        p = list(p)
+        self.cImg = ProcIMG(p, m, n)
+        self.cImg.c.keyBin = self.keyBin
+        self.cImg.c.IPKey()
+        self.desencriptador = Desencriptador(self.cImg, self.dialog, self.cBoxModo)
+        self.desencriptador.finished.connect(self.termino2)
+        self.desencriptador.start()
+
+    def termino2(self):
+        image = cv2.imread('result3-1.png')
+        image = imutils.resize(image, width=640)
+        frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+        self.img1.setPixmap(QtGui.QPixmap.fromImage(image))
+        self.filename = 'result3-1.png'
+
+    def salir(self):
+        ventana2 = main_cripBloq()
         widget.addWidget(ventana2)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
@@ -107,30 +254,52 @@ class main_encrAES(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
 
-class main_cripBloq(QMainWindow):
+# </editor-fold>
+
+# <editor-fold desc="CriptClasica">
+
+class main_cripConve(QMainWindow):
 
     def __init__(self):
-        super(main_cripBloq, self).__init__()
-        uic.loadUi("cripBloque.ui", self)
-        #self.bDES.clicked.connect(self.abrirDES)
-        #self.bGamma.clicked.connect(self.abrirGamma)
-        self.bAES.clicked.connect(self.abrirAES)
+        super(main_cripConve, self).__init__()
+        uic.loadUi("cripConve.ui", self)
+        self.bDesplazamiento.clicked.connect(self.abrirDesp)
+        self.bVigenere.clicked.connect(self.abrirCripVige)
+        self.bSustitucion.clicked.connect(self.abrirCripSust)
+        self.bPermutacion.clicked.connect(self.abrirCripPerm)
+        self.bHill.clicked.connect(self.abrirHill)
+        self.bAfin.clicked.connect(self.abrirAfin)
         self.back.clicked.connect(self.salir)
 
-    # def abrirDES(self):
-    #     cripDES = main_encrDES()
-    #     widget.addWidget(cripDES)
-    #     widget.setCurrentIndex(widget.currentIndex()+1)
+    def abrirDesp(self):
+        cripDesp = main_cripDesp()
+        widget.addWidget(cripDesp)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
-    # def abrirGamma(self):
-    #     cripGamma = main_encrGamma()
-    #     widget.addWidget(cripGamma)
-    #     widget.setCurrentIndex(widget.currentIndex()+1)
+    def abrirHill(self):
+        cripHill = main_encrHill()
+        widget.addWidget(cripHill)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
-    def abrirAES(self):
-        cripAES = main_encrAES()
-        widget.addWidget(cripAES)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+    def abrirAfin(self):
+        cripAfin = main_encrAfin()
+        widget.addWidget(cripAfin)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def abrirCripVige(self):
+        cripVige = main_cripVige()
+        widget.addWidget(cripVige)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def abrirCripSust(self):
+        cripSus = main_cripConveSustV()
+        widget.addWidget(cripSus)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def abrirCripPerm(self):
+        ventana2 = main_cripConvePerm()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def salir(self):
         ventana2 = main_Windows()
@@ -140,7 +309,7 @@ class main_cripBloq(QMainWindow):
 
 class main_cripConveSustV(QMainWindow):
 
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         self.flush = []
         super(main_cripConveSustV, self).__init__()
         uic.loadUi("cripConveSust.ui", self)
@@ -153,7 +322,7 @@ class main_cripConveSustV(QMainWindow):
     def generarV(self):
         data = self.lineEdit.text()
         data2 = list(data)
-        self.flush= sample(data2,26)
+        self.flush = sample(data2, 26)
         self.lineEdit.setText("".join(self.flush))
         self.lineEdit.setDisabled(True)
 
@@ -163,14 +332,14 @@ class main_cripConveSustV(QMainWindow):
         data = data.replace(' ', "")
         self.textEdit.setPlainText(data)
 
-        if len(data)!=0 :
+        if len(data) != 0:
             flush = self.lineEdit.text()
             b = list(flush)
             self.flush = b
-            crip1 = CripSustitucion(data,b)
+            crip1 = CripSustitucion(data, b)
             dataEncrip = crip1.encriptar()
             self.textEdit_2.setPlainText(dataEncrip)
-        else :
+        else:
             vent2 = main_errorDialogV(self)
             vent2.tipoError("No hay texto que cifrar")
             vent2.show()
@@ -182,15 +351,15 @@ class main_cripConveSustV(QMainWindow):
         data = data.replace(' ', "")
         self.textEdit_2.setPlainText(data)
 
-        if len(data)!=0 :
+        if len(data) != 0:
             flush = self.lineEdit.text()
             b = list(flush)
             self.flush = b
-            crip1 = CripSustitucion(data,b)
+            crip1 = CripSustitucion(data, b)
             dataEncrip = crip1.desencriptar()
             self.textEdit.setPlainText(dataEncrip)
 
-        else :
+        else:
             vent2 = main_errorDialogV(self)
             vent2.tipoError("No hay texto que cifrar")
             vent2.show()
@@ -220,6 +389,7 @@ class main_cripConveSustV(QMainWindow):
                 columna += 1
             fila += 1
 
+
 class main_cripConvePerm(QMainWindow):
     def __init__(self):
         super(main_cripConvePerm, self).__init__()
@@ -230,13 +400,12 @@ class main_cripConvePerm(QMainWindow):
         self.bAtras.clicked.connect(self.salirV)
         self.bCriptoanalisis.clicked.connect(self.cripAnalisisV)
 
-
     def generarV(self):
-        self.z=int(self.encrSpin.value())
-        self.arr =[]
+        self.z = int(self.encrSpin.value())
+        self.arr = []
         for i in range(self.z):
             self.arr.append(int(i))
-        self.arr = sample(self.arr,self.z)
+        self.arr = sample(self.arr, self.z)
         self.lineEdit.setText("-".join([str(_) for _ in self.arr]))
 
     def encriptarV(self):
@@ -244,12 +413,12 @@ class main_cripConvePerm(QMainWindow):
         data = data.replace('\n', "")
         data = data.replace(' ', "")
         self.textEdit.setPlainText(data)
-        self.z=int(self.encrSpin.value())
-        d= self.lineEdit.text()
-        d = d.replace('-',"")
+        self.z = int(self.encrSpin.value())
+        d = self.lineEdit.text()
+        d = d.replace('-', "")
         arg = list(d)
         arg = [int(x) for x in arg]
-        cripPerm= CripPermutacion(data,self.z,arg)
+        cripPerm = CripPermutacion(data, self.z, arg)
         dataEncrip = cripPerm.encriptar()
         self.textEdit_2.setPlainText(dataEncrip)
 
@@ -264,10 +433,9 @@ class main_cripConvePerm(QMainWindow):
         d = d.replace('-', "")
         arg = list(d)
         arg = [int(x) for x in arg]
-        cripPerm = CripPermutacion(data, self.z,arg)
-        dataDes= cripPerm.desencriptar()
+        cripPerm = CripPermutacion(data, self.z, arg)
+        dataDes = cripPerm.desencriptar()
         self.textEdit.setPlainText(dataDes)
-
 
     def cripAnalisisV(self):
         self.listWidget.clear()
@@ -280,13 +448,12 @@ class main_cripConvePerm(QMainWindow):
         d = d.replace('-', "")
         arg = list(d)
         arg = [int(x) for x in arg]
-        crip1 = CripPermutacion(data,self.z,arg)
+        crip1 = CripPermutacion(data, self.z, arg)
         liste = crip1.cripAnalisis()
-        j=1
+        j = 1
         for i in liste:
-            self.listWidget.addItem(str(j)+"- "+i)
+            self.listWidget.addItem(str(j) + "- " + i)
             j += 1
-
 
     def salirV(self):
         ventana2 = main_cripConve()
@@ -326,6 +493,7 @@ class main_cripDesp(QMainWindow):
         self.decript.m = self.decrSpin.value()
         self.decrOut.setText(self.decript.desencriptar())
 
+
 class main_cripDespC(QMainWindow):
 
     def __init__(self):
@@ -339,7 +507,7 @@ class main_cripDespC(QMainWindow):
     def abrirDesp(self):
         cripDesp = main_cripDesp()
         widget.addWidget(cripDesp)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def backMenu(self):
         cripConve = main_cripConve()
@@ -351,10 +519,11 @@ class main_cripDespC(QMainWindow):
         words = ''
         for i in range(25):
             self.cript.m = i
-            words += self.cript.desencriptar()+'\n '
+            words += self.cript.desencriptar() + '\n '
         self.cript.m = 25
         words += self.cript.desencriptar()
         self.caOut.setText(words)
+
 
 class main_cripVige(QMainWindow):
 
@@ -388,6 +557,7 @@ class main_cripVige(QMainWindow):
         self.decript.key = self.decrPwd.text().replace(" ", "").lower()
         self.decrOut.setText(self.decript.desencriptar())
 
+
 class main_cripVigeC(QMainWindow):
 
     def __init__(self):
@@ -405,7 +575,7 @@ class main_cripVigeC(QMainWindow):
     def abrirVige(self):
         cripVige = main_cripVige()
         widget.addWidget(cripVige)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def backMenu(self):
         cripConve = main_cripConve()
@@ -413,7 +583,7 @@ class main_cripVigeC(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def criptanalisis(self):
-        if len(self.caIn.toPlainText().replace(" ", "").lower())>0:
+        if len(self.caIn.toPlainText().replace(" ", "").lower()) > 0:
             self.cript.data = self.caIn.toPlainText().replace(" ", "").lower()
             self.cript.changeMax(self.amount.value())
             self.indexer = 0
@@ -422,11 +592,10 @@ class main_cripVigeC(QMainWindow):
             self.poss_key.setText(self.cript.criptanalisis_key(self.keys[0]))
 
     def siguiente(self):
-        if self.indexer < len(self.keys)-1:
+        if self.indexer < len(self.keys) - 1:
             self.indexer += 1
             self.poss_key_l.setText(str(self.keys[self.indexer]))
             self.poss_key.setText(self.cript.criptanalisis_key(self.keys[self.indexer]))
-
 
     def desencriptar(self):
         self.cript.data = self.caIn.toPlainText().replace(" ", "").lower()
@@ -476,17 +645,16 @@ class main_encrHill(QMainWindow):
     def abrirHillC(self):
         cripHillC = main_encrHillC()
         widget.addWidget(cripHillC)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def encriptar(self):
-        if len(self.plainText.toPlainText())>0 and self.cript.n>0:
-            if self.cript.boo==0:
+        if len(self.plainText.toPlainText()) > 0 and self.cript.n > 0:
+            if self.cript.boo == 0:
                 self.cript.data = self.plainText.toPlainText()
                 self.encrOut.setText(self.cript.encriptar())
 
-
     def desencriptar(self):
-        if len(self.plainTextD.toPlainText()) > 0 and self.decript.n>0:
+        if len(self.plainTextD.toPlainText()) > 0 and self.decript.n > 0:
             if self.decript.boo == 0:
                 self.decript.data = self.plainTextD.toPlainText()
                 self.decrOut.setText(self.decript.desencriptar())
@@ -510,7 +678,7 @@ class main_encrHillC(QMainWindow):
     def abrirHill(self):
         cripHill = main_encrHill()
         widget.addWidget(cripHill)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def criptoanalisis(self):
         if self.cIn.toPlainText().isalpha() and self.mValue.text().isnumeric() and self.cipher.toPlainText().isalpha():
@@ -519,7 +687,6 @@ class main_encrHillC(QMainWindow):
             self.cOut.setText(str(self.decript.criptanalisis(self.cipher.toPlainText(), int(self.mValue.text()))))
         else:
             self.cOut.setText('Incorrect input')
-
 
 
 class main_encrAfin(QMainWindow):
@@ -548,7 +715,7 @@ class main_encrAfin(QMainWindow):
     def abrirAfinC(self):
         cripAfinC = main_encrAfinC()
         widget.addWidget(cripAfinC)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def desencriptar(self):
         self.decript.a = self.dSpinA.value()
@@ -575,7 +742,7 @@ class main_encrAfinC(QMainWindow):
     def abrirAfin(self):
         cripAfin = main_encrAfin()
         widget.addWidget(cripAfin)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def criptoanalisis(self):
         self.decript.data = self.eIn.toPlainText()
@@ -589,21 +756,23 @@ class main_encrAfinC(QMainWindow):
         pass
 
 
-
-
 class main_errorDialogV(QDialog):
     def __init__(self):
         super(main_errorDialogV, self).__init__()
         uic.loadUi("errorDialog.ui", self)
         self.bOk.clicked.connect(self.close)
 
-        #forma de llamar este dialogo de error en sus ventanas
+        # forma de llamar este dialogo de error en sus ventanas
         '''vent2 = errorDialogV(self)
         vent2.tipoError("505")
         vent2.show()'''
 
     def tipoError(self, error):
         self.label.setText(error)
+
+
+# </editor-fold>
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

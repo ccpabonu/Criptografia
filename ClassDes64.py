@@ -84,7 +84,7 @@ class ClassDes64:
         self.keyBin = list(prekey)
         # print(self.keyBin)
         self.keyHex = hex(int(prekey, 2))
-        self.IPKey()
+        #self.IPKey()
         return self.keyHex
 
     def IPKey(self):

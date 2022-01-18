@@ -16,13 +16,12 @@ class ProcIMG:
         self.j = 0
         self.c = ClassDes64()
         self.c3 = Class3Des64()
-        self.key = self.c.generarKey()
-        self.key3des = self.c3.generarKey()
+        #self.key = self.c.generarKey()
+        #self.key3des = self.c3.generarKey()
         self.saveCBC = ""
         self.saveCBF = ""
         self.saveOFB = ""
         self.bit=0
-        '{:064b}'.format(1)
 
     def crearPixels(self, r):
         save = []

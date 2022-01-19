@@ -4,6 +4,13 @@ from random import sample
 from sympy import Matrix
 import numpy as np
 from collections import Counter
+from random import sample
+import math
+import numpy as np
+from pathlib import Path
+#from pillow.Image import core as image
+import matplotlib as plt
+#import cv2
 
 
 class CripSustitucion:
@@ -285,8 +292,40 @@ class CripHill:
         self.key = key
         self.M = np.asmatrix([])
         self.n = 0
+        self.path = str(Path.home() / "Downloads")+'/greyimg1.png'
         if len(self.key) > 1:
             self.setObject()
+
+    def loadImag(self, path):
+        img = Image.open(path)
+
+        imgArray = np.asarray(img.convert('L'))
+        message1 = imgArray.flatten()  # .tolist()
+
+        print(message1)
+        print(type(message1))
+        # display the array of pixels as an image
+        plt.pyplot.imshow(img)
+        plt.pyplot.show()
+        return message1
+
+    def encryption(self, matrix, keyMatrix):
+        encryption = np.matmul(self.makingTheMatrix(self.data, self.n), self.M)
+        encryption = np.remainder(encryption, 26)
+        message = encryption.flatten()
+        while ((np.size(message) % 255) != 0):
+            np.append(message, 0)
+        #print(np.shape(message))
+        return message
+
+
+    def arrayToImg(self,arreg):
+        gr_im = np.split(arreg, 256)
+        # gr_im= Image.fromarray(arreg)
+        plt.pyplot.imshow(gr_im)
+        plt.pyplot.show()
+        gr_im.save('secretIMG.png')
+
 
     def setObject(self):
         word_ascii = self.textToAscii()

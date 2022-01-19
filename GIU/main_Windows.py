@@ -16,6 +16,7 @@ from Class3Des64 import Class3Des64
 from ClassCript import *
 from ClassDes64 import ClassDes64
 from ProcIMG import ProcIMG
+from AESIMG import ProcIMG
 from loadDialog import loadDialog
 
 
@@ -156,6 +157,8 @@ class Desencriptador3DES(QThread):
             q = self.cImg.darResultado()
         iio.imsave('result3-1.png', q)
         self.dialog.hide()
+
+
 # </editor-fold>
 
 # <editor-fold desc="CriptBloques">
@@ -165,7 +168,7 @@ class main_cripBloq(QMainWindow):
     def __init__(self):
         super(main_cripBloq, self).__init__()
         uic.loadUi("cripBloque.ui", self)
-        #self.bSDES.clicked.connect(self.abrirDES)
+        # self.bSDES.clicked.connect(self.abrirDES)
         self.bDES.clicked.connect(self.abrirDES)
         self.b3DES.clicked.connect(self.abrir3DES)
         # self.bGamma.clicked.connect(self.abrirGamma)
@@ -181,6 +184,7 @@ class main_cripBloq(QMainWindow):
         crip3DES = main_encr3DES()
         widget.addWidget(crip3DES)
         widget.setCurrentIndex(widget.currentIndex() + 1)
+
     # def abrirGamma(self):
     #     cripGamma = main_encrGamma()
     #     widget.addWidget(cripGamma)
@@ -250,7 +254,7 @@ class main_encrDES(QMainWindow):
     def cargarImagen1(self):
         self.filename = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
         self.image = cv2.imread(self.filename)
-        self.setPhoto(self.image,1)
+        self.setPhoto(self.image, 1)
 
     def cargarImagen2(self):
         self.filename = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
@@ -262,9 +266,9 @@ class main_encrDES(QMainWindow):
         image = imutils.resize(image, width=640)
         frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
-        if n == 1 :
+        if n == 1:
             self.img1.setPixmap(QtGui.QPixmap.fromImage(image))
-        if n == 2 :
+        if n == 2:
             self.img2.setPixmap(QtGui.QPixmap.fromImage(image))
 
     def desencriptar(self):
@@ -348,7 +352,7 @@ class main_encr3DES(QMainWindow):
     def cargarImagen1(self):
         self.filename = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
         self.image = cv2.imread(self.filename)
-        self.setPhoto(self.image,1)
+        self.setPhoto(self.image, 1)
 
     def cargarImagen2(self):
         self.filename = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
@@ -360,9 +364,9 @@ class main_encr3DES(QMainWindow):
         image = imutils.resize(image, width=640)
         frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
-        if n == 1 :
+        if n == 1:
             self.img1.setPixmap(QtGui.QPixmap.fromImage(image))
-        if n == 2 :
+        if n == 2:
             self.img2.setPixmap(QtGui.QPixmap.fromImage(image))
 
     def desencriptar(self):
@@ -395,6 +399,10 @@ class main_encrAES(QMainWindow):
     def __init__(self):
         super(main_encrAES, self).__init__()
         uic.loadUi("cripAES.ui", self)
+        self.imaEn = None
+        self.imaDe = None
+        self.pathEn = ''
+        self.pathDe = ''
         self.encr.clicked.connect(self.encriptar)
         self.imEn.clicked.connect(self.selectEn)
         self.imDe.clicked.connect(self.selectDe)
@@ -402,20 +410,82 @@ class main_encrAES(QMainWindow):
         self.back.clicked.connect(self.salir)
 
     def encriptar(self):
-        pass
+        if self.pathEn != '':
+            if (len(self.iv.text())!=16 or len(self.pwd.text())!=16) and self.mode.currentText() != 'ECB':
+                self.encrOut.setText('La contraseña y el IV deben ser de 16 caracteres ASCII')
+                pass
+            if self.mode.currentText() == 'ECB' and len(self.pwd.text())!=16:
+                self.encrOut.setText('La contraseña debe ser de 16 caracteres ASCII')
+                pass
+            p = iio.imread(self.pathEn)
+            crip = ProcIMG(p, self.pwd.text())
+            save = self.mode.currentText()
+            temp = None
+            if save == 'ECB':
+                temp = crip.e_ecbAES()
+            else:
+                iv = np.array([ord(c) for c in self.iv.text()])
+            if save == 'CBC':
+                temp = crip.e_cbcAES(iv)
+            if save == 'CBF':
+                temp = crip.e_cfbAES(iv)
+            if save == 'OFB':
+                temp = crip.e_ofbAES(iv)
+            if save == 'CTR':
+                temp = crip.e_ctrAES(iv)
+            iio.imsave('resultEn.png',temp)
+            image = cv2.imread('resultEn.png')
+            imutils.resize(image, width=250)
+            frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+            self.encrOut.setPixmap(QtGui.QPixmap.fromImage(image))
 
     def selectEn(self):
-        filename = QFileDialog.getOpenFileName()
-        path = filename[0]
-        print(path)
+        self.pathEn = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
+        image = cv2.imread(self.pathEn)
+        imutils.resize(image, width=250)
+        frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+        self.encrIn.setPixmap(QtGui.QPixmap.fromImage(image))
 
     def selectDe(self):
-        filename = QFileDialog.getOpenFileName()
-        path = filename[0]
-        print(path)
+        self.pathDe = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
+        image = cv2.imread(self.pathDe)
+        imutils.resize(image, width=250)
+        frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+        self.decrIn.setPixmap(QtGui.QPixmap.fromImage(image))
 
     def desencriptar(self):
-        pass
+        if self.pathDe != '':
+            if (len(self.iv.text()) != 16 or len(self.pwd.text()) != 16) and self.mode.currentText() != 'ECB':
+                self.decrOut.setText('La contraseña y el IV deben ser de 16 caracteres ASCII')
+                pass
+            if self.mode.currentText() == 'ECB' and len(self.pwd.text()) != 16:
+                self.decrOut.setText('La contraseña debe ser de 16 caracteres ASCII')
+                pass
+            p = iio.imread(self.pathDe)
+            crip = ProcIMG(p, self.pwd.text())
+            save = self.mode.currentText()
+            temp = None
+            if save == 'ECB':
+                temp = crip.d_ecbAES()
+            else:
+                iv = np.array([ord(c) for c in self.iv.text()])
+            if save == 'CBC':
+                temp = crip.d_cbcAES(iv)
+            if save == 'CBF':
+                temp = crip.d_cfbAES(iv)
+            if save == 'OFB':
+                temp = crip.d_ofbAES(iv)
+            if save == 'CTR':
+                temp = crip.e_ctrAES(iv)
+            iio.imsave('resultDe.png', temp)
+            image = cv2.imread('resultDe.png')
+            imutils.resize(image, width=250)
+            frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+            self.decrOut.setPixmap(QtGui.QPixmap.fromImage(image))
 
     def salir(self):
         ventana2 = main_cripBloq()

@@ -49,8 +49,8 @@
    <widget class="QPushButton" name="encr">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>250</y>
+      <x>200</x>
+      <y>330</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -64,31 +64,13 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
      <string>ENCRIPTAR</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="encrIn">
-    <property name="geometry">
-     <rect>
-      <x>93</x>
-      <y>80</y>
-      <width>341</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">padding: 5px 5px 5px 5px;</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="encrOut">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>340</y>
-      <width>341</width>
-      <height>151</height>
+      <x>270</x>
+      <y>70</y>
+      <width>250</width>
+      <height>250</height>
      </rect>
     </property>
     <property name="font">
@@ -122,8 +104,8 @@ padding: 5px 15px 5px 15px;</string>
    <widget class="QPushButton" name="decr">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>250</y>
+      <x>660</x>
+      <y>290</y>
       <width>151</width>
       <height>41</height>
      </rect>
@@ -137,31 +119,13 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
      <string>DESENCRIPTAR</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="decrIn">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>80</y>
-      <width>341</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">padding: 5px 5px 5px 5px;</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="decrOut">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>740</x>
       <y>340</y>
-      <width>341</width>
-      <height>151</height>
+      <width>250</width>
+      <height>250</height>
      </rect>
     </property>
     <property name="font">
@@ -196,7 +160,7 @@ padding: 5px 15px 5px 15px;</string>
     <property name="geometry">
      <rect>
       <x>840</x>
-      <y>520</y>
+      <y>20</y>
       <width>141</width>
       <height>61</height>
      </rect>
@@ -210,32 +174,11 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
      <string>ATRÁS</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="encrPwd">
+   <widget class="QLineEdit" name="pwd">
     <property name="geometry">
      <rect>
-      <x>93</x>
-      <y>250</y>
-      <width>181</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Password</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="decrPwd">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>250</y>
+      <x>760</x>
+      <y>110</y>
       <width>181</width>
       <height>41</height>
      </rect>
@@ -255,9 +198,9 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
    <widget class="QPushButton" name="imEn">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>10</x>
       <y>20</y>
-      <width>281</width>
+      <width>251</width>
       <height>41</height>
      </rect>
     </property>
@@ -273,8 +216,8 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
    <widget class="QPushButton" name="imDe">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>20</y>
+      <x>180</x>
+      <y>540</y>
       <width>281</width>
       <height>41</height>
      </rect>
@@ -286,6 +229,147 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
      <string>SELECCIONAR IMAGEN</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="encrIn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>250</width>
+      <height>250</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(0,0,0,50%);
+color:'white';
+padding: 5px 15px 5px 15px;</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhMultiLine</set>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="decrIn">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>340</y>
+      <width>250</width>
+      <height>250</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(0,0,0,50%);
+color:'white';
+padding: 5px 15px 5px 15px;</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhMultiLine</set>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="mode">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>140</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>ECB</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>CBC</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>CBF</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>OFB</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>CTR</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="ivEn">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>160</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>IV</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

@@ -33,7 +33,6 @@ class ProcIMG:
                             self.crip.data = three[32: 48]
                             third = self.crip.encriptar()
                             for k in range(5):
-                                print(self.i,self.j)
                                 self.mat[self.i][self.j] = [first[3*k],first[3*k+1],first[3*k+2]]
                                 if self.j == self.col-1:
                                     self.j = 0
@@ -89,7 +88,6 @@ class ProcIMG:
                             self.crip.data = three[32: 48]
                             third = self.crip.desencriptar()
                             for k in range(5):
-                                print(self.i,self.j)
                                 self.mat[self.i][self.j] = [first[3*k],first[3*k+1],first[3*k+2]]
                                 if self.j == self.col-1:
                                     self.j = 0

@@ -351,7 +351,7 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
      </property>
     </item>
    </widget>
-   <widget class="QLineEdit" name="ivEn">
+   <widget class="QLineEdit" name="iv">
     <property name="geometry">
      <rect>
       <x>760</x>

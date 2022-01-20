@@ -14,6 +14,7 @@ from PyQt5.QtCore import QThread
 
 from Class3Des64 import Class3Des64
 from ClassCript import *
+from ClassDes10 import ClassDes10
 from ClassDes64 import ClassDes64
 from ProcIMG import ProcIMG
 from AESIMG import ProcIMG
@@ -168,12 +169,17 @@ class main_cripBloq(QMainWindow):
     def __init__(self):
         super(main_cripBloq, self).__init__()
         uic.loadUi("cripBloque.ui", self)
-        # self.bSDES.clicked.connect(self.abrirDES)
+        self.bSDES.clicked.connect(self.abrirSDES)
         self.bDES.clicked.connect(self.abrirDES)
         self.b3DES.clicked.connect(self.abrir3DES)
         # self.bGamma.clicked.connect(self.abrirGamma)
         self.bAES.clicked.connect(self.abrirAES)
         self.back.clicked.connect(self.salir)
+
+    def abrirSDES(self):
+        cripSDES = main_encrSDES()
+        widget.addWidget(cripSDES)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def abrirDES(self):
         cripDES = main_encrDES()
@@ -199,6 +205,43 @@ class main_cripBloq(QMainWindow):
         ventana2 = main_Windows()
         widget.addWidget(ventana2)
         widget.setCurrentIndex(widget.currentIndex() + 1)
+
+
+class main_encrSDES(QMainWindow):
+
+    def __init__(self):
+        super(main_encrSDES, self).__init__()
+        self.keys = []
+        uic.loadUi("cripSDES.ui", self)
+        self.c = ClassDes10()
+        self.bGenerarKey.clicked.connect(self.generarKey)
+        self.encr.clicked.connect(self.encriptar)
+        self.decr.clicked.connect(self.desencriptar)
+
+    def generarKey(self):
+        h = self.c.generarKey()
+        self.keys = self.c.keys
+        self.encrPwd.setText(h)
+        self.decrPwd.setText(h)
+        self.encrPwd.setDisabled(True)
+        self.decrPwd.setDisabled(True)
+
+    def encriptar(self):
+        text = self.encrText.toPlainText()
+        self.c.text=text
+        self.c.C = ""
+        self.c.encriptar()
+        self.desencrText.setPlainText(self.c.C)
+
+    def desencriptar(self):
+        self.c.keys = self.keys.copy()
+        self.c.keys.reverse()
+        text = self.desencrText.toPlainText()
+        self.c.C = text
+        self.c.D = ""
+        self.c.desencriptar()
+        self.encrText.setPlainText(self.c.D)
+
 
 
 class main_encrDES(QMainWindow):

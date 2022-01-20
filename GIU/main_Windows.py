@@ -948,20 +948,29 @@ class main_encrHill(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def encriptar(self):
-        p = iio.imread(self.pathEn)
-        crip = HillIMG(p, self.keyInput.text())
-        iio.imsave('resultHill.png', crip.e_hill())
-        image = cv2.imread('resultHill.png')
-        imutils.resize(image, width=250)
-        frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
-        self.encrOut.setPixmap(QtGui.QPixmap.fromImage(image))
+        if len(self.plainTextD.toPlainText()) > 0 and self.decript.n > 0:
+            if self.decript.boo == 0:
+                p = iio.imread(self.pathEn)
+                crip = HillIMG(p, self.keyInput.text())
+                iio.imsave('resultHill.png', crip.e_hill())
+                image = cv2.imread('resultHill.png')
+                imutils.resize(image, width=250)
+                frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+                self.encrOut.setPixmap(QtGui.QPixmap.fromImage(image))
+
 
     def desencriptar(self):
         if len(self.plainTextD.toPlainText()) > 0 and self.decript.n > 0:
             if self.decript.boo == 0:
-                self.decript.data = self.plainTextD.toPlainText()
-                self.decrOut.setText(self.decript.desencriptar())
+                p = iio.imread(self.pathDe)
+                crip = HillIMG(p, self.keyInput.text())
+                iio.imsave('resultHilld.png', crip.d_hill())
+                image = cv2.imread('resultHilld.png')
+                imutils.resize(image, width=250)
+                frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+                self.decrOut.setPixmap(QtGui.QPixmap.fromImage(image))
 
 
 class main_encrHillC(QMainWindow):

@@ -17,7 +17,7 @@ from ClassCript import *
 from ClassDes10 import ClassDes10
 from ClassDes64 import ClassDes64
 from ProcIMG import ProcIMG
-#from AESIMG import ProcIMG
+from AESIMG import ProcIMG, HillIMG
 from loadDialog import loadDialog
 
 
@@ -232,7 +232,6 @@ class main_encrSDES(QMainWindow):
         self.c.C = ""
         self.c.encriptar()
         self.desencrText.setPlainText(self.c.C)
-        self.back.clicked.connect(self.salir)
 
     def desencriptar(self):
         self.c.keys = self.keys.copy()
@@ -242,12 +241,6 @@ class main_encrSDES(QMainWindow):
         self.c.D = ""
         self.c.desencriptar()
         self.encrText.setPlainText(self.c.D)
-
-    def salir(self):
-        ventana2 = main_cripBloq()
-        widget.addWidget(ventana2)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
-
 
 
 
@@ -304,7 +297,7 @@ class main_encrDES(QMainWindow):
     def cargarImagen1(self):
         self.filename = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
         self.image = cv2.imread(self.filename)
-        self.setPhoto(self.image,1)
+        self.setPhoto(self.image, 1)
 
     def cargarImagen2(self):
         self.filename = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
@@ -316,9 +309,9 @@ class main_encrDES(QMainWindow):
         image = imutils.resize(image, width=640)
         frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
-        if n == 1 :
+        if n == 1:
             self.img1.setPixmap(QtGui.QPixmap.fromImage(image))
-        if n == 2 :
+        if n == 2:
             self.img2.setPixmap(QtGui.QPixmap.fromImage(image))
 
     def desencriptar(self):
@@ -908,29 +901,41 @@ class main_encrHill(QMainWindow):
         self.cript = CripHill('', '')
         self.decript = CripHill('', '')
         self.keyBotton.clicked.connect(self.keysE)
-        self.keyBottonD.clicked.connect(self.keysD)
-        self.encriptar1.clicked.connect(self.encriptar)
-        self.desencriptar1.clicked.connect(self.desencriptar)
-        self.cripAn.clicked.connect(self.abrirHillC)
+        self.encr.clicked.connect(self.encriptar)
+        self.decr.clicked.connect(self.desencriptar)
         self.back.clicked.connect(self.backMenu)
+        self.imEn.clicked.connect(self.selectEn)
+        self.imDe.clicked.connect(self.selectDe)
+        self.bCA.clicked.connect(self.abrirHillC)
+
+    def selectEn(self):
+        self.pathEn = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
+        image = cv2.imread(self.pathEn)
+        imutils.resize(image, width=250)
+        frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+        self.encrIn.setPixmap(QtGui.QPixmap.fromImage(image))
+
+    def selectDe(self):
+        self.pathDe = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
+        image = cv2.imread(self.pathDe)
+        imutils.resize(image, width=250)
+        frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+        self.decrIn.setPixmap(QtGui.QPixmap.fromImage(image))
 
     def keysE(self):
         self.cript.key = self.keyInput.text()
+        self.decript.key = self.keyInput.text()
         if len(self.cript.key) > 1:
             self.cript.setObject()
             if self.cript.boo == 1:
                 self.encrOut.setText('Clave invalida, su matriz no es coprima con 26')
-            else:
-                self.encrOut.setText('')
-
-    def keysD(self):
-        self.decript.key = self.keyInputD.text()
-        if len(self.decript.key) > 1:
-            self.decript.setObject()
-            if self.decript.boo == 1:
                 self.decrOut.setText('Clave invalida, su matriz no es coprima con 26')
             else:
+                self.encrOut.setText('')
                 self.decrOut.setText('')
+
 
     def backMenu(self):
         cripConve = main_cripConve()
@@ -943,16 +948,29 @@ class main_encrHill(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def encriptar(self):
-        if len(self.plainText.toPlainText()) > 0 and self.cript.n > 0:
-            if self.cript.boo == 0:
-                self.cript.data = self.plainText.toPlainText()
-                self.encrOut.setText(self.cript.encriptar())
+        if len(self.plainTextD.toPlainText()) > 0 and self.decript.n > 0:
+            if self.decript.boo == 0:
+                p = iio.imread(self.pathEn)
+                crip = HillIMG(p, self.keyInput.text())
+                iio.imsave('resultHill.png', crip.e_hill())
+                image = cv2.imread('resultHill.png')
+                imutils.resize(image, width=250)
+                frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+                self.encrOut.setPixmap(QtGui.QPixmap.fromImage(image))
+
 
     def desencriptar(self):
         if len(self.plainTextD.toPlainText()) > 0 and self.decript.n > 0:
             if self.decript.boo == 0:
-                self.decript.data = self.plainTextD.toPlainText()
-                self.decrOut.setText(self.decript.desencriptar())
+                p = iio.imread(self.pathDe)
+                crip = HillIMG(p, self.keyInput.text())
+                iio.imsave('resultHilld.png', crip.d_hill())
+                image = cv2.imread('resultHilld.png')
+                imutils.resize(image, width=250)
+                frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
+                self.decrOut.setPixmap(QtGui.QPixmap.fromImage(image))
 
 
 class main_encrHillC(QMainWindow):

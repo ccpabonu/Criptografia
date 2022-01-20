@@ -1,11 +1,13 @@
+from ClassCript import CripHill2
 from ClassDes64 import *
 import imageio as iio
 import imageio as iio2
 import numpy as np
 import matplotlib.pyplot as plt
-from skimage import img_as_ubyte
+#from skimage import img_as_ubyte
 
 from ProcIMG import ProcIMG
+from AESIMG import ProcIMG, HillIMG
 
 if __name__ == '__main__':
 
@@ -27,7 +29,13 @@ if __name__ == '__main__':
     #print(r)
     #iio2.imsave('test3-1.png',r)
     # iio2.imsave('test3-1.png',r)
-    # p = iio.imread('test3.png')
-    q = iio.imread('resultctr3.png')
-    crip = ProcIMG(q, 'Thats my Kung Fu')
-    iio.imsave('resultctrd3.png', crip.e_ctrAES([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]))
+    #p = iio.imread('test3.png')
+    q = iio.imread('resultH.png')
+    crip = HillIMG(q, 'lidh')
+    iio.imsave('resultHd.png', crip.d_hill())
+    #a = [213, 5, 29,123,3,2]
+    #crip = CripHill2('', 'lidh')
+    #crip.setObject()
+    #print(crip.boo)
+    #crip.data = a
+    #print(crip.encriptar())

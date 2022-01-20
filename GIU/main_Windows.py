@@ -17,7 +17,7 @@ from ClassCript import *
 from ClassDes10 import ClassDes10
 from ClassDes64 import ClassDes64
 from ProcIMG import ProcIMG
-from AESIMG import ProcIMG
+#from AESIMG import ProcIMG
 from loadDialog import loadDialog
 
 
@@ -232,6 +232,7 @@ class main_encrSDES(QMainWindow):
         self.c.C = ""
         self.c.encriptar()
         self.desencrText.setPlainText(self.c.C)
+        self.back.clicked.connect(self.salir)
 
     def desencriptar(self):
         self.c.keys = self.keys.copy()
@@ -241,6 +242,12 @@ class main_encrSDES(QMainWindow):
         self.c.D = ""
         self.c.desencriptar()
         self.encrText.setPlainText(self.c.D)
+
+    def salir(self):
+        ventana2 = main_cripBloq()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
 
 
 
@@ -297,7 +304,7 @@ class main_encrDES(QMainWindow):
     def cargarImagen1(self):
         self.filename = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
         self.image = cv2.imread(self.filename)
-        self.setPhoto(self.image, 1)
+        self.setPhoto(self.image,1)
 
     def cargarImagen2(self):
         self.filename = QFileDialog.getOpenFileName(filter="Image (*.*)")[0]
@@ -309,9 +316,9 @@ class main_encrDES(QMainWindow):
         image = imutils.resize(image, width=640)
         frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], QImage.Format_RGB888)
-        if n == 1:
+        if n == 1 :
             self.img1.setPixmap(QtGui.QPixmap.fromImage(image))
-        if n == 2:
+        if n == 2 :
             self.img2.setPixmap(QtGui.QPixmap.fromImage(image))
 
     def desencriptar(self):

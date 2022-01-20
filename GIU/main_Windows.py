@@ -17,7 +17,7 @@ from ClassCript import *
 from ClassDes10 import ClassDes10
 from ClassDes64 import ClassDes64
 from ProcIMG import ProcIMG
-from AESIMG import ProcIMG, HillIMG
+from AESIMG import HillIMG
 from loadDialog import loadDialog
 
 

@@ -16,6 +16,7 @@ from Class3Des64 import Class3Des64
 from ClassCript import *
 from ClassDes10 import ClassDes10
 from ClassDes64 import ClassDes64
+from ClassRSA import ClassRSA
 from ProcIMG import ProcIMG
 from AESIMG import HillIMG
 from loadDialog import loadDialog
@@ -28,6 +29,7 @@ class main_Windows(QMainWindow):
         uic.loadUi("mainWin.ui", self)
         self.bCripClasica.clicked.connect(self.abrirConv)
         self.bCripBloque.clicked.connect(self.abrirBloq)
+        self.bCripAsime.clicked.connect(self.abrirAsime)
 
     def abrirConv(self):
         cripC = main_cripConve()
@@ -37,6 +39,11 @@ class main_Windows(QMainWindow):
     def abrirBloq(self):
         cripB = main_cripBloq()
         widget.addWidget(cripB)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def abrirAsime(self):
+        cripA = main_cripAsime()
+        widget.addWidget(cripA)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
 
@@ -1083,6 +1090,87 @@ class main_errorDialogV(QDialog):
     def tipoError(self, error):
         self.label.setText(error)
 
+
+# </editor-fold>
+
+# <editor-fold desc="CriptAsimetrica">
+
+class main_cripAsime(QMainWindow):
+
+    def __init__(self):
+        super(main_cripAsime, self).__init__()
+        uic.loadUi("cripAsime.ui", self)
+        self.bRsa.clicked.connect(self.abrirRsa)
+        self.back.clicked.connect(self.salir)
+
+    def abrirRsa(self):
+        cripRsa = main_cripAsimeRsa()
+        widget.addWidget(cripRsa)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def salir(self):
+        ventana2 = main_Windows()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+class main_cripAsimeRsa(QMainWindow):
+
+    def __init__(self):
+        super(main_cripAsimeRsa, self).__init__()
+        uic.loadUi("cripAsimeRsa.ui", self)
+        self.crip = ClassRSA()
+        self.bGuardar.setVisible(False)
+        self.bAtras.clicked.connect(self.salir)
+        self.bGenerar.clicked.connect(self.generarKeys)
+        self.bEncriptar.clicked.connect(self.encriptar)
+        self.bDesencriptar.clicked.connect(self.desencriptar)
+
+    def generarKeys(self):
+        self.crip.generarKey()
+        self.lineP.setText(str(self.crip.p))
+        self.lineQ.setText(str(self.crip.q))
+        self.lineN.setText(str(self.crip.n))
+        self.lineE.setText(str(self.crip.e))
+        self.lineD.setText(str(self.crip.d))
+
+    def encriptar(self):
+        data = self.textCrip.toPlainText()
+        data = data.replace('\n', "")
+        data = data.replace(' ', "")
+        c = self.crip.encriptar(data)
+        self.textDesCrip.setPlainText((''.join(map(lambda x: str(x), c))))
+        self.textCrip.clear()
+
+    def desencriptar(self):
+        data = self.textDesCrip.toPlainText()
+        data = data.replace('\n', "")
+        data = data.replace(' ', "")
+        c = []
+        while data !="":
+            n=data[0]
+            data=data[1:]
+            while int(n)<self.crip.e and data != "" :
+                save = data[0]
+                n = n + save
+                data = data[1:]
+            if data != "":
+                n = n[:-1]
+                data = save+data
+            c.append(int(n))
+        m = self.crip.desencriptar(c)
+        self.textCrip.setPlainText(m)
+        #self.textDesCrip.clear()
+
+
+
+
+
+
+
+    def salir(self):
+        ventana2 = main_Windows()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
 # </editor-fold>
 

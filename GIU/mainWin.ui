@@ -136,15 +136,6 @@
          </color>
         </brush>
        </colorrole>
-       <colorrole role="PlaceholderText">
-        <brush brushstyle="NoBrush">
-         <color alpha="128">
-          <red>0</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
       </active>
       <inactive>
        <colorrole role="WindowText">
@@ -198,15 +189,6 @@
           <red>21</red>
           <green>99</green>
           <blue>165</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="PlaceholderText">
-        <brush brushstyle="NoBrush">
-         <color alpha="128">
-          <red>0</red>
-          <green>255</green>
-          <blue>255</blue>
          </color>
         </brush>
        </colorrole>
@@ -266,15 +248,6 @@
          </color>
         </brush>
        </colorrole>
-       <colorrole role="PlaceholderText">
-        <brush brushstyle="NoBrush">
-         <color alpha="128">
-          <red>0</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
       </disabled>
      </palette>
     </property>
@@ -287,7 +260,7 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
      <string>CRIPTOGRAFÍA CLÁSICA</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="bParte3">
+   <widget class="QPushButton" name="bCripAsime">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -302,7 +275,7 @@ color: #00ffff;
 font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string>PARTE 3</string>
+     <string>CRIPTOGRAFÍA ASIMÉTRICA</string>
     </property>
    </widget>
    <widget class="QPushButton" name="bCripBloque">

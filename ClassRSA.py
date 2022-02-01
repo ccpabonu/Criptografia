@@ -1,13 +1,52 @@
+import random
+import math as m
+
 class ClassRSA :
     def __init__(self):
-        self.p = 509435952285839914555051023580843714132648382024111473186660296521821206469746700620316443478873837606252372049619334517
-        self.q = 244624208838318150567813139024002896653802092578931401452041221336558477095178155258218897735030590669041302045908071447
         self.p = 0
         self.q = 0
+        #self.p = 53
+        #self.q = 61
         self.n = 0
-        self.kPublica = 0
-        self.kPrivada = 0
+        self.e = 0
+        self.d = 0
+        self.kPublica = ()
+        self.kPrivada = ()
+
+    def primesInRange(self):
+        prime_list = []
+        for n in range(100, 1000):
+            isPrime = True
+
+            for num in range(2, n):
+                if n % num == 0:
+                    isPrime = False
+            if isPrime:
+                prime_list.append(n)
+        randomPrime = random.choice(prime_list)
+        return randomPrime
 
     def generarKey (self):
+        self.p = self.primesInRange()
+        self.q = self.primesInRange()
+        self.n = self.q * self.p
+        fn = (self.p-1)*(self.q-1)
+        while True:
+            x = random.randint(self.n//2, self.n)
+            if m.gcd(fn, x) == 1:
+                self.e = x
+                break
+        self.d = pow(self.e, -1, fn)
+        self.kPublica = (self.n, self.e)
+        self.kPrivada = (self.n, self.d)
+
+    def encriptar(self,m):
+        n, key = self.kPublica
+        c = [(ord(char) ** key) % n for char in m]
+        return c
 
 
+    def desencriptar(self,c):
+        n, key = self.kPrivada
+        m = [chr((char ** key) % n) for char in c]
+        return ''.join(m)

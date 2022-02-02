@@ -449,5 +449,85 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>bEditar</sender>
+   <signal>clicked()</signal>
+   <receiver>lineD</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>646</x>
+     <y>179</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>552</x>
+     <y>181</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bEditar</sender>
+   <signal>clicked()</signal>
+   <receiver>lineN</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>681</x>
+     <y>191</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>107</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bEditar</sender>
+   <signal>clicked()</signal>
+   <receiver>lineQ</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>668</x>
+     <y>183</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>505</x>
+     <y>114</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bEditar</sender>
+   <signal>clicked()</signal>
+   <receiver>lineP</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>644</x>
+     <y>184</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>253</x>
+     <y>109</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bEditar</sender>
+   <signal>clicked()</signal>
+   <receiver>lineE</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>669</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>254</x>
+     <y>193</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

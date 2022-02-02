@@ -1,10 +1,11 @@
 import sys
 from random import sample
+import random
 import imageio as iio
 import imageio as iio2
 import cv2
 import imutils
-import time
+import math as m
 
 from PyQt5 import uic, QtWidgets, QtGui
 from PyQt5.QtGui import QImage
@@ -1083,7 +1084,7 @@ class main_errorDialogV(QDialog):
         self.bOk.clicked.connect(self.close)
 
         # forma de llamar este dialogo de error en sus ventanas
-        '''vent2 = errorDialogV(self)
+        '''vent2 = main_errorDialogV(self)
         vent2.tipoError("505")
         vent2.show()'''
 
@@ -1124,8 +1125,12 @@ class main_cripAsimeRsa(QMainWindow):
         self.bGenerar.clicked.connect(self.generarKeys)
         self.bEncriptar.clicked.connect(self.encriptar)
         self.bDesencriptar.clicked.connect(self.desencriptar)
+        self.bEditar.clicked.connect(self.editar)
+        self.bGuardar.clicked.connect(self.guardar)
 
     def generarKeys(self):
+        self.bGuardar.setVisible(False)
+        self.bEditar.setVisible(True)
         self.crip.generarKey()
         self.lineP.setText(str(self.crip.p))
         self.lineQ.setText(str(self.crip.q))
@@ -1138,29 +1143,83 @@ class main_cripAsimeRsa(QMainWindow):
         data = data.replace('\n', "")
         data = data.replace(' ', "")
         c = self.crip.encriptar(data)
-        self.textDesCrip.setPlainText((''.join(map(lambda x: str(x), c))))
+        self.textDesCrip.setPlainText((','.join(map(lambda x: str(x), c))))
         self.textCrip.clear()
 
     def desencriptar(self):
-        data = self.textDesCrip.toPlainText()
+        data = str(self.textDesCrip.toPlainText())
         data = data.replace('\n', "")
         data = data.replace(' ', "")
         c = []
-        while data !="":
-            n=data[0]
-            data=data[1:]
-            while int(n)<self.crip.e and data != "" :
-                save = data[0]
-                n = n + save
-                data = data[1:]
-            if data != "":
-                n = n[:-1]
-                data = save+data
-            c.append(int(n))
+        n = ""
+        for i in range(0, len(data)) :
+            n = n + data[i]
+            if data[i] == ",":
+                n=n[:-1]
+                c.append(int(n))
+                n = ""
+            if i == len(data)-1:
+                c.append(int(n))
         m = self.crip.desencriptar(c)
         self.textCrip.setPlainText(m)
-        #self.textDesCrip.clear()
+        self.textDesCrip.clear()
 
+    def editar(self):
+        self.lineP.setDisabled(False)
+        self.lineQ.setDisabled(False)
+        self.lineN.setDisabled(False)
+        self.lineE.setDisabled(False)
+        self.lineD.setDisabled(False)
+        self.bEditar.setVisible(False)
+        self.bGuardar.setVisible(True)
+
+    def guardar(self):
+        p = self.lineP.text()
+        q = self.lineQ.text()
+        n = self.lineN.text()
+        e = self.lineE.text()
+        d = self.lineD.text()
+        if n =="" or e=="" or d=="":
+            if p=="" and q=="" :
+                vent2 = main_errorDialogV(self)
+                vent2.tipoError("Campos vacios")
+                vent2.show()
+            else :
+                if e != "" and d=="" :
+                    self.crip.p = int(p)
+                    self.crip.q = int(q)
+                    self.crip.e = int(e)
+                    self.crip.d = pow(self.crip.e, -1, (int(p)-1)*(int(q)-1))
+                    self.crip.n = int(p)*int(q)
+                    self.crip.kPublica = (int(p)*int(q), int(e))
+                    self.crip.kPrivada = (int(p)*int(q), int(d))
+                    self.lineD.setText(str(self.crip.d))
+                if e == "" and d=="" :
+                    self.crip.p = int(p)
+                    self.crip.q = int(q)
+                    self.crip.n = int(p)*int(q)
+                    self.lineN.setText(str(self.crip.n))
+                    fn = (self.crip.p - 1) * (self.crip.q - 1)
+                    while True:
+                        x = random.randint(self.crip.n // 2, self.crip.n)
+                        if m.gcd(fn, x) == 1:
+                            self.crip.e = x
+                            break
+                    self.crip.d = pow(self.crip.e, -1,fn)
+                    self.crip.kPublica = (self.crip.n, self.crip.e)
+                    self.crip.kPrivada = (self.crip.n, self.crip.d)
+                    self.lineD.setText(str(self.crip.d))
+                    self.lineE.setText(str(self.crip.e))
+        else:
+            self.crip.kPublica = (int(n), int(e))
+            self.crip.kPrivada = (int(n),int(d))
+        self.lineP.setDisabled(True)
+        self.lineQ.setDisabled(True)
+        self.lineN.setDisabled(True)
+        self.lineE.setDisabled(True)
+        self.lineD.setDisabled(True)
+        self.bEditar.setVisible(True)
+        self.bGuardar.setVisible(False)
 
 
 

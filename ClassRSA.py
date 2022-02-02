@@ -48,5 +48,6 @@ class ClassRSA :
 
     def desencriptar(self,c):
         n, key = self.kPrivada
+        test = (c[0] ** key) % n
         m = [chr((char ** key) % n) for char in c]
         return ''.join(m)

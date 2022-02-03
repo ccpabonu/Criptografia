@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>cripConve</class>
+ <widget class="QMainWindow" name="cripConve">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>607</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1000</width>
+    <height>613</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Criptografia Convencional</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icono.png</normaloff>icono.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="bDesplazamiento">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>90</y>
+      <width>271</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>DESPLAZAMIENTO</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bVigenere">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>90</y>
+      <width>271</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>VIGENÈRE</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bSustitucion">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>280</y>
+      <width>271</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>SUSTITUCIÓN</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bHill">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>280</y>
+      <width>271</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>HILL</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bAfin">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>470</y>
+      <width>271</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>AFÍN</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bPermutacion">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>470</y>
+      <width>271</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>PERMUTACIÓN</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="fondo">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1000</width>
+      <height>615</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #ff0000;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>Imag1.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <zorder>fondo</zorder>
+   <zorder>bDesplazamiento</zorder>
+   <zorder>bVigenere</zorder>
+   <zorder>bSustitucion</zorder>
+   <zorder>bHill</zorder>
+   <zorder>bAfin</zorder>
+   <zorder>bPermutacion</zorder>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

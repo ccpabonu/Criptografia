@@ -17,6 +17,7 @@ from Class3Des64 import Class3Des64
 from ClassCript import *
 from ClassDes10 import ClassDes10
 from ClassDes64 import ClassDes64
+from ClassGamal import ClassGamal
 from ClassRSA import ClassRSA
 from ProcIMG import ProcIMG
 from AESIMG import HillIMG
@@ -1103,6 +1104,12 @@ class main_cripAsime(QMainWindow):
         uic.loadUi("cripAsime.ui", self)
         self.bRsa.clicked.connect(self.abrirRsa)
         self.back.clicked.connect(self.salir)
+        self.bGamal.clicked.connect(self.abrirGamal)
+
+    def abrirGamal(self):
+        cripGamal = main_cripAsimeGamal()
+        widget.addWidget(cripGamal)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def abrirRsa(self):
         cripRsa = main_cripAsimeRsa()
@@ -1231,6 +1238,129 @@ class main_cripAsimeRsa(QMainWindow):
         widget.addWidget(ventana2)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
+class main_cripAsimeGamal(QMainWindow):
+
+    def __init__(self):
+        super(main_cripAsimeGamal, self).__init__()
+        uic.loadUi("cripAsimeGamal.ui", self)
+        self.crip = ClassGamal()
+        self.bGuardar.setVisible(False)
+        self.bAtras.clicked.connect(self.salir)
+        self.bGenerar.clicked.connect(self.generarKeys)
+        self.bEncriptar.clicked.connect(self.encriptar)
+        #self.bDesencriptar.clicked.connect(self.desencriptar)
+        #self.bEditar.clicked.connect(self.editar)
+        #self.bGuardar.clicked.connect(self.guardar)
+
+    def generarKeys(self):
+        self.bGuardar.setVisible(False)
+        self.bEditar.setVisible(True)
+        self.crip.p = self.crip.primesInRange()
+        self.crip.a = random.randint(1,100)
+        self.crip.b = random.randint(1,100)
+        self.crip.keyPrivA = self.crip.primesInRange()
+        self.crip.puntosElip()
+        self.lineP.setText(str(self.crip.p))
+        self.lineA.setText(str(self.crip.a))
+        self.lineB.setText(str(self.crip.b))
+        self.lineK.setText(str(self.crip.keyPrivA))
+
+
+    def encriptar(self):
+        data = self.textCrip.toPlainText()
+        data = data.replace('\n', "")
+        data = data.replace(' ', "")
+        c = self.crip.cifrar(data)
+
+        save = []
+        for i in c : save.append("".join(i))
+        #self.textDesCrip.setPlainText()
+        self.textCrip.clear()
+
+    def desencriptar(self):
+        data = str(self.textDesCrip.toPlainText())
+        data = data.replace('\n', "")
+        data = data.replace(' ', "")
+        c = []
+        n = ""
+        for i in range(0, len(data)) :
+            n = n + data[i]
+            if data[i] == ",":
+                n=n[:-1]
+                c.append(int(n))
+                n = ""
+            if i == len(data)-1:
+                c.append(int(n))
+        m = self.crip.desencriptar(c)
+        self.textCrip.setPlainText(m)
+        self.textDesCrip.clear()
+
+    def editar(self):
+        self.lineP.setDisabled(False)
+        self.lineQ.setDisabled(False)
+        self.lineN.setDisabled(False)
+        self.lineE.setDisabled(False)
+        self.lineD.setDisabled(False)
+        self.bEditar.setVisible(False)
+        self.bGuardar.setVisible(True)
+
+    def guardar(self):
+        p = self.lineP.text()
+        q = self.lineQ.text()
+        n = self.lineN.text()
+        e = self.lineE.text()
+        d = self.lineD.text()
+        if n =="" or e=="" or d=="":
+            if p=="" and q=="" :
+                vent2 = main_errorDialogV(self)
+                vent2.tipoError("Campos vacios")
+                vent2.show()
+            else :
+                if e != "" and d=="" :
+                    self.crip.p = int(p)
+                    self.crip.q = int(q)
+                    self.crip.e = int(e)
+                    self.crip.d = pow(self.crip.e, -1, (int(p)-1)*(int(q)-1))
+                    self.crip.n = int(p)*int(q)
+                    self.crip.kPublica = (int(p)*int(q), int(e))
+                    self.crip.kPrivada = (int(p)*int(q), int(d))
+                    self.lineD.setText(str(self.crip.d))
+                if e == "" and d=="" :
+                    self.crip.p = int(p)
+                    self.crip.q = int(q)
+                    self.crip.n = int(p)*int(q)
+                    self.lineN.setText(str(self.crip.n))
+                    fn = (self.crip.p - 1) * (self.crip.q - 1)
+                    while True:
+                        x = random.randint(self.crip.n // 2, self.crip.n)
+                        if m.gcd(fn, x) == 1:
+                            self.crip.e = x
+                            break
+                    self.crip.d = pow(self.crip.e, -1,fn)
+                    self.crip.kPublica = (self.crip.n, self.crip.e)
+                    self.crip.kPrivada = (self.crip.n, self.crip.d)
+                    self.lineD.setText(str(self.crip.d))
+                    self.lineE.setText(str(self.crip.e))
+        else:
+            self.crip.kPublica = (int(n), int(e))
+            self.crip.kPrivada = (int(n),int(d))
+        self.lineP.setDisabled(True)
+        self.lineQ.setDisabled(True)
+        self.lineN.setDisabled(True)
+        self.lineE.setDisabled(True)
+        self.lineD.setDisabled(True)
+        self.bEditar.setVisible(True)
+        self.bGuardar.setVisible(False)
+
+
+
+
+
+
+    def salir(self):
+        ventana2 = main_Windows()
+        widget.addWidget(ventana2)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 # </editor-fold>
 
 

@@ -4,13 +4,13 @@ class ClassGamal :
     def __init__(self):
         self.a = 1
         self.b = 3
-        self.p = 31
+        self.p = 1000
         self.privK = random.randint(0,self.p-1)
         self.points = []
         self.textInt =[]
         self.keyPrivB = 17
         self.keyPrivA = 13
-        #self.keyPriv2 = self.primesInRange()
+
 
     def puntosElip(self):
         points = []

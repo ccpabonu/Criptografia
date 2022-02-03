@@ -1248,7 +1248,7 @@ class main_cripAsimeGamal(QMainWindow):
         self.bAtras.clicked.connect(self.salir)
         self.bGenerar.clicked.connect(self.generarKeys)
         self.bEncriptar.clicked.connect(self.encriptar)
-        #self.bDesencriptar.clicked.connect(self.desencriptar)
+        self.bDesencriptar.clicked.connect(self.desencriptar)
         #self.bEditar.clicked.connect(self.editar)
         #self.bGuardar.clicked.connect(self.guardar)
 
@@ -1271,27 +1271,16 @@ class main_cripAsimeGamal(QMainWindow):
         data = data.replace('\n', "")
         data = data.replace(' ', "")
         c = self.crip.cifrar(data)
+        save = str(c)
 
-        save = []
-        for i in c : save.append("".join(i))
-        #self.textDesCrip.setPlainText()
+        self.textDesCrip.setPlainText(save)
         self.textCrip.clear()
 
     def desencriptar(self):
         data = str(self.textDesCrip.toPlainText())
         data = data.replace('\n', "")
         data = data.replace(' ', "")
-        c = []
-        n = ""
-        for i in range(0, len(data)) :
-            n = n + data[i]
-            if data[i] == ",":
-                n=n[:-1]
-                c.append(int(n))
-                n = ""
-            if i == len(data)-1:
-                c.append(int(n))
-        m = self.crip.desencriptar(c)
+        c = list(data)
         self.textCrip.setPlainText(m)
         self.textDesCrip.clear()
 

@@ -260,7 +260,7 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
      <string>CRIPTOGRAFÍA CLÁSICA</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="bParte3">
+   <widget class="QPushButton" name="bCripAsime">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -275,10 +275,10 @@ color: #00ffff;
 font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string>PARTE 3</string>
+     <string>CRIPTOGRAFÍA ASIMÉTRICA</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="boton3">
+   <widget class="QPushButton" name="bCripBloque">
     <property name="geometry">
      <rect>
       <x>380</x>
@@ -293,7 +293,7 @@ color: #00ffff;
 font: 14pt &quot;Berlin Sans FB&quot;;</string>
     </property>
     <property name="text">
-     <string>PARTE 2</string>
+     <string>CRIPTOGRAFÍA BLOQUE</string>
     </property>
    </widget>
   </widget>

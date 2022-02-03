@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>cripAsimeRsa</class>
+ <widget class="QMainWindow" name="cripAsimeRsa">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>607</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1000</width>
+    <height>613</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Criptografia Convencional</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icono.png</normaloff>icono.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="fondo">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1000</width>
+      <height>615</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>Imag1.jpg</pixmap>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textCrip">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>300</y>
+      <width>381</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;Berlin Sans FB&quot;;
+background-color: rgb(255, 255, 255);
+align=&quot;center&quot;;</string>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Berlin Sans FB'; font-size:14pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textDesCrip">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>300</y>
+      <width>381</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;Berlin Sans FB&quot;;
+background-color: rgb(255, 255, 255);
+align=&quot;center&quot;;</string>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Berlin Sans FB'; font-size:14pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bEncriptar">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>290</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>ENCRIPTAR</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bDesencriptar">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>380</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>DESENCRIPTAR</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineP">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>90</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;Berlin Sans FB&quot;;
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bGenerar">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>GENERAR CLAVES</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bAtras">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>530</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>ATRÁS</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>60</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Primo P (Privado)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>60</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Primo Q (Privado)</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineQ">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>90</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;Berlin Sans FB&quot;;
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>60</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Número n (Público)</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineN">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>90</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;Berlin Sans FB&quot;;
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>140</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Número e (Público)</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineE">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>170</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;Berlin Sans FB&quot;;
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>140</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Número d (Privado)</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineD">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>170</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;Berlin Sans FB&quot;;
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>260</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Texto Claro</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bEditar">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>170</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Editar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bGuardar">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>170</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Guardar</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>260</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Texto Cifrado</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>bEncriptar</sender>
+   <signal>clicked()</signal>
+   <receiver>textDesCrip</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>484</x>
+     <y>322</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>343</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bDesencriptar</sender>
+   <signal>clicked()</signal>
+   <receiver>textCrip</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>494</x>
+     <y>415</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>278</x>
+     <y>409</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bEditar</sender>
+   <signal>clicked()</signal>
+   <receiver>lineD</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>646</x>
+     <y>179</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>552</x>
+     <y>181</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bEditar</sender>
+   <signal>clicked()</signal>
+   <receiver>lineN</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>681</x>
+     <y>191</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>107</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bEditar</sender>
+   <signal>clicked()</signal>
+   <receiver>lineQ</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>668</x>
+     <y>183</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>505</x>
+     <y>114</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bEditar</sender>
+   <signal>clicked()</signal>
+   <receiver>lineP</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>644</x>
+     <y>184</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>253</x>
+     <y>109</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bEditar</sender>
+   <signal>clicked()</signal>
+   <receiver>lineE</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>669</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>254</x>
+     <y>193</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

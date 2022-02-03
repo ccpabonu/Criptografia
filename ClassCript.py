@@ -4,6 +4,13 @@ from random import sample
 from sympy import Matrix
 import numpy as np
 from collections import Counter
+from random import sample
+import math
+import numpy as np
+from pathlib import Path
+#from pillow.Image import core as image
+import matplotlib as plt
+#import cv2
 
 
 class CripSustitucion:
@@ -285,8 +292,40 @@ class CripHill:
         self.key = key
         self.M = np.asmatrix([])
         self.n = 0
+        self.path = str(Path.home() / "Downloads")+'/greyimg1.png'
         if len(self.key) > 1:
             self.setObject()
+
+    def loadImag(self, path):
+        img = Image.open(path)
+
+        imgArray = np.asarray(img.convert('L'))
+        message1 = imgArray.flatten()  # .tolist()
+
+        print(message1)
+        print(type(message1))
+        # display the array of pixels as an image
+        plt.pyplot.imshow(img)
+        plt.pyplot.show()
+        return message1
+
+    def encryption(self, matrix, keyMatrix):
+        encryption = np.matmul(self.makingTheMatrix(self.data, self.n), self.M)
+        encryption = np.remainder(encryption, 26)
+        message = encryption.flatten()
+        while ((np.size(message) % 255) != 0):
+            np.append(message, 0)
+        #print(np.shape(message))
+        return message
+
+
+    def arrayToImg(self,arreg):
+        gr_im = np.split(arreg, 256)
+        # gr_im= Image.fromarray(arreg)
+        plt.pyplot.imshow(gr_im)
+        plt.pyplot.show()
+        gr_im.save('secretIMG.png')
+
 
     def setObject(self):
         word_ascii = self.textToAscii()
@@ -371,6 +410,89 @@ class CripHill:
         Y = self.makingTheMatrix(ciphered, m)[np.ix_([0,1],[0,1])]
         possibleKey = np.matmul(invX, Y)
         return np.mod(possibleKey,26)
+
+
+class CripHill2:
+
+    def __init__(self, data, key):
+        self.data = data.replace(" ", "")
+        self.key = key
+        self.M = np.asmatrix([])
+        self.n = 0
+        if len(self.key) > 1:
+            self.setObject()
+
+    def encryption(self, matrix, keyMatrix):
+        encryption = np.matmul(self.makingTheMatrix(self.data, self.n), self.M)
+        encryption = np.remainder(encryption, 256)
+        message = encryption.flatten()
+        while ((np.size(message) % 255) != 0):
+            np.append(message, 0)
+        # print(np.shape(message))
+        return message
+
+
+    def setObject(self):
+        word_ascii = self.textToAscii()
+        self.n = self.checkingTheSize()
+        self.boo = self.makingTheKeyMatrix(word_ascii, self.n)
+
+    def encriptar(self):
+        encryption = np.matmul(self.makingTheMatrix(self.data, self.n), self.M)
+        encryption = np.remainder(encryption, 256)
+        message = encryption.flatten().tolist()
+        return message
+
+    def textToAscii(self):
+        text = self.key.replace(" ", "")
+        wordascii = np.array([ord(c) for c in text.lower()]) - 97
+        if len(self.key) == 0:
+            raise Exception("La clave debe tener minimo dos caracteres")
+        elif len(self.key) == 1:
+            raise Exception("La clave debe tener minimo dos caracteres")
+        # print(wordascii)
+        return wordascii
+
+    def makingTheMatrix(self, arr, n):
+        i = 0
+
+        arr = np.array([arr])
+        while (len(arr) % n != 0):
+            arr = np.append(arr, i)
+            i += 1
+        coc = len(arr) / n
+        arr = np.asmatrix(np.split(arr, coc))
+        return arr
+
+    def makingTheKeyMatrix(self, key, n):
+        i = 0
+        while (len(key) < n ** 2):
+            key = np.append(key, i)
+            i += 1
+        M = np.asmatrix(np.split(key, n))
+        if math.gcd(int(np.linalg.det(M)), 256) != 1:
+            return 1
+        mAsList = M.flatten().tolist()
+        mAsString = ""
+        for i in range(len(mAsList[0])):
+            mAsString = mAsString + mAsString.join(str(mAsList[0][i]))
+        # print(M)
+        # QtWidgets.QMessageBox.about(self, "Esta es la matriz clave", mAsString)     #Printing the keyMatrix
+        self.M = M
+        return 0
+
+    def checkingTheSize(self):
+        n = 2
+        while (n * n < len(self.key)):
+            n += 1
+        return n
+
+    def desencriptar(self):
+        temp = Matrix(self.M)
+        decryption = np.matmul(self.makingTheMatrix(self.data, self.n), temp.inv_mod(256))
+        decryption = np.remainder(decryption, 256)
+        message = decryption.flatten().tolist()
+        return message
 
 
 class CripAfin:

@@ -1,46 +1,15 @@
-# This is a sample Python script.
+from ClassGamal import ClassGamal
+from ClassRSA import ClassRSA
+import math as m
 
-# Press Mayús+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-from random import sample
-
-from ClassCript import *
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-    efd = ['C', 'S', 'M', 'F', 'H', 'G', 'O', 'U', 'V', 'K', 'D', 'T', 'X', 'J', 'B', 'Q', 'W', 'N', 'Z', 'L', 'R', 'E', 'P', 'I', 'A', 'Y']
-    s = "algorithmsarequitegeneraldefinitionsofarithmeticprocesses"
-    s2 = "UBTCZMBXBZHZLCZSHS"
-    s3 = "ROGLASMHTIUQERAEGETILARENNIFEDNOITIRAFOSEMHTIRPCITSSECOXXXSE"
-    example = CripSustitucion(s, efd)
-    example2 = CripSustitucion(s2, efd)
-    example3 = CripPermutacion(s, 5 ,[4, 3, 2, 1, 0])
-    example4 = CripPermutacion(s3, 3, [4, 3, 2, 1, 0])
-    #print(example.encriptar())
-    #print(example2.cripAnalisis())
-    #print(example2.desencriptar())
-    #print(example3.encriptar())
-    #print(example4.cripAnalisis())
-    #ex = CripHill('july', 'roxanne')
-    #print(ex.boo)
-    #ex.setObject()
-    #exx = CripHill('', '')
 
-    #ex1 = CripAfin('hot',7,3)
-    #ex2 = CripAfin('axg', 5, 0)
-    #print(ex2.desencriptar())
-    #print(ex2.criptanalisis())
+    crip = ClassGamal()
+    #crip.puntosElip()
+    #s = crip.proEscalar([24,5],13)
+    #print(crip.textToInt("hola"))
+    #print(crip.cifrar("H"))
+    print(crip.descifrar([[[4, 28], [24, 26]]]))
 
-    ex3 = CripHill('friday','aa')
-    ex3.setObject()
-    print(ex3.criptanalisis('pqcfku',2))
-    #print(ex3.desencriptar())
 
-    
+

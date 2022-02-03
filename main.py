@@ -9,7 +9,7 @@ if __name__ == '__main__':
     #s = crip.proEscalar([24,5],13)
     #print(crip.textToInt("hola"))
     #print(crip.cifrar("H"))
-    print(crip.descifrar([[[4, 28], [24, 26]]]))
+    #print(crip.descifrar([[[4, 28], [24, 26]]]))
 
 
 

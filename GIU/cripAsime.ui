@@ -85,9 +85,28 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
      <string>ATRÁS</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="bGamal">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>90</y>
+      <width>271</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(21, 99, 165);
+color: #00ffff;
+font: 14pt &quot;Berlin Sans FB&quot;;</string>
+    </property>
+    <property name="text">
+     <string>GAMAL</string>
+    </property>
+   </widget>
    <zorder>fondo</zorder>
    <zorder>bRsa</zorder>
    <zorder>back</zorder>
+   <zorder>bGamal</zorder>
   </widget>
  </widget>
  <resources/>

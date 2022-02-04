@@ -6,6 +6,7 @@ import imageio as iio2
 import cv2
 import imutils
 import math as m
+import json
 
 from PyQt5 import uic, QtWidgets, QtGui
 from PyQt5.QtGui import QImage
@@ -1248,7 +1249,7 @@ class main_cripAsimeGamal(QMainWindow):
         self.bAtras.clicked.connect(self.salir)
         self.bGenerar.clicked.connect(self.generarKeys)
         self.bEncriptar.clicked.connect(self.encriptar)
-        #self.bDesencriptar.clicked.connect(self.desencriptar)
+        self.bDesencriptar.clicked.connect(self.desencriptar)
         #self.bEditar.clicked.connect(self.editar)
         #self.bGuardar.clicked.connect(self.guardar)
 
@@ -1258,6 +1259,9 @@ class main_cripAsimeGamal(QMainWindow):
         self.crip.p = self.crip.primesInRange()
         self.crip.a = random.randint(1,100)
         self.crip.b = random.randint(1,100)
+        while (4 * (self.crip.a * self.crip.a * self.crip.a) + 27 * (self.crip.b * self.crip.b))%self.crip.p==0:
+            self.crip.a = random.randint(1, 100)
+            self.crip.b = random.randint(1, 100)
         self.crip.keyPrivA = self.crip.primesInRange()
         self.crip.puntosElip()
         self.lineP.setText(str(self.crip.p))
@@ -1271,35 +1275,25 @@ class main_cripAsimeGamal(QMainWindow):
         data = data.replace('\n', "")
         data = data.replace(' ', "")
         c = self.crip.cifrar(data)
-
-        save = []
-        for i in c : save.append("".join(i))
-        #self.textDesCrip.setPlainText()
+        save = str(c)
+        self.textDesCrip.setPlainText(save)
         self.textCrip.clear()
 
     def desencriptar(self):
         data = str(self.textDesCrip.toPlainText())
         data = data.replace('\n', "")
         data = data.replace(' ', "")
-        c = []
-        n = ""
-        for i in range(0, len(data)) :
-            n = n + data[i]
-            if data[i] == ",":
-                n=n[:-1]
-                c.append(int(n))
-                n = ""
-            if i == len(data)-1:
-                c.append(int(n))
-        m = self.crip.desencriptar(c)
-        self.textCrip.setPlainText(m)
+        c = json.loads(data)
+        print(type(c))
+        des = self.crip.descifrar(c)
+        self.textCrip.setPlainText(des)
         self.textDesCrip.clear()
 
     def editar(self):
         self.lineP.setDisabled(False)
-        self.lineQ.setDisabled(False)
-        self.lineN.setDisabled(False)
-        self.lineE.setDisabled(False)
+        self.lineA.setDisabled(False)
+        self.lineB.setDisabled(False)
+        self.lineK.setDisabled(False)
         self.lineD.setDisabled(False)
         self.bEditar.setVisible(False)
         self.bGuardar.setVisible(True)

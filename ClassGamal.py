@@ -133,7 +133,7 @@ class ClassGamal :
         return save
 
     def descifrar(self, c):
-        #self.puntosElip()
+        self.puntosElip()
         al = self.points[0].copy()
         save = []
         y = self.proEscalar(al,self.keyPrivA)

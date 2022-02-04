@@ -138,6 +138,9 @@ font: 14pt &quot;Berlin Sans FB&quot;;</string>
      <string notr="true">font: 14pt &quot;Berlin Sans FB&quot;;
 background-color: rgb(255, 255, 255);</string>
     </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
     <property name="text">
      <string/>
     </property>

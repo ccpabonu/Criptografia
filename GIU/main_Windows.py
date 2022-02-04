@@ -1189,7 +1189,7 @@ class main_cripAsimeRsa(QMainWindow):
         d = self.lineD.text()
         if n =="" or e=="" or d=="":
             if p=="" and q=="" :
-                vent2 = main_errorDialogV(self)
+                vent2 = main_errorDialogV()
                 vent2.tipoError("Campos vacios")
                 vent2.show()
             else :
@@ -1250,8 +1250,8 @@ class main_cripAsimeGamal(QMainWindow):
         self.bGenerar.clicked.connect(self.generarKeys)
         self.bEncriptar.clicked.connect(self.encriptar)
         self.bDesencriptar.clicked.connect(self.desencriptar)
-        #self.bEditar.clicked.connect(self.editar)
-        #self.bGuardar.clicked.connect(self.guardar)
+        self.bEditar.clicked.connect(self.editar)
+        self.bGuardar.clicked.connect(self.guardar)
 
     def generarKeys(self):
         self.bGuardar.setVisible(False)
@@ -1284,7 +1284,7 @@ class main_cripAsimeGamal(QMainWindow):
         data = data.replace('\n', "")
         data = data.replace(' ', "")
         c = json.loads(data)
-        print(type(c))
+        #print(type(c))
         des = self.crip.descifrar(c)
         self.textCrip.setPlainText(des)
         self.textDesCrip.clear()
@@ -1294,55 +1294,41 @@ class main_cripAsimeGamal(QMainWindow):
         self.lineA.setDisabled(False)
         self.lineB.setDisabled(False)
         self.lineK.setDisabled(False)
-        self.lineD.setDisabled(False)
         self.bEditar.setVisible(False)
         self.bGuardar.setVisible(True)
 
+    def clear(self):
+        self.lineP.clear()
+        self.lineA.clear()
+        self.lineB.clear()
+        self.lineK.clear()
+
     def guardar(self):
-        p = self.lineP.text()
-        q = self.lineQ.text()
-        n = self.lineN.text()
-        e = self.lineE.text()
-        d = self.lineD.text()
-        if n =="" or e=="" or d=="":
-            if p=="" and q=="" :
-                vent2 = main_errorDialogV(self)
-                vent2.tipoError("Campos vacios")
-                vent2.show()
-            else :
-                if e != "" and d=="" :
-                    self.crip.p = int(p)
-                    self.crip.q = int(q)
-                    self.crip.e = int(e)
-                    self.crip.d = pow(self.crip.e, -1, (int(p)-1)*(int(q)-1))
-                    self.crip.n = int(p)*int(q)
-                    self.crip.kPublica = (int(p)*int(q), int(e))
-                    self.crip.kPrivada = (int(p)*int(q), int(d))
-                    self.lineD.setText(str(self.crip.d))
-                if e == "" and d=="" :
-                    self.crip.p = int(p)
-                    self.crip.q = int(q)
-                    self.crip.n = int(p)*int(q)
-                    self.lineN.setText(str(self.crip.n))
-                    fn = (self.crip.p - 1) * (self.crip.q - 1)
-                    while True:
-                        x = random.randint(self.crip.n // 2, self.crip.n)
-                        if m.gcd(fn, x) == 1:
-                            self.crip.e = x
-                            break
-                    self.crip.d = pow(self.crip.e, -1,fn)
-                    self.crip.kPublica = (self.crip.n, self.crip.e)
-                    self.crip.kPrivada = (self.crip.n, self.crip.d)
-                    self.lineD.setText(str(self.crip.d))
-                    self.lineE.setText(str(self.crip.e))
+        p = int(self.lineP.text())
+        a = int(self.lineA.text())
+        b = int(self.lineB.text())
+        k = int(self.lineK.text())
+        if p =="" or a=="" or b=="" or k=="":
+            vent2 = main_errorDialogV()
+            vent2.tipoError("Campos vacios")
+            vent2.setVisible(True)
+            self.clear()
         else:
-            self.crip.kPublica = (int(n), int(e))
-            self.crip.kPrivada = (int(n),int(d))
+            if (4 * (a * a * a) + 27 * (b * b)) == 0:
+                vent2 = main_errorDialogV()
+                vent2.tipoError("Campos vacios")
+                vent2.setVisible(True)
+                self.clear()
+            else :
+                self.crip.p = p
+                self.crip.a = a
+                self.crip.b = b
+                self.crip.k = k
+
         self.lineP.setDisabled(True)
-        self.lineQ.setDisabled(True)
-        self.lineN.setDisabled(True)
-        self.lineE.setDisabled(True)
-        self.lineD.setDisabled(True)
+        self.lineB.setDisabled(True)
+        self.lineA.setDisabled(True)
+        self.lineK.setDisabled(True)
         self.bEditar.setVisible(True)
         self.bGuardar.setVisible(False)
 
